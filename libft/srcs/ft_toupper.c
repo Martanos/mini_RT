@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: malee <malee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:46 by malee            ###   ########.fr       */
+/*   Created: 2023/09/11 20:58:57 by malee             #+#    #+#             */
+/*   Updated: 2024/06/01 20:50:58 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT
-# define MINI_RT
+/* Convert alpha character to higher case version*/
 
-# include "structures.h"
-# include <fcntl.h>
-# include <math.h>
-//# include <mlx.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-#endif
+int	ft_toupper(int input)
+{
+	if (input >= 97 && input <= 122)
+		return (input - 32);
+	return (input);
+}
