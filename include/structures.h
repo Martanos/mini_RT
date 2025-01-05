@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:48 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/05 14:46:59 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ typedef struct		s_light_obj;
 typedef struct		s_sphere_obj;
 typedef struct		s_plane_obj;
 typedef struct		s_cylinder_obj;
+typedef struct 		s_vect;
 
 typedef struct s_instruction_set
 {
 	double			amb_light_ratio;
 	uint32_t		amb_light_rgb;
-	double			camera_view_x;
-	double			camera_view_y;
-	double			camera_view_z;
-	double			camera_view_normal_x;
-	double			camera_view_normal_y;
-	double			camera_view_normal_z;
+	t_vect			camera_pos;
+	t_vect 			camera_dir;
 	double			camera_view_fov;
 	t_light_obj		**light_obj_list;
 	t_sphere_obj	**sphere_obj_list;
@@ -40,44 +37,39 @@ typedef struct s_instruction_set
 
 typedef struct s_light_obj
 {
-	double			light_x;
-	double			light_y;
-	double			light_z;
+	t_vect			light_pos;
 	double			light_intensity;
 	uint32_t		light_rgb;
 }					t_light_obj;
 
 typedef struct s_plane_obj
 {
-	double			plane_x;
-	double			plane_y;
-	double			plane_z;
-	double			plane_normal_x;
-	double			plane_normal_y;
-	double			plane_normal_z;
+	t_vect			plane_pos;
+	t_vect			plane_normal;
 	uint32_t		plane_rgb;
 }					t_plane_obj;
 
 typedef struct s_sphere_obj
 {
-	double			sphere_x;
-	double			sphere_y;
-	double			sphere_z;
+	t_vect 			sphere_pos;
 	double			sphere_diameter;
 	uint32_t		sphere_rgb;
 }					t_sphere_obj;
 
 typedef struct s_cylinder_obj
 {
-	double			cylinder_x;
-	double			cylinder_y;
-	double			cylinder_z;
+	t_vect			cylinder_pos;
 	double			cylinder_diameter;
 	double			cylinder_height;
-	double			cylinder_normal_x;
-	double			cylinder_normal_y;
-	double			cylinder_normal_z;
+	t_vect			cylinder_normal;
 	uint32_t		cylinder_rgb;
 }					t_cylinder_obj;
+
+typedef struct s_vect
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_vect;
 
 #endif
