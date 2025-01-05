@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:06:36 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/05 14:30:47 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/05 15:45:04 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		img;
-	t_scene		scene;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	t_img				img;
+	t_instruction_set	*instruction_set;
 }	t_data;
 
 

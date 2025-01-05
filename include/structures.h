@@ -6,21 +6,28 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:46:59 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/05 15:41:07 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES
 # define STRUCTURES
 
-# include "mini_rt.h"
+# include <stdint.h>
+// # include "mini_rt.h"
+typedef struct 		s_vect t_vect;
+typedef struct		s_instruction_set t_instruction_set;
+typedef struct		s_light_obj t_light_obj;
+typedef struct		s_sphere_obj t_sphere_obj;
+typedef struct		s_plane_obj t_plane_obj;
+typedef struct		s_cylinder_obj t_cylinder_obj;
 
-typedef struct		s_instruction_set;
-typedef struct		s_light_obj;
-typedef struct		s_sphere_obj;
-typedef struct		s_plane_obj;
-typedef struct		s_cylinder_obj;
-typedef struct 		s_vect;
+typedef struct s_vect
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_vect;
 
 typedef struct s_instruction_set
 {
@@ -65,11 +72,5 @@ typedef struct s_cylinder_obj
 	uint32_t		cylinder_rgb;
 }					t_cylinder_obj;
 
-typedef struct s_vect
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_vect;
 
 #endif

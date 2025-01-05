@@ -6,11 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/05 14:32:41 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/05 16:15:45 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_rt.h"
+#include "../include/mini_rt.h"
 #include "plane.h"
 
 /*
@@ -23,52 +23,52 @@ camera fov
 
 plane struct; */
 
-void error_exit(char *error_message)
-{
-	printf("Error\n%s\n", error_message);
-	exit(1);
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int main(void)
-{
-	t_instruction_set data;
-	t_data mlx_data;
-	t_plane_obj plane;
-
-	// set camera vectors
-	data.camera_view_x = 0;
-	data.camera_view_y = 0;
-	data.camera_view_z = 0;
-	data.camera_view_normal_x = 0;
-	data.camera_view_normal_y = 0;
-	data.camera_view_normal_z = 0;
-	data.camera_view_fov = 0;
-
-	// set plane vectors
-	plane.plane_x = 0;
-	plane.plane_y = 0;
-	plane.plane_z = 0;
-	plane.plane_normal_x = 0;
-	plane.plane_normal_y = 0;
-	plane.plane_normal_z = 0;
-
-	initmlx(&mlx_data);
-
-	return (0);
-}
-
-void initmlx(t_data *mlx_data)
+void initmlx(t_data *mlx_data, t_instruction_set *instruction_set)
 {
 	mlx_data->mlx_ptr = mlx_init();
 	if (!mlx_data->mlx_ptr)
 		error_exit("mlx failed to initialize");
+	mlx_data->win_ptr = mlx_new_window(mlx_data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "miniRT");
+	if (!mlx_data->win_ptr)
+		error_exit("mlx failed to create window");
+	mlx_data->img.img_ptr = mlx_new_image(mlx_data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!mlx_data->img.img_ptr)
+		error_exit("mlx failed to create image");
+	mlx_data->img.pixels_ptr = mlx_get_data_addr(mlx_data->img.img_ptr, &mlx_data->img.bpp, &mlx_data->img.line_len, &mlx_data->img.endian);
+	if (!mlx_data->img.pixels_ptr)
+		error_exit("mlx failed to get image address");
+	mlx_data->instruction_set = instruction_set;
 	
+}
+
+void start_renderloop(t_data *mlx_data)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < WINDOW_HEIGHT)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			my_pixel_put(&mlx_data->img, x, y, BLUE);
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(mlx_data->mlx_ptr, mlx_data->win_ptr, mlx_data->img.img_ptr, 0, 0);
+	
+	mlx_hook(mlx_data->win_ptr, 17, 0, close_window, mlx_data);
+	mlx_key_hook(mlx_data->win_ptr, key_hook, mlx_data);
+	
+	mlx_loop(mlx_data->mlx_ptr);
+}
+void	ft_render_plane(t_instruction_set *instruction_set)
+{
+	t_data mlx_data;
+	
+
+	initmlx(&mlx_data, instruction_set);
+	start_renderloop(&mlx_data);
 }
