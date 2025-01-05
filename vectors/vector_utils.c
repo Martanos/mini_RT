@@ -1,38 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane.h                                            :+:      :+:    :+:   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 14:06:36 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/05 14:30:47 by seayeo           ###   ########.fr       */
+/*   Created: 2025/01/05 14:21:38 by seayeo            #+#    #+#             */
+/*   Updated: 2025/01/05 14:21:56 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PLANE_H
-# define PLANE_H
+#include "../includes/mini_rt.h"
 
-# define WINDOW_WIDTH   800
-# define WINDOW_HEIGHT  600
-
-typedef struct s_img
-{
-	void	*img_ptr;
-	char	*pixels_ptr;
-	int		bpp;
-	int		endian;
-	int		line_len;
-}	t_img;
-
-typedef struct s_data
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		img;
-	t_scene		scene;
-}	t_data;
-
-
-
-# endif
