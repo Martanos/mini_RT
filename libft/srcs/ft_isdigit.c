@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: malee <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:46 by malee            ###   ########.fr       */
+/*   Created: 2023/09/06 22:03:31 by malee             #+#    #+#             */
+/*   Updated: 2023/09/06 22:03:33 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT
-# define MINI_RT
+/* Checks if input is a number*/
 
-# include "structures.h"
-# include <fcntl.h>
-# include <math.h>
-//# include <mlx.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-#endif
+int	ft_isdigit(int input)
+{
+	if (input >= '0' && input <= '9')
+		return (1);
+	return (0);
+}

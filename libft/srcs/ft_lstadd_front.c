@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: malee <malee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:46 by malee            ###   ########.fr       */
+/*   Created: 2023/09/17 15:54:21 by malee             #+#    #+#             */
+/*   Updated: 2023/09/17 15:59:57 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT
-# define MINI_RT
+/*
+	Adds the node ’new’ at the beginning of the list.
+*/
 
-# include "structures.h"
-# include <fcntl.h>
-# include <math.h>
-//# include <mlx.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-#endif
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst && new)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}

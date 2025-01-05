@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: malee <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:46 by malee            ###   ########.fr       */
+/*   Created: 2023/09/11 21:07:08 by malee             #+#    #+#             */
+/*   Updated: 2023/09/11 21:07:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT
-# define MINI_RT
+/* Convert alpha character to lower case version*/
 
-# include "structures.h"
-# include <fcntl.h>
-# include <math.h>
-//# include <mlx.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-#endif
+int	ft_tolower(int input)
+{
+	if (input >= 65 && input <= 90)
+		return (input + 32);
+	return (input);
+}
