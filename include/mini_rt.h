@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 15:56:44 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/05 18:27:10 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ t_vect	vect_sub(t_vect v1, t_vect v2);
 double	vect_magnitude(t_vect v);
 double	vect_dot(t_vect v1, t_vect v2);
 t_vect	vect_normalize(t_vect v);
+t_vect	vect_divide(t_vect v1, double n);
+t_vect  vect_create(double x, double y, double z);
+t_vect	vect_multiply(t_vect v1, double n);
 
 // misc.c
 void	error_exit(char *error_message);

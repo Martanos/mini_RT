@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 15:41:07 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/05 17:17:52 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef struct s_vect
 	double	y;
 	double	z;
 }	t_vect;
+
+typedef struct s_ray
+{
+	t_vect	origin;
+	t_vect	direction;
+}	t_ray;
 
 typedef struct s_instruction_set
 {

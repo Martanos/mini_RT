@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:21:38 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/05 14:58:48 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/05 18:27:01 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,35 @@ t_vect	vect_normalize(t_vect v)
 	v.x /= mag;
 	v.y /= mag;
 	v.z /= mag;
+	return (v);
+}
+
+t_vect	vect_divide(t_vect v1, double n)
+{
+	t_vect	v;
+
+	v.x = v1.x / n;
+	v.y = v1.y / n;
+	v.z = v1.z / n;
+	return (v);
+}
+
+t_vect vect_create(double x, double y, double z)
+{
+	t_vect v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
+
+t_vect	vect_multiply(t_vect v1, double n)
+{
+	t_vect	v;
+
+	v.x = v1.x * n;
+	v.y = v1.y * n;
+	v.z = v1.z * n;
 	return (v);
 }
