@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 18:24:06 by malee            ###   ########.fr       */
+/*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
+/*   Updated: 2025/01/05 15:24:14 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "../libft/includes/libft.h"
-# include "parser.h"
-# include "structures.h"
-# include "utilities.h"
-# include <errno.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <math.h>
-//# include <mlx.h>
-# include <stdbool.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/param.h>
-# include <unistd.h>
-
-# define BUFFER_SIZE 4096
+# include "mini_rt.h"
 
 #endif

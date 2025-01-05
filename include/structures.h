@@ -6,12 +6,12 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:48 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/05 15:35:40 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURES
-# define STRUCTURES
+#ifndef STRUCTURES_H
+# define STRUCTURES_H
 
 # include "mini_rt.h"
 
@@ -21,6 +21,7 @@ typedef struct		s_sphere_obj;
 typedef struct		s_plane_obj;
 typedef struct		s_cylinder_obj;
 
+// TODO: Include mlx objects
 typedef struct s_instruction_set
 {
 	double			amb_light_ratio;
