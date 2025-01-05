@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: malee <malee@42mail.sutd.edu.sg>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:27:46 by malee            ###   ########.fr       */
+/*   Created: 2023/09/11 20:41:20 by malee             #+#    #+#             */
+/*   Updated: 2024/04/08 15:43:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT
-# define MINI_RT
+/* Checks amount of char characters in a char array */
 
-# include "structures.h"
-# include <fcntl.h>
-# include <math.h>
-//# include <mlx.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-#endif
+ssize_t	ft_strlen(char *str)
+{
+	char	*ptr;
+
+	if (!str)
+		return (-1);
+	ptr = str;
+	while (*ptr)
+		ptr++;
+	return (ptr - str);
+}

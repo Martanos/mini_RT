@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 14:10:25 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/05 14:27:48 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct s_instruction_set
 	double			camera_view_normal_y;
 	double			camera_view_normal_z;
 	double			camera_view_fov;
-	t_light_obj		*light_obj;
-	t_sphere_obj	*sphere_obj;
-	t_plane_obj		*plane_obj;
-	t_cylinder_obj	*cylinder_obj;
+	t_light_obj		**light_obj_list;
+	t_sphere_obj	**sphere_obj_list;
+	t_plane_obj		**plane_obj_list;
+	t_cylinder_obj	**cylinder_obj_list;
 }					t_instruction_set;
 
 typedef struct s_light_obj
