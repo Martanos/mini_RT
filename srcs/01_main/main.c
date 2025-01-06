@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 16:15:42 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/06 21:56:11 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 
 	(*instruction_set)->amb_light_ratio = 0.5;
 	(*instruction_set)->amb_light_rgb = WHITE;
-	(*instruction_set)->camera_pos.x = 50.0;
-	(*instruction_set)->camera_pos.y = 10.0;
-	(*instruction_set)->camera_pos.z = 20.0;
+	(*instruction_set)->camera_pos.x = 0.0;
+	(*instruction_set)->camera_pos.y = 0.0;
+	(*instruction_set)->camera_pos.z = 0.0;
 	(*instruction_set)->camera_dir.x = 0.0;
 	(*instruction_set)->camera_dir.y = 0.0;
 	(*instruction_set)->camera_dir.z = 1.0;
@@ -45,11 +45,11 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	plane_obj->plane_rgb = RED;
 	(*instruction_set)->plane_obj_list = &plane_obj;
 	sphere_obj = (t_sphere_obj *)malloc(sizeof(t_sphere_obj));
-	sphere_obj->sphere_pos.x = 0.0;
-	sphere_obj->sphere_pos.y = 0.0;
+	sphere_obj->sphere_pos.x = 5.0;
+	sphere_obj->sphere_pos.y = 10.0;
 	sphere_obj->sphere_pos.z = 0.0;
-	sphere_obj->sphere_diameter = 0.0;
-	sphere_obj->sphere_rgb = 0;
+	sphere_obj->sphere_diameter = 2.0;
+	sphere_obj->sphere_rgb = GREEN;
 	(*instruction_set)->sphere_obj_list = &sphere_obj;
 	cylinder_obj = (t_cylinder_obj *)malloc(sizeof(t_cylinder_obj));
 	cylinder_obj->cylinder_pos.x = 0.0;
