@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:38:27 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/07 18:53:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ t_parser_node	*ft_create_parser_node(char *str, double *dbl,
 	node->type = PARSER_TYPE_NONE;
 	if (str)
 		node->str = ft_strdup(str);
-	node->dbl = dbl;
-	node->rgb_val = rgb_val;
+	if (dbl)
+		node->dbl = dbl;
+	if (rgb_val)
+		node->rgb_val = rgb_val;
 	node->next = NULL;
 	return (node);
 }
@@ -48,7 +50,7 @@ void	ft_add_parser_node(t_parser_node **head, t_parser_node *new_node)
 	if (!head)
 		*head = new_node;
 	current = *head;
-	while (current)
+	while (current->next)
 		current = current->next;
 	current->next = new_node;
 }
@@ -59,9 +61,8 @@ void	ft_add_parser_node(t_parser_node **head, t_parser_node *new_node)
 */
 void	ft_free_parser_node(t_parser_node *node)
 {
-	free(node->str);
-	free(node->dbl);
-	free(node->rgb_val);
+	if (node->str)
+		free(node->str);
 	free(node);
 	node = NULL;
 }
@@ -76,7 +77,10 @@ void	ft_free_parser_list(t_parser_node *head)
 
 	current = head;
 	while (current)
+	{
 		ft_free_parser_node(current);
+		current = current->next;
+	}
 	free(head);
 	head = NULL;
 }

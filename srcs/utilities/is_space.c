@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:29:27 by malee            ###   ########.fr       */
+/*   Created: 2025/01/07 16:41:30 by malee             #+#    #+#             */
+/*   Updated: 2025/01/07 17:02:21 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_list	*ft_read_file(int fd)
+bool	ft_is_space(char c)
 {
-	char	buffer[BUFFER_SIZE];
-	ssize_t	bytes_read;
-	t_list	*line_list;
-
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	if (c && (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+			|| c == '\r'))
+		return (true);
+	return (false);
 }
 
-void	ft_parser_exit(void)
+bool	ft_verify_char_list(char *str)
 {
 }

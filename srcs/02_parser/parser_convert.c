@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.h                                        :+:      :+:    :+:   */
+/*   parser_convert.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 15:25:47 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 16:44:10 by malee            ###   ########.fr       */
+/*   Created: 2025/01/07 19:42:25 by malee             #+#    #+#             */
+/*   Updated: 2025/01/07 19:47:16 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILITIES_H
-# define UTILITIES_H
+#include "mini_rt.h"
 
-# include "mini_rt.h"
+static bool	ft_str_to_int(t_parser_node *node)
+{
+}
 
-void	ft_exit(t_instruction_set *instruction_set, char *error_message);
-bool	ft_is_space(char c);
+static bool	ft_str_to_rgb(t_parser_node *node)
+{
+}
 
-#endif
+static bool	ft_str_to_dbl(t_parser_node *node)
+{
+}
+
+bool	ft_type_convert(t_parser_node **head)
+{
+	t_parser_node	*cur;
+
+	cur = *head;
+	while (cur)
+	{
+		cur = cur->next;
+	}
+}
