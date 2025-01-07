@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 17:17:52 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:46:23 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_light_obj t_light_obj;
 typedef struct		s_sphere_obj t_sphere_obj;
 typedef struct		s_plane_obj t_plane_obj;
 typedef struct		s_cylinder_obj t_cylinder_obj;
+typedef struct		s_hit_record t_hit_record;
 
 typedef struct s_vect
 {
@@ -78,5 +79,11 @@ typedef struct s_cylinder_obj
 	uint32_t		cylinder_rgb;
 }					t_cylinder_obj;
 
+typedef struct s_hit_record
+{
+	t_vect			point;
+	t_vect			normal;
+	double			t;
+}					t_hit_record;
 
 #endif

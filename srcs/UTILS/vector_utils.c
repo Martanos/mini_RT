@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:21:38 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 13:01:51 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:12:56 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,12 @@ t_vect	vect_cross(t_vect v1, t_vect v2)
 	v.y = v1.z * v2.x - v1.x * v2.z;
 	v.z = v1.x * v2.y - v1.y * v2.x;
 	return (v);
+}
+
+void	set_face_normal(t_hit_record *rec, const t_ray *r, const t_vect *outward_normal)
+{
+	if (vect_dot(r->direction, *outward_normal) > 0.0)
+		rec->normal = vect_multiply(*outward_normal, -1); // Inside
+	else
+		rec->normal = *outward_normal; // Outside
 }

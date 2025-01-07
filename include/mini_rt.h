@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 13:43:44 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:12:36 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 // RENDERPLANE
 
-void			ft_render_plane(t_instruction_set *instruction_set);
+void			ft_render_scene(t_instruction_set *instruction_set);
 // UTILS
 
 // vector_utils.c
@@ -49,6 +49,7 @@ t_vect	vect_divide(t_vect v1, double n);
 t_vect  vect_create(double x, double y, double z);
 t_vect	vect_multiply(t_vect v1, double n);
 t_vect	vect_cross(t_vect v1, t_vect v2);
+void	set_face_normal(t_hit_record *rec, const t_ray *r, const t_vect *outward_normal);
 
 // misc.c
 void	error_exit(char *error_message);

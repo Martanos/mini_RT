@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 13:57:18 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:49:55 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,49 +37,50 @@ uint32_t	background_color(t_vect unit_direction)
 	return (0xFF000000 | (r << 16) | (g << 8) | b);
 }
 
-double	check_plane_collision(t_ray ray, t_plane_obj *plane)
-{
-	double	denom;
-	t_vect	p0l0;
-	double	t;
-
-	denom = vect_dot(plane->plane_normal, ray.direction);
-	if (fabs(denom) < 1e-6)  // Ray is parallel to plane
-		return (-1.0);
-
-	p0l0 = vect_sub(plane->plane_pos, ray.origin);
-	t = vect_dot(p0l0, plane->plane_normal) / denom;
-
-	if (t < 0.0)  // Plane is behind ray
-		return (-1.0);
-	return (t);
-}
-
 uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 {
-	t_sphere_collision collision;
+	t_sphere_collision sphere_collision;
+	t_plane_collision plane_collision;
 	t_vect hit_point;
 	t_vect normal;
 	uint8_t r, g, b;
+	uint32_t obj_color;
+	double shade;
 
-	collision = find_closest_sphere(ray, mlx_data);
-	if (collision.closest_sphere)
+	sphere_collision = find_closest_sphere(ray, mlx_data);
+	plane_collision = find_closest_plane(ray, mlx_data);
+
+	// Choose closest intersection between sphere and plane
+	if (sphere_collision.closest_sphere && 
+		(!plane_collision.closest_plane || sphere_collision.closest_t < plane_collision.closest_t))
 	{
-		// Calculate hit point
-		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
-		
-		// Calculate normal vector
-		normal = vect_normalize(vect_sub(hit_point, collision.closest_sphere->sphere_pos));
-		
-		// Map normal components from [-1,1] to [0,1] for color
-		r = (uint8_t)((normal.x + 1.0) * 127.5);
-		g = (uint8_t)((normal.y + 1.0) * 127.5);
-		b = (uint8_t)((normal.z + 1.0) * 127.5);
-		
-		return (0xFF000000 | (r << 16) | (g << 8) | b);
+		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, sphere_collision.closest_t));
+		normal = vect_normalize(vect_sub(hit_point, sphere_collision.closest_sphere->sphere_pos));
+		obj_color = sphere_collision.closest_sphere->sphere_rgb;
+	}
+	else if (plane_collision.closest_plane)
+	{
+		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, plane_collision.closest_t));
+		normal = plane_collision.closest_plane->plane_normal;
+		obj_color = plane_collision.closest_plane->plane_rgb;
+	}
+	else
+	{
+		// Return background color if no collision
+		t_vect unit_direction = vect_normalize(ray.direction);
+		return (background_color(unit_direction));
 	}
 
-	// Return background color if no collision
-	t_vect unit_direction = vect_normalize(ray.direction);
-	return (background_color(unit_direction));
+	// Extract RGB components from object's color
+	r = (uint8_t)((obj_color >> 16) & 0xFF);
+	g = (uint8_t)((obj_color >> 8) & 0xFF);
+	b = (uint8_t)(obj_color & 0xFF);
+	
+	// Apply shading based on normal direction (dot product with up vector)
+	shade = 0.5 * (1.0 + vect_dot(normal, (t_vect){0, 1, 0}));
+	r = (uint8_t)(r * shade);
+	g = (uint8_t)(g * shade);
+	b = (uint8_t)(b * shade);
+	
+	return (0xFF000000 | (r << 16) | (g << 8) | b);
 }

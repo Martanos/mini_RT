@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:06:36 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 13:45:36 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:48:27 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,23 @@ typedef struct s_sphere_collision
 	t_sphere_obj	*closest_sphere;
 }	t_sphere_collision;
 
+typedef struct s_plane_collision
+{
+	double			closest_t;
+	t_plane_obj		*closest_plane;
+}	t_plane_collision;
+
 // check_sphere.c
 t_sphere_collision	find_closest_sphere(t_ray ray, t_data *mlx_data);
 double				check_sphere_collision(t_ray ray, t_sphere_obj *sphere);
 
+// check_plane.c
+t_plane_collision	find_closest_plane(t_ray ray, t_data *mlx_data);
+double				check_plane_collision(t_ray ray, t_plane_obj *plane);
+
 //tracing.c
-uint32_t	background_color(t_vect unit_direction);
-double		check_plane_collision(t_ray ray, t_plane_obj *plane);
-uint32_t	ray_color(t_ray ray, t_data *mlx_data);
+uint32_t			background_color(t_vect unit_direction);
+uint32_t			ray_color(t_ray ray, t_data *mlx_data);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 12:59:16 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 17:15:13 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	(*instruction_set)->amb_light_ratio = 0.5;
 	(*instruction_set)->amb_light_rgb = WHITE;
 	(*instruction_set)->camera_pos = vect_create(0.0, 0.0, -5.0);  // Move camera back
-	(*instruction_set)->camera_dir = vect_normalize(vect_create(0.0, 0.0, 1.0));
+	(*instruction_set)->camera_dir = vect_normalize(vect_create(0, 0.0, 1.0));
 	(*instruction_set)->camera_view_fov = 90.0;  // Wider FOV
 
 	// Allocate lists (null-terminated arrays)
-	light_list = malloc(2 * sizeof(t_light_obj *));  // Space for 1 light + NULL
-	plane_list = malloc(2 * sizeof(t_plane_obj *));  // Space for 1 plane + NULL
-	sphere_list = malloc(2 * sizeof(t_sphere_obj *));  // Space for 1 sphere + NULL
-	cylinder_list = malloc(2 * sizeof(t_cylinder_obj *));  // Space for 1 cylinder + NULL
+	light_list = malloc(2 * sizeof(t_light_obj *));
+	plane_list = malloc(4 * sizeof(t_plane_obj *));
+	sphere_list = malloc(3 * sizeof(t_sphere_obj *));
+	cylinder_list = malloc(2 * sizeof(t_cylinder_obj *));
 
 	// Create light
 	light_list[0] = malloc(sizeof(t_light_obj));
@@ -42,10 +42,18 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 
 	// Create plane
 	plane_list[0] = malloc(sizeof(t_plane_obj));
-	plane_list[0]->plane_pos = vect_create(0.0, -2.0, 0.0);
-	plane_list[0]->plane_normal = vect_normalize(vect_create(0.0, 1.0, 0.0));
-	plane_list[0]->plane_rgb = RED;
-	plane_list[1] = NULL;
+	plane_list[0]->plane_pos = vect_create(0.0, -10.0, 0.0);
+	plane_list[0]->plane_normal = vect_normalize(vect_create(0.0, -1.0, 0.0));
+	plane_list[0]->plane_rgb = SEMI_RED;
+	plane_list[1] = malloc(sizeof(t_plane_obj));
+	plane_list[1]->plane_pos = vect_create(0.0, 0.0, 200.0);
+	plane_list[1]->plane_normal = vect_normalize(vect_create(0.0, 0.0, -1.0));
+	plane_list[1]->plane_rgb = YELLOW;
+	plane_list[2] = malloc(sizeof(t_plane_obj));
+	plane_list[2]->plane_pos = vect_create(10, 0.0, 10.0);
+	plane_list[2]->plane_normal = vect_normalize(vect_create(-1.0, 0.0, 0.0));
+	plane_list[2]->plane_rgb = BLUE;
+	plane_list[3] = NULL;
 	(*instruction_set)->plane_obj_list = plane_list;
 
 	// Create sphere
@@ -53,7 +61,11 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	sphere_list[0]->sphere_pos = vect_create(0.0, 0.0, 3.0);  // 3 units in front of camera
 	sphere_list[0]->sphere_diameter = 2.0;  // Larger sphere
 	sphere_list[0]->sphere_rgb = GREEN;
-	sphere_list[1] = NULL;
+	sphere_list[1] = malloc(sizeof(t_sphere_obj));
+	sphere_list[1]->sphere_pos = vect_create(2.0, 0.0, 3.0);  // 2 units to the right of first sphere
+	sphere_list[1]->sphere_diameter = 1.0;  // Smaller sphere
+	sphere_list[1]->sphere_rgb = SEMI_RED;
+	sphere_list[2] = NULL;
 	(*instruction_set)->sphere_obj_list = sphere_list;
 
 	// Create cylinder
@@ -75,8 +87,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		ft_temp_object_creation(&instruction_set);
-		ft_render_plane(instruction_set);
-		// ft_render_scene(instruction_set);
+		ft_render_scene(instruction_set);
 	}
 	else
 	{

@@ -6,13 +6,19 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 12:58:16 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:37:36 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
 #include "plane.h"
 
+static t_vect calculate_viewport_up(t_vect camera_dir)
+{
+	t_vect world_up = vect_create(0.0, 1.0, 0.0);
+	t_vect right = vect_normalize(vect_cross(camera_dir, world_up));
+	return vect_normalize(vect_cross(right, camera_dir));
+}
 void initmlx(t_data *mlx_data, t_instruction_set *instruction_set)
 {
 	mlx_data->mlx_ptr = mlx_init();
@@ -32,29 +38,6 @@ void initmlx(t_data *mlx_data, t_instruction_set *instruction_set)
 }
 
 
-// void	trace_ray(t_ray ray, t_instruction_set *instruction_set)
-// {
-// 	t_plane_obj	*plane_obj;
-// 	t_sphere_obj	*sphere_obj;
-// 	t_cylinder_obj	*cylinder_obj;
-// 	t_light_obj		*light_obj;
-	
-// 	plane_obj = *(instruction_set->plane_obj_list);
-// 	sphere_obj = *(instruction_set->sphere_obj_list);
-// 	cylinder_obj = *(instruction_set->cylinder_obj_list);
-// 	light_obj = *(instruction_set->light_obj_list);
-	
-// 	// check if ray intersects with plane
-// 	// check if ray intersects with sphere
-// 	// check if ray intersects with cylinder
-// }
-
-t_vect calculate_viewport_up(t_vect camera_dir)
-{
-	t_vect world_up = vect_create(0.0, 1.0, 0.0);
-	t_vect right = vect_normalize(vect_cross(camera_dir, world_up));
-	return vect_normalize(vect_cross(right, camera_dir));
-}
 
 uint32_t	calculations(int x, int y, t_data *mlx_data)
 {
@@ -129,11 +112,10 @@ void start_renderloop(t_data *mlx_data)
 	
 	mlx_loop(mlx_data->mlx_ptr);
 }
-void	ft_render_plane(t_instruction_set *instruction_set)
+void	ft_render_scene(t_instruction_set *instruction_set)
 {
 	t_data mlx_data;
 	
-
 	initmlx(&mlx_data, instruction_set);
 	start_renderloop(&mlx_data);
 }
