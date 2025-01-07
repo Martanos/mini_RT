@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   fatal.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:29:27 by malee            ###   ########.fr       */
+/*   Created: 2025/01/07 11:40:11 by malee             #+#    #+#             */
+/*   Updated: 2025/01/07 11:48:10 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_list	*ft_read_file(int fd)
+void	ft_fatal(void)
 {
-	char	buffer[BUFFER_SIZE];
-	ssize_t	bytes_read;
-	t_list	*line_list;
-
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-}
-
-void	ft_parser_exit(void)
-{
+	ft_putstr_fd("Error\nFatal system error detected expect leaks\n", 2);
+	perror(NULL);
+	exit(1);
 }

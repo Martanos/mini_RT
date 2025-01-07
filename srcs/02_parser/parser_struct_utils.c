@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:11:55 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:38:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_parser_node	*ft_create_parser_node(char *str, double *dbl,
 	node = (t_parser_node *)ft_calloc(1, sizeof(t_parser_node));
 	if (!node)
 		return (NULL);
+	node->type = PARSER_TYPE_NONE;
 	if (str)
 		node->str = ft_strdup(str);
 	node->dbl = dbl;
@@ -44,6 +45,8 @@ void	ft_add_parser_node(t_parser_node **head, t_parser_node *new_node)
 {
 	t_parser_node	*current;
 
+	if (!head)
+		*head = new_node;
 	current = *head;
 	while (current)
 		current = current->next;

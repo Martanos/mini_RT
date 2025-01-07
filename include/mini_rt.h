@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 18:24:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:48:45 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,9 @@
 # include <unistd.h>
 
 # define BUFFER_SIZE 4096
+
+// UTILS
+void	ft_fatal(void);
+void	ft_exit(t_instruction_set *instruction_set, char *error_message);
 
 #endif

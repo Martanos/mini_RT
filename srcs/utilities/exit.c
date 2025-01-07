@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:25:29 by malee             #+#    #+#             */
-/*   Updated: 2025/01/05 15:41:16 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:49:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	ft_free_instruction_set(t_instruction_set *instruction_set)
 }
 
 // TODO: Add memory management for mlx objects
+// @brief Graceful exit handles all expected memory leaks
+// @param instruction_set pointer to the instruction set
+// @param error_message pointer to the error message
 void	ft_exit(t_instruction_set *instruction_set, char *error_message)
 {
 	if (error_message)
