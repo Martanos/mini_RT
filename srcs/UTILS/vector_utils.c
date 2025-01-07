@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:21:38 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/05 18:27:01 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 13:01:51 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,15 @@ t_vect	vect_multiply(t_vect v1, double n)
 	v.x = v1.x * n;
 	v.y = v1.y * n;
 	v.z = v1.z * n;
+	return (v);
+}
+
+t_vect	vect_cross(t_vect v1, t_vect v2)
+{
+	t_vect	v;
+
+	v.x = v1.y * v2.z - v1.z * v2.y;
+	v.y = v1.z * v2.x - v1.x * v2.z;
+	v.z = v1.x * v2.y - v1.y * v2.x;
 	return (v);
 }

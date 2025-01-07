@@ -6,7 +6,7 @@
 #    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/01/06 21:47:58 by seayeo           ###   ########.fr        #
+#    Updated: 2025/01/07 13:44:56 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ RENDERPLANE_DIR	= renderplane/
 
 MAIN_SRC	= main.c
 UTILS_SRC	= misc.c vector_utils.c
-RENDERPLANE_SRC	= renderplane.c tracing.c
+RENDERPLANE_SRC	= renderplane.c tracing.c check_sphere.c
 
 SRCS		= $(addprefix $(SRC_DIR)$(MAIN_DIR), $(MAIN_SRC)) \
 			  $(addprefix $(SRC_DIR)$(UTILS_DIR), $(UTILS_SRC)) \

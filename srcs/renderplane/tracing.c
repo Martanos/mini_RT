@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/06 22:02:26 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 13:57:18 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,52 +55,28 @@ double	check_plane_collision(t_ray ray, t_plane_obj *plane)
 	return (t);
 }
 
-double	check_sphere_collision(t_ray ray, t_sphere_obj *sphere)
-{
-	t_vect	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-
-	oc = vect_sub(ray.origin, sphere->sphere_pos);
-	a = vect_dot(ray.direction, ray.direction);
-	b = -2.0 * vect_dot(ray.direction, oc);
-	c = vect_dot(oc, oc) - (sphere->sphere_diameter * sphere->sphere_diameter / 4.0);
-	discriminant = b * b - 4 * a * c;
-
-	if (discriminant < 0)
-		return (-1.0);
-	return ((-b - sqrt(discriminant)) / (2.0 * a));
-}
-
 uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 {
-	double		t;
-	t_sphere_obj	*sphere;
-	t_plane_obj	*plane;
-	int			i;
+	t_sphere_collision collision;
+	t_vect hit_point;
+	t_vect normal;
+	uint8_t r, g, b;
 
-	// Check spheres
-	i = 0;
-	while (mlx_data->instruction_set->sphere_obj_list[i])
+	collision = find_closest_sphere(ray, mlx_data);
+	if (collision.closest_sphere)
 	{
-		sphere = mlx_data->instruction_set->sphere_obj_list[i];
-		t = check_sphere_collision(ray, sphere);
-		if (t > 0.0)
-			return (sphere->sphere_rgb);
-		i++;
-	}
-
-	// Check planes
-	i = 0;
-	while (mlx_data->instruction_set->plane_obj_list[i])
-	{
-		plane = mlx_data->instruction_set->plane_obj_list[i];
-		t = check_plane_collision(ray, plane);
-		if (t > 0.0)
-			return (plane->plane_rgb);
-		i++;
+		// Calculate hit point
+		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+		
+		// Calculate normal vector
+		normal = vect_normalize(vect_sub(hit_point, collision.closest_sphere->sphere_pos));
+		
+		// Map normal components from [-1,1] to [0,1] for color
+		r = (uint8_t)((normal.x + 1.0) * 127.5);
+		g = (uint8_t)((normal.y + 1.0) * 127.5);
+		b = (uint8_t)((normal.z + 1.0) * 127.5);
+		
+		return (0xFF000000 | (r << 16) | (g << 8) | b);
 	}
 
 	// Return background color if no collision

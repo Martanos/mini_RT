@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/06 21:59:24 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:58:16 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,45 @@ void initmlx(t_data *mlx_data, t_instruction_set *instruction_set)
 // 	// check if ray intersects with cylinder
 // }
 
+t_vect calculate_viewport_up(t_vect camera_dir)
+{
+	t_vect world_up = vect_create(0.0, 1.0, 0.0);
+	t_vect right = vect_normalize(vect_cross(camera_dir, world_up));
+	return vect_normalize(vect_cross(right, camera_dir));
+}
+
 uint32_t	calculations(int x, int y, t_data *mlx_data)
 {
 	double	aspect_ratio;
 	t_vect	pixel_pos;
 	t_ray	ray;
+	t_vect	camera_dir;
+	t_vect	viewport_up;
+	t_vect	viewport_right;
+	double	viewport_height;
+	double	viewport_width;
+	double	focal_length;
 
-	aspect_ratio = WINDOW_WIDTH / WINDOW_HEIGHT;
-	double viewport_height = 2.0;
-	double viewport_width = viewport_height * aspect_ratio;
-	double focal_length = 1.0;
+	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
+	camera_dir = vect_normalize(mlx_data->instruction_set->camera_dir);
 	
-	// Calculate viewport vectors based on camera direction
-	t_vect horizontal;
-	t_vect vertical;
-	horizontal = vect_create(viewport_width, 0.0, 0.0);
-	vertical = vect_create(0.0, -viewport_height, 0.0);  // Negative to match screen coordinates
+	// Calculate viewport dimensions based on FOV
+	viewport_height = 2.0 * tan((mlx_data->instruction_set->camera_view_fov * M_PI / 180.0) / 2.0);
+	viewport_width = viewport_height * aspect_ratio;
+	focal_length = 1.0;
 	
-	// Calculate viewport corner
-	t_vect viewport_center;
-	viewport_center = vect_add(mlx_data->instruction_set->camera_pos, 
-		vect_multiply(mlx_data->instruction_set->camera_dir, focal_length));
-	t_vect viewport_upper_left;
-	viewport_upper_left = vect_sub(viewport_center, 
+	// Calculate viewport orientation vectors
+	viewport_up = calculate_viewport_up(camera_dir);
+	viewport_right = vect_normalize(vect_cross(camera_dir, viewport_up));
+	
+	// Calculate viewport vectors
+	t_vect horizontal = vect_multiply(viewport_right, viewport_width);
+	t_vect vertical = vect_multiply(viewport_up, -viewport_height);  // Negative to match screen coordinates
+	
+	// Calculate viewport center and corner
+	t_vect viewport_center = vect_add(mlx_data->instruction_set->camera_pos, 
+		vect_multiply(camera_dir, focal_length));
+	t_vect viewport_upper_left = vect_sub(viewport_center, 
 		vect_add(vect_divide(horizontal, 2.0), vect_divide(vertical, 2.0)));
 	
 	// Calculate pixel position
@@ -80,13 +96,11 @@ uint32_t	calculations(int x, int y, t_data *mlx_data)
 	pixel_pos = vect_add(viewport_upper_left,
 		vect_add(vect_multiply(horizontal, u), vect_multiply(vertical, v)));
 	
+	// Setup and normalize ray
 	ray.origin = mlx_data->instruction_set->camera_pos;
-	ray.direction = vect_normalize(vect_sub(pixel_pos, mlx_data->instruction_set->camera_pos));
+	ray.direction = vect_normalize(vect_sub(pixel_pos, ray.origin));
 	
-
-	// trace_ray(ray, mlx_data->instruction_set);
-	uint32_t color = ray_color(ray, mlx_data);
-	return (color);
+	return (ray_color(ray, mlx_data));
 }
 
 
