@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:06:36 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 16:48:27 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/08 14:01:54 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdbool.h>
 
-# define WINDOW_WIDTH   800
-# define WINDOW_HEIGHT  600
+# define WINDOW_WIDTH   1600
+# define WINDOW_HEIGHT  900
 
 typedef struct s_img
 {
@@ -47,6 +47,12 @@ typedef struct s_plane_collision
 	t_plane_obj		*closest_plane;
 }	t_plane_collision;
 
+typedef struct s_cylinder_collision
+{
+	double			closest_t;
+	t_cylinder_obj	*closest_cylinder;
+}	t_cylinder_collision;
+
 // check_sphere.c
 t_sphere_collision	find_closest_sphere(t_ray ray, t_data *mlx_data);
 double				check_sphere_collision(t_ray ray, t_sphere_obj *sphere);
@@ -54,6 +60,10 @@ double				check_sphere_collision(t_ray ray, t_sphere_obj *sphere);
 // check_plane.c
 t_plane_collision	find_closest_plane(t_ray ray, t_data *mlx_data);
 double				check_plane_collision(t_ray ray, t_plane_obj *plane);
+
+// check_cylinder.c
+t_cylinder_collision	find_closest_cylinder(t_ray ray, t_data *mlx_data);
+double				check_cylinder_collision(t_ray ray, t_cylinder_obj *cylinder);
 
 //tracing.c
 uint32_t			background_color(t_vect unit_direction);

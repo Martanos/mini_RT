@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 17:15:13 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/08 14:12:05 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 
 	// Create sphere
 	sphere_list[0] = malloc(sizeof(t_sphere_obj));
-	sphere_list[0]->sphere_pos = vect_create(0.0, 0.0, 3.0);  // 3 units in front of camera
-	sphere_list[0]->sphere_diameter = 2.0;  // Larger sphere
+	sphere_list[0]->sphere_pos = vect_create(1.5, 0.0, 3.0);  // 3 units in front of camera
+	sphere_list[0]->sphere_diameter = 3.0;  // Larger sphere
 	sphere_list[0]->sphere_rgb = GREEN;
 	sphere_list[1] = malloc(sizeof(t_sphere_obj));
-	sphere_list[1]->sphere_pos = vect_create(2.0, 0.0, 3.0);  // 2 units to the right of first sphere
+	sphere_list[1]->sphere_pos = vect_create(1.0, 10.0, 3.0);  // 2 units to the right of first sphere
 	sphere_list[1]->sphere_diameter = 1.0;  // Smaller sphere
 	sphere_list[1]->sphere_rgb = SEMI_RED;
 	sphere_list[2] = NULL;
@@ -70,9 +70,9 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 
 	// Create cylinder
 	cylinder_list[0] = malloc(sizeof(t_cylinder_obj));
-	cylinder_list[0]->cylinder_pos = vect_create(0.0, 0.0, 0.0);
-	cylinder_list[0]->cylinder_diameter = 0.0;
-	cylinder_list[0]->cylinder_height = 0.0;
+	cylinder_list[0]->cylinder_pos = vect_create(-15.0, 3.0, 5.0);
+	cylinder_list[0]->cylinder_diameter = 2.0;
+	cylinder_list[0]->cylinder_height = 5.0;
 	cylinder_list[0]->cylinder_normal = vect_create(0.0, 1.0, 0.0);
 	cylinder_list[0]->cylinder_rgb = BLUE;
 	cylinder_list[1] = NULL;
