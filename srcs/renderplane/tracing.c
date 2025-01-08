@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/08 14:05:08 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/08 17:12:41 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	t_sphere_collision sphere_collision;
 	t_plane_collision plane_collision;
 	t_cylinder_collision cylinder_collision;
-	t_vect hit_point;
-	t_vect normal;
+	t_hit_record hit_record;
 	uint8_t r, g, b;
 	uint32_t obj_color;
-	double shade;
 
 	sphere_collision = find_closest_sphere(ray, mlx_data);
 	plane_collision = find_closest_plane(ray, mlx_data);
@@ -57,26 +55,18 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 		(!plane_collision.closest_plane || sphere_collision.closest_t < plane_collision.closest_t) &&
 		(!cylinder_collision.closest_cylinder || sphere_collision.closest_t < cylinder_collision.closest_t))
 	{
-		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, sphere_collision.closest_t));
-		normal = vect_normalize(vect_sub(hit_point, sphere_collision.closest_sphere->sphere_pos));
+		calculate_sphere_hit(ray, sphere_collision, &hit_record);
 		obj_color = sphere_collision.closest_sphere->sphere_rgb;
 	}
 	else if (plane_collision.closest_plane &&
 		(!cylinder_collision.closest_cylinder || plane_collision.closest_t < cylinder_collision.closest_t))
 	{
-		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, plane_collision.closest_t));
-		normal = plane_collision.closest_plane->plane_normal;
+		calculate_plane_hit(ray, plane_collision, &hit_record);
 		obj_color = plane_collision.closest_plane->plane_rgb;
 	}
 	else if (cylinder_collision.closest_cylinder)
 	{
-		hit_point = vect_add(ray.origin, vect_multiply(ray.direction, cylinder_collision.closest_t));
-		// Calculate normal at hit point on cylinder surface
-		t_vect cp = vect_sub(hit_point, cylinder_collision.closest_cylinder->cylinder_pos);
-		double proj = vect_dot(cp, cylinder_collision.closest_cylinder->cylinder_normal);
-		t_vect axis_point = vect_add(cylinder_collision.closest_cylinder->cylinder_pos,
-			vect_multiply(cylinder_collision.closest_cylinder->cylinder_normal, proj));
-		normal = vect_normalize(vect_sub(hit_point, axis_point));
+		calculate_cylinder_hit(ray, cylinder_collision, &hit_record);
 		obj_color = cylinder_collision.closest_cylinder->cylinder_rgb;
 	}
 	else
@@ -91,23 +81,49 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	g = (uint8_t)((obj_color >> 8) & 0xFF);
 	b = (uint8_t)(obj_color & 0xFF);
 	
-	// Apply shading based on normal direction
-	if (sphere_collision.closest_sphere || cylinder_collision.closest_cylinder)
+	// Apply ambient lighting
+	double ambient = mlx_data->instruction_set->amb_light_ratio;
+	uint32_t amb_color = mlx_data->instruction_set->amb_light_rgb;
+	uint8_t amb_r = (uint8_t)((amb_color >> 16) & 0xFF);
+	uint8_t amb_g = (uint8_t)((amb_color >> 8) & 0xFF);
+	uint8_t amb_b = (uint8_t)(amb_color & 0xFF);
+
+	// Initialize with ambient lighting
+	double final_r = r * ambient * (amb_r / 255.0);
+	double final_g = g * ambient * (amb_g / 255.0);
+	double final_b = b * ambient * (amb_b / 255.0);
+
+	// Add contribution from each light source
+	int i = 0;
+	while (mlx_data->instruction_set->light_obj_list[i])
 	{
-		// For spheres, use the up vector for shading
-		shade = 0.5 * (1.0 + vect_dot(normal, (t_vect){0, 1, 0}));
-		r = (uint8_t)(r * shade);
-		g = (uint8_t)(g * shade);
-		b = (uint8_t)(b * shade);
+		t_light_obj *light = mlx_data->instruction_set->light_obj_list[i];
+		
+		// Calculate direction to light
+		t_vect light_dir = vect_sub(light->light_pos, hit_record.point);
+		light_dir = vect_normalize(light_dir);
+
+		// Calculate diffuse lighting
+		double diff = fmax(vect_dot(hit_record.normal, light_dir), 0.0);
+		double intensity = light->light_intensity * diff;
+
+		// Get light color
+		uint8_t light_r = (uint8_t)((light->light_rgb >> 16) & 0xFF);
+		uint8_t light_g = (uint8_t)((light->light_rgb >> 8) & 0xFF);
+		uint8_t light_b = (uint8_t)(light->light_rgb & 0xFF);
+
+		// Add light contribution
+		final_r += r * intensity * (light_r / 255.0);
+		final_g += g * intensity * (light_g / 255.0);
+		final_b += b * intensity * (light_b / 255.0);	
+
+		i++;
 	}
-	else
-	{
-		// For planes, use a constant shading to maintain their color
-		shade = 0.8;  // Constant lighting for planes
-		r = (uint8_t)(r * shade);
-		g = (uint8_t)(g * shade);
-		b = (uint8_t)(b * shade);
-	}
+
+	// Clamp values between 0 and 255
+	r = (uint8_t)fmin(fmax(final_r, 0), 255);
+	g = (uint8_t)fmin(fmax(final_g, 0), 255);
+	b = (uint8_t)fmin(fmax(final_b, 0), 255);
 	
 	return (0xFF000000 | (r << 16) | (g << 8) | b);
 }

@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:07:50 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 16:51:01 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/08 16:04:10 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,11 @@ t_plane_collision	find_closest_plane(t_ray ray, t_data *mlx_data)
 		i++;
 	}
 	return (result);
+}
+
+void	calculate_plane_hit(t_ray ray, t_plane_collision collision, t_hit_record *rec)
+{
+	rec->t = collision.closest_t;
+	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+	rec->normal = collision.closest_plane->plane_normal;
 }

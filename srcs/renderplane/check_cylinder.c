@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:45:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/08 13:46:38 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/08 16:04:39 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,17 @@ t_cylinder_collision	find_closest_cylinder(t_ray ray, t_data *mlx_data)
 		i++;
 	}
 	return (result);
+}
+
+void	calculate_cylinder_hit(t_ray ray, t_cylinder_collision collision, t_hit_record *rec)
+{
+	rec->t = collision.closest_t;
+	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+	
+	// Calculate normal at hit point on cylinder surface
+	t_vect cp = vect_sub(rec->point, collision.closest_cylinder->cylinder_pos);
+	double proj = vect_dot(cp, collision.closest_cylinder->cylinder_normal);
+	t_vect axis_point = vect_add(collision.closest_cylinder->cylinder_pos,
+		vect_multiply(collision.closest_cylinder->cylinder_normal, proj));
+	rec->normal = vect_normalize(vect_sub(rec->point, axis_point));
 }

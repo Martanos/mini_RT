@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/07 13:41:31 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/08 16:04:26 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,11 @@ t_sphere_collision	find_closest_sphere(t_ray ray, t_data *mlx_data)
 		i++;
 	}
 	return (result);
+}
+
+void	calculate_sphere_hit(t_ray ray, t_sphere_collision collision, t_hit_record *rec)
+{
+	rec->t = collision.closest_t;
+	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+	rec->normal = vect_normalize(vect_sub(rec->point, collision.closest_sphere->sphere_pos));
 }
