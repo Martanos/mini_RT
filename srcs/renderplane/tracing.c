@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/08 17:12:41 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/09 18:25:30 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,31 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	{
 		t_light_obj *light = mlx_data->instruction_set->light_obj_list[i];
 		
-		// Calculate direction to light
+		// Calculate direction and distance to light
 		t_vect light_dir = vect_sub(light->light_pos, hit_record.point);
+		// double light_distance = vect_magnitude(light_dir);
 		light_dir = vect_normalize(light_dir);
+
+		// Create shadow ray (offset origin slightly along normal to prevent self-intersection)
+		t_ray shadow_ray;
+		t_vect offset = vect_multiply(hit_record.normal, 0.001); // Small offset to prevent self-intersection
+		shadow_ray.origin = vect_add(hit_record.point, offset);
+		// shadow_ray.origin = hit_record.point;
+		shadow_ray.direction = light_dir;
+
+		// Check for shadows by testing if any object blocks the path to light
+		t_sphere_collision shadow_sphere = find_closest_sphere(shadow_ray, mlx_data);
+		// printf("shadow_sphere.closest_sphere: %p\n", shadow_sphere.closest_sphere);
+		if (shadow_sphere.closest_sphere)
+			break;
+
+		t_plane_collision shadow_plane = find_closest_plane(shadow_ray, mlx_data);
+		if (shadow_plane.closest_plane)
+			break;
+
+		// t_cylinder_collision shadow_cylinder = find_closest_cylinder(shadow_ray, mlx_data);
+		// if (shadow_cylinder.closest_cylinder)
+		// 	break;
 
 		// Calculate diffuse lighting
 		double diff = fmax(vect_dot(hit_record.normal, light_dir), 0.0);
@@ -112,10 +134,10 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 		uint8_t light_g = (uint8_t)((light->light_rgb >> 8) & 0xFF);
 		uint8_t light_b = (uint8_t)(light->light_rgb & 0xFF);
 
-		// Add light contribution
+		// Add light contribution (only if not in shadow)
 		final_r += r * intensity * (light_r / 255.0);
 		final_g += g * intensity * (light_g / 255.0);
-		final_b += b * intensity * (light_b / 255.0);	
+		final_b += b * intensity * (light_b / 255.0);
 
 		i++;
 	}

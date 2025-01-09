@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:06:36 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/08 17:14:06 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:28:03 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdbool.h>
 
-# define WINDOW_WIDTH   1600
-# define WINDOW_HEIGHT  900
+# define WINDOW_WIDTH   800
+# define WINDOW_HEIGHT  600
 
 typedef struct s_img
 {

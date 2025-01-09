@@ -6,16 +6,16 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/08 14:06:51 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:33:23 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_RT
 # define MINI_RT
 
-// # ifndef M_PI
-// #  define M_PI 3.14159265358979323846
-// # endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 # include <fcntl.h>
 # include <math.h>
 # include <stdint.h>
