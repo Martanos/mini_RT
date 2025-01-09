@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:52:02 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 20:26:22 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 10:54:34 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ static void	ft_format_error(ssize_t line, ssize_t pos, char *msg)
 	ft_putstr_fd("\n", 2);
 }
 
-static bool	ft_verify_elements(t_parser_node **cur, ssize_t *line, ssize_t *pos,
-		t_list **e_list)
+static bool	ft_verify_elements(t_parser_node **cur, ssize_t *line, ssize_t *pos)
 {
-	if (ft_strncmp((*cur)->str, "A", 1) == 0)
+	if (ft_strncmp((*cur)->str, "A", 1) == 0 || ft_strncmp((*cur)->str, "B",
+			1) == 0 || ft_strncmp((*cur)->str, "C", 1) == 0)
+	{
+	}
 }
 
 /*
@@ -39,14 +41,16 @@ bool	ft_verify_syntax(t_parser_node *head)
 	t_parser_node	*cur;
 	ssize_t			line;
 	ssize_t			pos;
+	t_list			*e_list;
 
 	cur = head;
 	line = 1;
 	pos = 0;
+	e_list = NULL;
 	while (cur)
 	{
 		if (ft_isalpha(cur->str[0]))
-			ft_verify_elements(&cur, &line, &pos);
+			ft_verify_elements(&cur, &line, &pos, &e_list);
 		if (cur && cur->str[0] != '\n')
 		{
 			ft_format_error(line, pos, "Expected identifier");
