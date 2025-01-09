@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:48:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:00:53 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 # include <unistd.h>
 
 # define BUFFER_SIZE 4096
+
+# define RED "\033[31m"
+# define ORANGE "\033[38;5;208m"
+# define GREEN "\033[32m"
+# define BLUE "\033[34m"
+# define RESET "\033[0m"
 
 // UTILS
 void	ft_fatal(void);

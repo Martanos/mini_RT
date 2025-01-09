@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:45:14 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 19:37:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 13:30:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	ft_skip_whitespace(t_parser_node **cur, t_parser_node **new_head)
 	while ((*cur) && ft_is_space((*cur)->str[0]))
 	{
 		if ((*cur)->str[0] == '\n')
-			ft_add_parser_node(new_head, ft_create_parser_node('\n', 0, NULL));
+			ft_add_parser_node(new_head,
+				ft_create_parser_node(PARSER_TYPE_NEW_LINE, '\n', 0, NULL));
 		(*cur) = (*cur)->next;
 	}
 }
@@ -53,7 +54,8 @@ static void	ft_reconstruct_str(t_parser_node **cur, t_parser_node **new_head)
 		str_content[i++] = pos_start->str[0];
 		pos_start = pos_start->next;
 	}
-	ft_add_parser_node(new_head, ft_create_parser_node(str_content, 0, NULL));
+	ft_add_parser_node(new_head, ft_create_parser_node(PARSER_TYPE_NONE,
+			str_content, 0, NULL));
 	free(str_content);
 }
 
