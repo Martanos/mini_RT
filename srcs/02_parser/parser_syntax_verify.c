@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:52:02 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 17:36:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 18:37:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ bool	ft_verify_syntax(t_parser_node *head)
 	while (cur)
 	{
 		if (!ft_verify_line(&cur, &line, &id_list))
+		{
+			ft_free_id_list(id_list);
 			return (false);
+		}
 		line++;
 		if (cur)
 			cur = cur->next;
 	}
+	ft_free_id_list(id_list);
 	return (true);
 }

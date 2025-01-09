@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 17:39:51 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 19:21:08 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,20 @@ typedef struct				s_id_list;
 typedef enum e_parser_type
 {
 	PARSER_TYPE_NONE = 0,
-	PARSER_TYPE_ID = 1,
-	PARSER_TYPE_DBL = 2,
-	PARSER_TYPE_RGB_VAL = 3,
-	PARSER_TYPE_NEWLINE = 4
+	PARSER_TYPE_DIAMETER = 1,
+	PARSER_TYPE_RGB_VAL = 2,
+	PARSER_TYPE_COORD = 3,
+	PARSER_TYPE_FOV = 4,
+	PARSER_TYPE_VECTOR = 5,
+	PARSER_TYPE_NEWLINE = 6,
+	PARSER_TYPE_HEIGHT = 7,
+	PARSER_TYPE_L_RATIO = 8,
+	PARSER_TYPE_A = 9,
+	PARSER_TYPE_C = 10,
+	PARSER_TYPE_L = 11,
+	PARSER_TYPE_SP = 12,
+	PARSER_TYPE_PL = 13,
+	PARSER_TYPE_CY = 14
 }							t_parser_type;
 
 typedef struct s_parser_node
@@ -31,6 +41,7 @@ typedef struct s_parser_node
 	t_parser_type			type;
 	char					*str;
 	double					*dbl;
+
 	uint32_t				*rgb_val;
 	struct s_parser_node	*next;
 }							t_parser_node;
