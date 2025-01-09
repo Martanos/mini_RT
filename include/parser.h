@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 15:44:23 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:39:51 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,30 @@ void						ft_reconstructor(t_parser_node **head);
 void						ft_add_id(t_id_list **id_list, char *str);
 bool						ft_dup_check(t_id_list *id_list, char *str);
 
+// verifying
+bool						ft_verify_syntax(t_parser_node *head);
+bool						ft_verify_line(t_parser_node **cur, ssize_t *line,
+								t_id_list **id_list);
+
 // Individual element checks
 bool						ft_a_check(t_parser_node **cur, t_id_list *id_list,
 								ssize_t *line);
-
+bool						ft_c_check(t_parser_node **cur, t_id_list *id_list,
+								ssize_t *line);
+bool						ft_l_check(t_parser_node **cur, t_id_list *id_list,
+								ssize_t *line);
+bool						ft_sp_check(t_parser_node **cur, t_id_list *id_list,
+								ssize_t *line);
+bool						ft_pl_check(t_parser_node **cur, t_id_list *id_list,
+								ssize_t *line);
+bool						ft_cy_check(t_parser_node **cur, t_id_list *id_list,
+								ssize_t *line);
 // Errors
 bool						ft_format_error(ssize_t line, char *msg, char *str);
+
+// Utils
+bool						ft_is_double(char **str);
+bool						ft_check_xyz(char *str);
+bool						ft_check_rgb(char *str);
 
 #endif

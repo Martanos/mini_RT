@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 19:41:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:47:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_parser_node	*ft_create_list(int fd)
 		i = 0;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		while (bytes_read > 0 && i < bytes_read)
-			ft_add_parser_node(&head, ft_create_parser_node(buffer[i++], NULL,
-					NULL));
+			ft_add_parser_node(&head, ft_create_parser_node(PARSER_TYPE_NONE,
+					buffer[i++], 0, NULL));
 		if (bytes_read > 0)
 			ft_bzero(buffer, BUFFER_SIZE);
 	}

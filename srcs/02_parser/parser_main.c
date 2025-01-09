@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 19:45:40 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:41:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ bool	ft_parser(t_master **master, char *file_path)
 	if (head == NULL)
 		return (false);
 	ft_reconstructor(&head);
+	if (!ft_verify_syntax(head))
+		return (false);
 	if (!ft_type_convert(&head))
 		return (false);
 	// VERIFY SYNTAX
