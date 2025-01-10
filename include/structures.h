@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:34:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:44:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "mini_rt.h"
 
-typedef struct		s_master;
-typedef struct		s_amb;
-typedef struct		s_cam;
-typedef struct		s_light;
-typedef struct		s_sphere;
-typedef struct		s_plane;
-typedef struct		s_cylinder;
+typedef struct	s_master;
+typedef struct	s_amb;
+typedef struct	s_cam;
+typedef struct	s_light;
+typedef struct	s_sphere;
+typedef struct	s_plane;
+typedef struct	s_cylinder;
 
 /*
 ** @brief Master structure contains pointers to all other structures mainly
@@ -35,13 +35,13 @@ typedef struct		s_cylinder;
 */
 typedef struct s_master
 {
-	t_amb			*amb;
-	t_cam			*cam;
-	t_light_obj		*light;
-	t_sphere_obj	*sphere;
-	t_plane_obj		*plane;
-	t_cylinder_obj	*cylinder;
-}					t_master;
+	t_amb		*amb_head;
+	t_cam		*cam_head;
+	t_light		*light_head;
+	t_sphere	*sphere_head;
+	t_plane		*plane_head;
+	t_cylinder	*cylinder_head;
+}				t_master;
 
 /*
 ** @brief Ambient light structure
@@ -50,9 +50,9 @@ typedef struct s_master
 */
 typedef struct s_amb
 {
-	double			ratio;
-	uint32_t		rgb;
-}					t_amb;
+	double		ratio;
+	uint32_t	rgb;
+}				t_amb;
 
 /*
 ** @brief Camera structure
@@ -63,49 +63,45 @@ typedef struct s_amb
 */
 typedef struct s_cam
 {
-	t_vect			norm;
-	t_vect			cord;
-	t_vect			scal;
-	double			fov;
-}					t_cam;
+	t_vect		norm;
+	t_vect		cord;
+	t_vect		scal;
+	double		fov;
+}				t_cam;
 
 typedef struct s_light
 {
-	t_vect			norm;
-	t_vect			cord;
-	double			ratio;
-	uint32_t		rgb;
-	t_light			*next;
-}					t_light;
+	t_vect		norm;
+	t_vect		cord;
+	double		ratio;
+	uint32_t	rgb;
+	t_light		*next;
+}				t_light;
 
 typedef struct s_plane
 {
-	t_vect			norm;
-	t_vect			cord;
-	uint32_t		rgb;
-	t_plane			*next;
-}					t_plane;
+	t_vect		norm;
+	t_vect		cord;
+	uint32_t	rgb;
+	t_plane		*next;
+}				t_plane;
 
-typedef struct s_sphere_obj
+typedef struct s_sphere
 {
-	double			sphere_x;
-	double			sphere_y;
-	double			sphere_z;
-	double			sphere_diameter;
-	uint32_t		sphere_rgb;
-}					t_sphere_obj;
+	t_vect		cord;
+	double		diameter;
+	uint32_t	rgb;
+	t_sphere	*next;
+}				t_sphere;
 
-typedef struct s_cylinder_obj
+typedef struct s_cylinder
 {
-	double			cylinder_x;
-	double			cylinder_y;
-	double			cylinder_z;
-	double			cylinder_diameter;
-	double			cylinder_height;
-	double			cylinder_normal_x;
-	double			cylinder_normal_y;
-	double			cylinder_normal_z;
-	uint32_t		cylinder_rgb;
-}					t_cylinder_obj;
+	t_vect		cord;
+	t_vect		norm;
+	double		diameter;
+	double		height;
+	uint32_t	rgb;
+	t_cylinder	*next;
+}				t_cylinder;
 
 #endif

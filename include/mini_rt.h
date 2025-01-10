@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:25:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:48:40 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 # define RESET "\033[0m"
 
 // UTILS
-void	ft_fatal(void);
-void	ft_exit(t_instruction_set *instruction_set, char *error_message);
-
+void	ft_fatal(char *msg);
+void	ft_exit(t_master *master, char *error_message);
 #endif
