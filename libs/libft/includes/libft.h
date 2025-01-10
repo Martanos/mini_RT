@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:46:48 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 16:58:52 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:02:50 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
-
+int					ft_isspace(int c);
 // Type Converters
 ssize_t				ft_atoi(const char *str);
 char				*ft_itoa(int n);

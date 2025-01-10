@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:26:48 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 16:38:48 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:36:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ t_vect	ft_vect_sub(t_vect a, t_vect b)
 ** @param b The scalar
 ** @return The product of the vector and the scalar
 */
-t_vect	ft_vect_mul(t_vect a, double b)
+t_vect	ft_vect_mul(t_vect a, t_vect b)
 {
-	return ((t_vect){a.x * b, a.y * b, a.z * b});
+	return ((t_vect){a.x * b.x, a.y * b.y, a.z * b.z});
 }
 
 /*
@@ -63,7 +63,7 @@ t_vect	ft_vect_mul(t_vect a, double b)
 ** @param b The scalar
 ** @return The quotient of the vector and the scalar
 */
-t_vect	ft_vect_div(t_vect a, double b)
+t_vect	ft_vect_div(t_vect a, t_vect b)
 {
-	return ((t_vect){a.x / b, a.y / b, a.z / b});
+	return ((t_vect){a.x / b.x, a.y / b.y, a.z / b.z});
 }

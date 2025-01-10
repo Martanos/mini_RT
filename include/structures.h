@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:51:59 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:34:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,79 +15,97 @@
 
 # include "mini_rt.h"
 
-typedef struct			s_master;
-typedef struct			s_instruction_set;
-typedef struct			s_light_obj;
-typedef struct			s_sphere_obj;
-typedef struct			s_plane_obj;
-typedef struct			s_cylinder_obj;
+typedef struct		s_master;
+typedef struct		s_amb;
+typedef struct		s_cam;
+typedef struct		s_light;
+typedef struct		s_sphere;
+typedef struct		s_plane;
+typedef struct		s_cylinder;
 
-// @brief Master structure contains pointers to all other structures mainly
-// used for memory management
-// @param instruction_set pointer to the instruction set
+/*
+** @brief Master structure contains pointers to all other structures mainly
+** used for memory management
+** @param amb pointer to the ambient light structure
+** @param cam pointer to the camera structure
+** @param l pointer to the light object structure
+** @param sp_obj pointer to the sphere object structure
+** @param pl_obj pointer to the plane object structure
+** @param cy_obj pointer to the cylinder object structure
+*/
 typedef struct s_master
 {
-	t_instruction_set	*instruction_set;
-}						t_master;
+	t_amb			*amb;
+	t_cam			*cam;
+	t_light_obj		*light;
+	t_sphere_obj	*sphere;
+	t_plane_obj		*plane;
+	t_cylinder_obj	*cylinder;
+}					t_master;
 
-// TODO: Include mlx objects
-typedef struct s_instruction_set
+/*
+** @brief Ambient light structure
+** @param ratio ambient light ratio
+** @param rgb ambient light rgb
+*/
+typedef struct s_amb
 {
-	double				amb_light_ratio;
-	uint32_t			amb_light_rgb;
-	double				camera_view_x;
-	double				camera_view_y;
-	double				camera_view_z;
-	double				camera_view_normal_x;
-	double				camera_view_normal_y;
-	double				camera_view_normal_z;
-	double				camera_view_fov;
-	t_light_obj			**light_obj_list;
-	t_sphere_obj		**sphere_obj_list;
-	t_plane_obj			**plane_obj_list;
-	t_cylinder_obj		**cylinder_obj_list;
-}						t_instruction_set;
+	double			ratio;
+	uint32_t		rgb;
+}					t_amb;
 
-typedef struct s_light_obj
+/*
+** @brief Camera structure
+** @param norm camera normal vector
+** @param cord camera coordinate vector
+** @param scal camera scale vector
+** @param fov camera field of view
+*/
+typedef struct s_cam
 {
-	double				light_x;
-	double				light_y;
-	double				light_z;
-	double				light_intensity;
-	uint32_t			light_rgb;
-}						t_light_obj;
+	t_vect			norm;
+	t_vect			cord;
+	t_vect			scal;
+	double			fov;
+}					t_cam;
 
-typedef struct s_plane_obj
+typedef struct s_light
 {
-	double				plane_x;
-	double				plane_y;
-	double				plane_z;
-	double				plane_normal_x;
-	double				plane_normal_y;
-	double				plane_normal_z;
-	uint32_t			plane_rgb;
-}						t_plane_obj;
+	t_vect			norm;
+	t_vect			cord;
+	double			ratio;
+	uint32_t		rgb;
+	t_light			*next;
+}					t_light;
+
+typedef struct s_plane
+{
+	t_vect			norm;
+	t_vect			cord;
+	uint32_t		rgb;
+	t_plane			*next;
+}					t_plane;
 
 typedef struct s_sphere_obj
 {
-	double				sphere_x;
-	double				sphere_y;
-	double				sphere_z;
-	double				sphere_diameter;
-	uint32_t			sphere_rgb;
-}						t_sphere_obj;
+	double			sphere_x;
+	double			sphere_y;
+	double			sphere_z;
+	double			sphere_diameter;
+	uint32_t		sphere_rgb;
+}					t_sphere_obj;
 
 typedef struct s_cylinder_obj
 {
-	double				cylinder_x;
-	double				cylinder_y;
-	double				cylinder_z;
-	double				cylinder_diameter;
-	double				cylinder_height;
-	double				cylinder_normal_x;
-	double				cylinder_normal_y;
-	double				cylinder_normal_z;
-	uint32_t			cylinder_rgb;
-}						t_cylinder_obj;
+	double			cylinder_x;
+	double			cylinder_y;
+	double			cylinder_z;
+	double			cylinder_diameter;
+	double			cylinder_height;
+	double			cylinder_normal_x;
+	double			cylinder_normal_y;
+	double			cylinder_normal_z;
+	uint32_t		cylinder_rgb;
+}					t_cylinder_obj;
 
 #endif

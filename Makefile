@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/01/10 16:55:18 by malee            ###   ########.fr        #
+#    Updated: 2025/01/10 17:26:16 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,11 @@ LIBVECT_DIR	= libs/libvect
 INC_DIR		= include
 
 # Include paths
-INCS		= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBVECT_DIR)
+INCS		= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBVECT_DIR) -I$(LIBRGB_DIR)
 LIBFT		= $(LIBFT_DIR)/libft.a
 LIBVECT		= $(LIBVECT_DIR)/libvect.a
-LIBS		= -L$(LIBFT_DIR) -lft -L$(LIBVECT_DIR) -lvect
+LIBRGB		= $(LIBRGB_DIR)/librgb.a
+LIBS		= -L$(LIBFT_DIR) -lft -L$(LIBVECT_DIR) -lvect -L$(LIBRGB_DIR) -lrgb
 
 # Source files
 SRC_MAIN						= main.c

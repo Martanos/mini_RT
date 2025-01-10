@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 16:57:26 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:10:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ typedef enum e_parser_type
 	PARSER_TYPE_CY = 14
 }							t_parser_type;
 
-typedef struct s_parser_node
+typedef struct s_p_node
 {
-	t_parser_type			type;
-	char					*str;
-	uint32_t				*rgb_val;
+	ssize_t					line;
+	ssize_t					pos;
+	char					*val;
 	struct s_parser_node	*next;
-}							t_parser_node;
+}							t_p_node;
 
 typedef struct s_id_list
 {

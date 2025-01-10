@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   librgb.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:25:54 by malee            ###   ########.fr       */
+/*   Created: 2025/01/10 17:17:18 by malee             #+#    #+#             */
+/*   Updated: 2025/01/10 17:24:54 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
+#ifndef LIBRGB_H
+# define LIBRGB_H
 
-# include "../libs/libft/includes/libft.h"
-# include "../libs/librgb/includes/librgb.h"
-# include "../libs/libvect/includes/libvect.h"
-# include "parser.h"
-# include "structures.h"
-# include "utilities.h"
+# include "mini_rt.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -31,16 +26,9 @@
 # include <sys/param.h>
 # include <unistd.h>
 
-# define BUFFER_SIZE 4096
-
-# define RED "\033[31m"
-# define ORANGE "\033[38;5;208m"
-# define GREEN "\033[32m"
-# define BLUE "\033[34m"
-# define RESET "\033[0m"
-
-// UTILS
-void	ft_fatal(void);
-void	ft_exit(t_instruction_set *instruction_set, char *error_message);
+uint32_t	ft_get_b(uint32_t rgb);
+uint32_t	ft_get_g(uint32_t rgb);
+uint32_t	ft_get_r(uint32_t rgb);
+uint32_t	ft_create_rgb(uint8_t r, uint8_t g, uint8_t b);
 
 #endif

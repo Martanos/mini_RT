@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 13:28:36 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:10:44 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 ** @param rgb_val uint32_t to be tokenized
 ** @return pointer to the new parser node
 */
-t_parser_node	*ft_create_parser_node(t_parser_type type, char *str,
-		double *dbl, uint32_t *rgb_val)
+t_p_node	*ft_create_p_node(t_parser_type type, char *str, double *dbl,
+		uint32_t *rgb_val)
 {
 	t_parser_node	*node;
 

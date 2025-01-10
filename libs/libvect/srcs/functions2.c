@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:30:30 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 16:48:09 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:37:38 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_vect	ft_vect_cross(t_vect a, t_vect b)
 ** @param b The second vector
 ** @return The dot product of the two vectors
 */
-t_vect	ft_vect_dot(t_vect a, t_vect b)
+double	ft_vect_dot(t_vect a, t_vect b)
 {
-	return ((t_vect){a.x * b.x, a.y * b.y, a.z * b.z});
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 /*
@@ -56,4 +56,15 @@ t_vect	ft_vect_dot(t_vect a, t_vect b)
 double	ft_vect_len(t_vect a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
+}
+
+/*
+** @brief Angle between two vectors
+** @param a The first vector
+** @param b The second vector
+** @return The angle between the two vectors
+*/
+double	ft_vect_angle(t_vect a, t_vect b)
+{
+	return (acos(ft_vect_dot(a, b) / (ft_vect_len(a) * ft_vect_len(b))));
 }
