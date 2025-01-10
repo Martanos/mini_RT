@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/01/05 17:18:46 by malee            ###   ########.fr        #
+#    Updated: 2025/01/10 16:55:18 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,15 @@ CFLAGS		= -Wall -Wextra -Werror -g
 # Directories
 SRC_DIR		= srcs
 OBJ_DIR		= obj
-LIBFT_DIR	= libft
-INC_DIR		= includes
+LIBFT_DIR	= libs/libft
+LIBVECT_DIR	= libs/libvect
+INC_DIR		= include
 
 # Include paths
-INCS		= -I$(INC_DIR) -I$(LIBFT_DIR)
+INCS		= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBVECT_DIR)
 LIBFT		= $(LIBFT_DIR)/libft.a
-LIBS		= -L$(LIBFT_DIR) -lft
+LIBVECT		= $(LIBVECT_DIR)/libvect.a
+LIBS		= -L$(LIBFT_DIR) -lft -L$(LIBVECT_DIR) -lvect
 
 # Source files
 SRC_MAIN						= main.c
@@ -71,12 +73,14 @@ clean:
 	@echo "$(YELLOW)Cleaning object files...$(RESET)"
 	@rm -rf $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean
+	@make -C $(LIBVECT_DIR) clean
 	@echo "$(RED)Object files have been removed.$(RESET)"
 
 fclean:			clean
 	@echo "$(YELLOW)Cleaning executable...$(RESET)"
 	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean
+	@make -C $(LIBVECT_DIR) fclean
 	@echo "$(RED)$(NAME) and all object files have been removed.$(RESET)"
 
 re:				fclean all

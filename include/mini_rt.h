@@ -6,14 +6,15 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 17:00:53 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 16:50:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_RT_H
 # define MINI_RT_H
 
-# include "../libft/includes/libft.h"
+# include "../libs/libft/includes/libft.h"
+# include "../libs/libvect/includes/libvect.h"
 # include "parser.h"
 # include "structures.h"
 # include "utilities.h"

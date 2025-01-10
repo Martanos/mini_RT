@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 19:21:08 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 16:57:26 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ typedef struct s_parser_node
 {
 	t_parser_type			type;
 	char					*str;
-	double					*dbl;
-
 	uint32_t				*rgb_val;
 	struct s_parser_node	*next;
 }							t_parser_node;
