@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:44:13 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 21:45:01 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,12 @@ typedef struct s_cylinder
 	uint32_t	rgb;
 	t_cylinder	*next;
 }				t_cylinder;
+
+// Free functions
+void			ft_free_master(t_master *master);
+void			ft_free_light(t_light *light);
+void			ft_free_plane(t_plane *plane);
+void			ft_free_sphere(t_sphere *sphere);
+void			ft_free_cylinder(t_cylinder *cylinder);
 
 #endif

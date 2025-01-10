@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 21:02:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 22:00:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,17 @@ bool					ft_cy_check(t_parser_node **cur, t_id_list *id_list,
 t_p_node				*ft_read_file(char *file_path);
 static int				ft_verify_file_path(char *file_path);
 
+// Populate
+void					ft_populate(t_master *master, t_p_node *head);
+bool					ft_format_error(t_p_node *head, char *message,
+							bool *error);
+
 // Structure UTILS
 t_p_node				*ft_create_p_node(ssize_t line, ssize_t pos, char val);
 void					ft_add_p_node_next(t_p_node **head, t_p_node *new_node);
 void					ft_add_p_node_down(t_p_node **head, t_p_node *new_node);
 void					ft_free_p_node(t_p_node *node);
 void					ft_free_p_list(t_p_node *head);
-
-// Errors
-bool					ft_format_error(ssize_t line, char *msg, char *str);
 
 // Utils
 bool					ft_is_double(char **str);

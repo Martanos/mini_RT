@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 21:21:10 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/10 22:21:59 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ static t_p_node	*ft_ordered_list(t_p_node **head, ssize_t line)
 	pos = 0;
 	while (*head && (*head)->val != '\n')
 	{
-		ft_add_p_node_next(&new_head, ft_create_p_node(line, pos,
-				(*head)->val));
+		if ((*head)->val == "#")
+			while ((*head) && (*head)->val != '\n')
+				(*head) = (*head)->next;
+		else if (!(ft_isspace((*head)->val)))
+			ft_add_p_node_next(&new_head, ft_create_p_node(line, pos,
+					(*head)->val));
+		pos++;
 		(*head) = (*head)->next;
 	}
 	return (new_head);
@@ -36,10 +41,12 @@ static t_p_node	*ft_ordered_list(t_p_node **head, ssize_t line)
 static t_p_node	*ft_ordered_table(t_p_node *head)
 {
 	t_p_node	*new_head;
+	t_p_node	*temp;
 	ssize_t		line;
 
 	line = 1;
 	new_head = NULL;
+	temp = head;
 	while (head)
 	{
 		ft_add_p_node_down(&new_head, ft_ordered_list(&head, line));
@@ -49,7 +56,7 @@ static t_p_node	*ft_ordered_table(t_p_node *head)
 			line++;
 		}
 	}
-	ft_free_p_list(head);
+	ft_free_p_list(temp);
 	return (new_head);
 }
 
@@ -58,7 +65,7 @@ static t_p_node	*ft_ordered_table(t_p_node *head)
 ** @param fd file descriptor
 ** @return pointer to the head of the list
 */
-static t_p_node	*ft_read_file_to_list(int fd)
+static t_p_node	*ft_gnl(int fd)
 {
 	ssize_t		bytes_read;
 	ssize_t		pos;
@@ -116,6 +123,6 @@ t_p_node	*ft_read_file(char *file_path)
 {
 	t_p_node	*head;
 
-	head = ft_order_list(ft_read_file_to_list(ft_verify_file_path(file_path)));
+	head = ft_ordered_table(ft_gnl(ft_verify_file_path(file_path)));
 	return (head);
 }
