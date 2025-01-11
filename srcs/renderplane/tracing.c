@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/11 14:26:25 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/11 15:57:53 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	double final_r = r * ambient * (amb_r / 255.0);
 	double final_g = g * ambient * (amb_g / 255.0);
 	double final_b = b * ambient * (amb_b / 255.0);
-
+	
 	// Add contribution from each light source
 	int i = 0;
 	while (mlx_data->instruction_set->light_obj_list[i])
@@ -117,8 +117,8 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 
 		// Skip light contribution if point is in shadow (only if intersection is closer than light)
 		if ((shadow_sphere.closest_sphere && shadow_sphere.closest_t < light_distance) ||
-			(shadow_plane.closest_plane && shadow_plane.closest_t > 0.001 && shadow_plane.closest_t < light_distance) ||
-			(shadow_cylinder.closest_cylinder && shadow_cylinder.closest_t < light_distance))
+			(shadow_plane.closest_plane && shadow_plane.closest_t > 0.001 && shadow_plane.closest_t < light_distance)
+			|| (shadow_cylinder.closest_cylinder && shadow_cylinder.closest_t < light_distance))
 		{
 			i++;
 			continue;

@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/08 14:08:15 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/11 17:50:02 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ uint32_t	calculations(int x, int y, t_data *mlx_data)
 		vect_multiply(camera_dir, focal_length));
 	t_vect viewport_upper_left = vect_sub(viewport_center, 
 		vect_add(vect_divide(horizontal, 2.0), vect_divide(vertical, 2.0)));
+
+		
 	
 	// Calculate pixel position
 	double u = (double)x / (WINDOW_WIDTH - 1);
