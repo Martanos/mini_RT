@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:07:50 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/08 16:04:10 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/11 14:28:46 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ double	check_plane_collision(t_ray ray, t_plane_obj *plane)
 	t_vect	p0l0;
 	double	t;
 
-	denom = vect_dot(plane->plane_normal, ray.direction);
+	t_vect normal = vect_normalize(plane->plane_normal);  // Ensure normal is normalized
+	denom = vect_dot(normal, ray.direction);
 	if (fabs(denom) < 1e-6)  // Ray is parallel to plane
 		return (-1.0);
 
 	p0l0 = vect_sub(plane->plane_pos, ray.origin);
-	t = vect_dot(p0l0, plane->plane_normal) / denom;
+	t = vect_dot(p0l0, normal) / denom;
 
 	if (t < 0.0)  // Plane is behind ray
 		return (-1.0);
@@ -59,5 +60,5 @@ void	calculate_plane_hit(t_ray ray, t_plane_collision collision, t_hit_record *r
 {
 	rec->t = collision.closest_t;
 	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
-	rec->normal = collision.closest_plane->plane_normal;
+	rec->normal = vect_normalize(collision.closest_plane->plane_normal);  // Ensure normal is normalized
 }

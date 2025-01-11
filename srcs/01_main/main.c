@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 18:23:40 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/11 14:24:31 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	// Create plane
 	plane_list[0] = malloc(sizeof(t_plane_obj));
 	plane_list[0]->plane_pos = vect_create(0.0, -10.0, 0.0);
-	plane_list[0]->plane_normal = vect_normalize(vect_create(0.0, -1.0, 0.0));
+	plane_list[0]->plane_normal = vect_normalize(vect_create(0.0, 1.0, 0.0));
 	plane_list[0]->plane_rgb = SEMI_RED;
 	// plane_list[1] = malloc(sizeof(t_plane_obj));
 	// plane_list[1]->plane_pos = vect_create(0.0, 0.0, 200.0);
