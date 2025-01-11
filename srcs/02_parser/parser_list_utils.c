@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_struct_utils.c                              :+:      :+:    :+:   */
+/*   parser_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 21:09:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/11 17:32:45 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_p_node	*ft_create_p_node(ssize_t line, ssize_t pos, char val)
 		ft_fatal("Failed to create parser node");
 	node->line = line;
 	node->pos = pos;
-	node->val = val;
+	node->val = ft_strdup(val);
 	return (node);
 }
 
@@ -86,6 +86,7 @@ void	ft_free_p_list(t_p_node *head)
 		if (to_free)
 		{
 			ft_bzero(to_free, sizeof(t_p_node));
+			free(to_free->val);
 			free(to_free);
 			to_free = NULL;
 		}

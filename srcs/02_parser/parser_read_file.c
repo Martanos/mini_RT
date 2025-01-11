@@ -6,31 +6,27 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 22:21:59 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/11 19:03:16 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-static t_p_node	*ft_ordered_list(t_p_node **head, ssize_t line)
+/*
+** @brief Adds a new parser node to the end of the list
+** @param head pointer to the head of the list
+** @param new_node pointer to the new parser node
+*/
+static void	ft_add_p_node_next(t_p_node **head, t_p_node *new_node)
 {
-	t_p_node	*new_head;
-	ssize_t		pos;
+	t_p_node	*current;
 
-	new_head = NULL;
-	pos = 0;
-	while (*head && (*head)->val != '\n')
-	{
-		if ((*head)->val == "#")
-			while ((*head) && (*head)->val != '\n')
-				(*head) = (*head)->next;
-		else if (!(ft_isspace((*head)->val)))
-			ft_add_p_node_next(&new_head, ft_create_p_node(line, pos,
-					(*head)->val));
-		pos++;
-		(*head) = (*head)->next;
-	}
-	return (new_head);
+	if (!head)
+		*head = new_node;
+	current = *head;
+	while (current->next)
+		current = current->next;
+	current->next = new_node;
 }
 
 /*
@@ -38,23 +34,20 @@ static t_p_node	*ft_ordered_list(t_p_node **head, ssize_t line)
 ** @param head pointer to the head of the list
 ** @return pointer to the head of the new list
 */
-static t_p_node	*ft_ordered_table(t_p_node *head)
+static t_p_node	*ft_skip_comments(t_p_node *head)
 {
 	t_p_node	*new_head;
 	t_p_node	*temp;
-	ssize_t		line;
 
-	line = 1;
 	new_head = NULL;
 	temp = head;
 	while (head)
 	{
-		ft_add_p_node_down(&new_head, ft_ordered_list(&head, line));
-		if (head->val == '\n')
-		{
-			head = head->next;
-			line++;
-		}
+		if (head->val == "#")
+			while (head && head->val == "#")
+				head = head->next;
+		ft_add_p_node_next(&new_head, ft_create_p_node(0, 0, head->val));
+		head = head->next;
 	}
 	ft_free_p_list(temp);
 	return (new_head);
@@ -115,14 +108,14 @@ static int	ft_verify_file_path(char *file_path)
 }
 
 /*
-** @brief Facilitates the reading of the file and populating instruction set
+** @brief Facilitates the reading of the file
 ** @param file_path path to the file
-** @return pointer to the head of an ordered table
+** @return pointer to the head of a list with comments skipped
 */
 t_p_node	*ft_read_file(char *file_path)
 {
 	t_p_node	*head;
 
-	head = ft_ordered_table(ft_gnl(ft_verify_file_path(file_path)));
+	head = ft_skip_spaces(ft_gnl(ft_verify_file_path(file_path)));
 	return (head);
 }

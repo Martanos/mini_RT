@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 22:00:13 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/11 17:31:20 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_p_node
 {
 	ssize_t				line;
 	ssize_t				pos;
-	char				val;
+	char				*val;
 	struct s_p_node		*next;
 	struct s_p_node		*down;
 }						t_p_node;
