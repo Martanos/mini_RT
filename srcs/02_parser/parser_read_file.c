@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/11 19:03:16 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/13 20:32:10 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ static int	ft_verify_file_path(char *file_path)
 	int		fd;
 
 	len = ft_strlen(file_path);
-	if (len > 255)
-		ft_fatal("File path too long");
 	if (len < 4 || file_path[len - 1] != 't' || file_path[len - 2] != 'r'
 		|| file_path[len - 3] != '.')
 		ft_fatal("Invalid file extension expected: .rt");
