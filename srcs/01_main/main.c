@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/01/11 17:10:06 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:21:24 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	// Create cylinder
 	cylinder_list[0] = malloc(sizeof(t_cylinder_obj));
 	cylinder_list[0]->cylinder_pos = vect_create(-6.0, -2.0, 2.0);
-	cylinder_list[0]->cylinder_diameter = 1.5;
-	cylinder_list[0]->cylinder_height = 5.0;
-	cylinder_list[0]->cylinder_normal = vect_create(1.0, 1.0, 0.0);
-	cylinder_list[0]->cylinder_rgb = BLUE;
+	cylinder_list[0]->cylinder_diameter = 3.0;
+	cylinder_list[0]->cylinder_height = 3.0;
+	cylinder_list[0]->cylinder_normal = vect_create(0.0, 1.0, 1.0);
+	cylinder_list[0]->cylinder_rgb = ORANGE;
 	// cylinder_list[1] = malloc(sizeof(t_cylinder_obj));
 	// cylinder_list[1]->cylinder_pos = vect_create(1.0, -2.0, -10.0);
 	// cylinder_list[1]->cylinder_diameter = 1.5;

@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 16:46:23 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/13 13:33:22 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ typedef struct s_sphere_obj
 	double			sphere_diameter;
 	uint32_t		sphere_rgb;
 }					t_sphere_obj;
+
+typedef struct s_capped_plane
+{
+    t_vect      position;
+    t_vect      normal;
+    double      radius;
+} t_capped_plane;
 
 typedef struct s_cylinder_obj
 {
