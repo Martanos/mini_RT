@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:06:36 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/13 13:41:55 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/13 17:23:42 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct s_cylinder_collision
 	t_cylinder_obj	*closest_cylinder;
 }	t_cylinder_collision;
 
+typedef struct s_cone_collision
+{
+	double			closest_t;
+	t_cone_object	*closest_cone;
+}	t_cone_collision;
+
 // check_sphere.c
 t_sphere_collision	find_closest_sphere(t_ray ray, t_data *mlx_data);
 double				check_sphere_collision(t_ray ray, t_sphere_obj *sphere);
@@ -68,6 +74,11 @@ void	calculate_plane_hit(t_ray ray, t_plane_collision collision, t_hit_record *r
 t_cylinder_collision	find_closest_cylinder(t_ray ray, t_data *mlx_data);
 double				check_cylinder_collision(t_ray ray, t_cylinder_obj *cylinder);
 void	calculate_cylinder_hit(t_ray ray, t_cylinder_collision collision, t_hit_record *rec);
+
+// check_cone.c
+t_cone_collision	find_closest_cone(t_ray ray, t_data *mlx_data);
+double			check_cone_collision(t_ray ray, t_cone_object *cone);
+void			calculate_cone_hit(t_ray ray, t_cone_collision collision, t_hit_record *rec);
 
 //tracing.c
 uint32_t			background_color(t_vect unit_direction);

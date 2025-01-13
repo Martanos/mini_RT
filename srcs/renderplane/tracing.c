@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/11 15:57:53 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/01/13 17:24:13 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	t_sphere_collision sphere_collision;
 	t_plane_collision plane_collision;
 	t_cylinder_collision cylinder_collision;
+	t_cone_collision cone_collision;
 	t_hit_record hit_record;
 	uint8_t r, g, b;
 	uint32_t obj_color;
@@ -49,25 +50,34 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	sphere_collision = find_closest_sphere(ray, mlx_data);
 	plane_collision = find_closest_plane(ray, mlx_data);
 	cylinder_collision = find_closest_cylinder(ray, mlx_data);
+	cone_collision = find_closest_cone(ray, mlx_data);
 
 	// Choose closest intersection between sphere, plane, and cylinder
 	if (sphere_collision.closest_sphere && 
 		(!plane_collision.closest_plane || sphere_collision.closest_t < plane_collision.closest_t) &&
-		(!cylinder_collision.closest_cylinder || sphere_collision.closest_t < cylinder_collision.closest_t))
+		(!cylinder_collision.closest_cylinder || sphere_collision.closest_t < cylinder_collision.closest_t) &&
+		(!cone_collision.closest_cone || sphere_collision.closest_t < cone_collision.closest_t))
 	{
 		calculate_sphere_hit(ray, sphere_collision, &hit_record);
 		obj_color = sphere_collision.closest_sphere->sphere_rgb;
 	}
 	else if (plane_collision.closest_plane &&
-		(!cylinder_collision.closest_cylinder || plane_collision.closest_t < cylinder_collision.closest_t))
+		(!cylinder_collision.closest_cylinder || plane_collision.closest_t < cylinder_collision.closest_t) &&
+		(!cone_collision.closest_cone || plane_collision.closest_t < cone_collision.closest_t))
 	{
 		calculate_plane_hit(ray, plane_collision, &hit_record);
 		obj_color = plane_collision.closest_plane->plane_rgb;
 	}
-	else if (cylinder_collision.closest_cylinder)
+	else if (cylinder_collision.closest_cylinder &&
+		(!cone_collision.closest_cone || cylinder_collision.closest_t < cone_collision.closest_t))
 	{
 		calculate_cylinder_hit(ray, cylinder_collision, &hit_record);
 		obj_color = cylinder_collision.closest_cylinder->cylinder_rgb;
+	}
+	else if (cone_collision.closest_cone)
+	{
+		calculate_cone_hit(ray, cone_collision, &hit_record);
+		obj_color = cone_collision.closest_cone->cone_rgb;
 	}
 	else
 	{
@@ -114,11 +124,13 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 		t_sphere_collision shadow_sphere = find_closest_sphere(shadow_ray, mlx_data);
 		t_plane_collision shadow_plane = find_closest_plane(shadow_ray, mlx_data);
 		t_cylinder_collision shadow_cylinder = find_closest_cylinder(shadow_ray, mlx_data);
+		t_cone_collision shadow_cone = find_closest_cone(shadow_ray, mlx_data);
 
 		// Skip light contribution if point is in shadow (only if intersection is closer than light)
 		if ((shadow_sphere.closest_sphere && shadow_sphere.closest_t < light_distance) ||
-			(shadow_plane.closest_plane && shadow_plane.closest_t > 0.001 && shadow_plane.closest_t < light_distance)
-			|| (shadow_cylinder.closest_cylinder && shadow_cylinder.closest_t < light_distance))
+			(shadow_plane.closest_plane && shadow_plane.closest_t > 0.001 && shadow_plane.closest_t < light_distance) ||
+			(shadow_cylinder.closest_cylinder && shadow_cylinder.closest_t < light_distance) ||
+			(shadow_cone.closest_cone && shadow_cone.closest_t < light_distance))
 		{
 			i++;
 			continue;
