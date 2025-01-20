@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/20 17:50:24 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/21 01:33:04 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdint.h>
 // # include "mini_rt.h"
-typedef struct s_vect				t_vect;
 typedef struct s_instruction_set	t_instruction_set;
 typedef struct s_light_obj			t_light_obj;
 typedef struct s_sphere_obj			t_sphere_obj;

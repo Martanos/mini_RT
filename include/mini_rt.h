@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/20 17:45:50 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/20 19:01:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,12 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/librgb/includes/librgb.h"
 # include "../libs/libvect/includes/libvect.h"
+# include "../minilibx-linux/mlx.h"
+# include "../srcs/renderplane/plane.h"
 # include "parser.h"
 # include "structures.h"
 # include "utilities.h"
 # include <errno.h>
-# ifndef M_PI
-#  define M_PI 3.14159265358979323846
-# endif
-# include "../minilibx-linux/mlx.h"
-# include "../srcs/renderplane/plane.h"
-# include "structures.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
@@ -36,6 +32,9 @@
 # include <sys/param.h>
 # include <unistd.h>
 
+// DEFINES
+
+# define M_PI 3.14159265358979323846
 # define WHITE 0xFFFFFFFF       // Full white
 # define BLACK 0xFF000000       // Full black
 # define RED 0xFFFF0000         // Bright red
