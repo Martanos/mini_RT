@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   funcitons3.c                                       :+:      :+:    :+:   */
+/*   vec_scalar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 17:38:02 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:39:43 by malee            ###   ########.fr       */
+/*   Created: 2025/01/21 15:13:25 by malee             #+#    #+#             */
+/*   Updated: 2025/01/21 15:14:05 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@
 */
 t_vect	ft_vect_add_all(t_vect a, double scalar)
 {
-	return ((t_vect){a.x + scalar, a.y + scalar, a.z + scalar});
+	t_vect	v;
+
+	v.x = a.x + scalar;
+	v.y = a.y + scalar;
+	v.z = a.z + scalar;
+	return (v);
 }
 
 /*
@@ -31,7 +36,12 @@ t_vect	ft_vect_add_all(t_vect a, double scalar)
 */
 t_vect	ft_vect_sub_all(t_vect a, double scalar)
 {
-	return ((t_vect){a.x - scalar, a.y - scalar, a.z - scalar});
+	t_vect	v;
+
+	v.x = a.x - scalar;
+	v.y = a.y - scalar;
+	v.z = a.z - scalar;
+	return (v);
 }
 
 /*
@@ -42,7 +52,12 @@ t_vect	ft_vect_sub_all(t_vect a, double scalar)
 */
 t_vect	ft_vect_mul_all(t_vect a, double scalar)
 {
-	return ((t_vect){a.x * scalar, a.y * scalar, a.z * scalar});
+	t_vect	v;
+
+	v.x = a.x * scalar;
+	v.y = a.y * scalar;
+	v.z = a.z * scalar;
+	return (v);
 }
 
 /*
@@ -53,5 +68,10 @@ t_vect	ft_vect_mul_all(t_vect a, double scalar)
 */
 t_vect	ft_vect_div_all(t_vect a, double scalar)
 {
-	return ((t_vect){a.x / scalar, a.y / scalar, a.z / scalar});
+	t_vect	v;
+
+	v.x = a.x / scalar;
+	v.y = a.y / scalar;
+	v.z = a.z / scalar;
+	return (v);
 }

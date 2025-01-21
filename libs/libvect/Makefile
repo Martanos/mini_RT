@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 16:41:35 by malee             #+#    #+#              #
-#    Updated: 2025/01/10 17:39:38 by malee            ###   ########.fr        #
+#    Updated: 2025/01/21 15:18:43 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ AR = ar rcs
 RM = rm -rf
 INCLUDE_DIR = includes
 SRC_DIR = ./srcs
-SRC_FILES = functions1.c functions2.c functions3.c
+SRC_FILES = vec_basic.c vec_scalar.c vec_other.c vec_struct.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ_DIR = ./obj
 OBJ_FILES = $(SRC_FILES:.c=.o)

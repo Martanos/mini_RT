@@ -3,6 +3,7 @@
 		"mini_rt.h": "c",
 		"parser.h": "c",
 		"stdio.h": "c",
-		"plane.h": "c"
+		"plane.h": "c",
+		"libft.h": "c"
 	}
 }

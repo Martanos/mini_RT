@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions2.c                                       :+:      :+:    :+:   */
+/*   vec_other.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:30:30 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:37:38 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/21 15:18:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 t_vect	ft_vect_norm(t_vect a)
 {
 	double	mag;
+	t_vect	v;
 
-	mag = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-	return ((t_vect){a.x / mag, a.y / mag, a.z / mag});
+	mag = ft_vect_mag(a);
+	return (ft_vect_div_all(a, mag));
 }
 
 /*
@@ -33,8 +34,12 @@ t_vect	ft_vect_norm(t_vect a)
 */
 t_vect	ft_vect_cross(t_vect a, t_vect b)
 {
-	return ((t_vect){a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y
-		- a.y * b.x});
+	t_vect	v;
+
+	v.x = a.y * b.z - a.z * b.y;
+	v.y = a.z * b.x - a.x * b.z;
+	v.z = a.x * b.y - a.y * b.x;
+	return (v);
 }
 
 /*
@@ -45,17 +50,23 @@ t_vect	ft_vect_cross(t_vect a, t_vect b)
 */
 double	ft_vect_dot(t_vect a, t_vect b)
 {
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
+	double	dot;
+
+	dot = a.x * b.x + a.y * b.y + a.z * b.z;
+	return (dot);
 }
 
 /*
-** @brief Length of a vector
+** @brief Magnitude of a vector
 ** @param a The vector
-** @return The length of the vector
+** @return The magnitude of the vector
 */
-double	ft_vect_len(t_vect a)
+double	ft_vect_mag(t_vect a)
 {
-	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
+	double	mag;
+
+	mag = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+	return (mag);
 }
 
 /*
@@ -66,5 +77,14 @@ double	ft_vect_len(t_vect a)
 */
 double	ft_vect_angle(t_vect a, t_vect b)
 {
-	return (acos(ft_vect_dot(a, b) / (ft_vect_len(a) * ft_vect_len(b))));
+	double	dot;
+	double	mag_a;
+	double	mag_b;
+	double	angle;
+
+	dot = ft_vect_dot(a, b);
+	mag_a = ft_vect_mag(a);
+	mag_b = ft_vect_mag(b);
+	angle = acos(dot / (mag_a * mag_b));
+	return (angle);
 }

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:25:47 by malee             #+#    #+#             */
-/*   Updated: 2025/01/21 01:28:44 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/21 15:18:32 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ t_vect					ft_vect_sub_all(t_vect a, double scalar);
 t_vect					ft_vect_mul_all(t_vect a, double scalar);
 t_vect					ft_vect_div_all(t_vect a, double scalar);
 
-// OTHER FUNCTIONS
+// VECTOR FUNCTIONS
 t_vect					ft_vect_norm(t_vect a);
 t_vect					ft_vect_cross(t_vect a, t_vect b);
-t_vect					ft_vect_dot(t_vect a, t_vect b);
+double					ft_vect_dot(t_vect a, t_vect b);
+double					ft_vect_mag(t_vect a);
+
+// STRUCT FUNCTIONS
 t_vect					ft_vect_create(double x, double y, double z);
-double					ft_vect_len(t_vect a);
 
 #endif
