@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/01/20 17:50:48 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/24 07:01:22 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	(*instruction_set)->amb_light_ratio = 0.5;
 	(*instruction_set)->amb_light_rgb = WHITE;
 	(*instruction_set)->camera_pos = vect_create(0.0, 0.0, -20.0);
-		// Move camera back
+	// Move camera back
 	(*instruction_set)->camera_dir = vect_normalize(vect_create(0.0, 0.0, 1.0));
 	(*instruction_set)->camera_view_fov = 50.0; // Wider FOV
 	// Allocate lists (null-terminated arrays)
@@ -63,12 +63,12 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 	// sphere_list[0] = NULL;
 	sphere_list[0] = malloc(sizeof(t_sphere_obj));
 	sphere_list[0]->sphere_pos = vect_create(-3, 0.0, 3.0);
-		// 3 units in front of camera
-	sphere_list[0]->sphere_diameter = 3.0;                  // Larger sphere
+	// 3 units in front of camera
+	sphere_list[0]->sphere_diameter = 3.0; // Larger sphere
 	sphere_list[0]->sphere_rgb = WHITE;
 	// sphere_list[1] = malloc(sizeof(t_sphere_obj));
-	// sphere_list[1]->sphere_pos = vect_create(3.0, 2.0, 3.0); 
-		// 2 units to the right of first sphere
+	// sphere_list[1]->sphere_pos = vect_create(3.0, 2.0, 3.0);
+	// 2 units to the right of first sphere
 	// sphere_list[1]->sphere_diameter = 2.5;  // Smaller sphere
 	// sphere_list[1]->sphere_rgb = YELLOW;
 	sphere_list[1] = NULL;
@@ -101,12 +101,11 @@ void	ft_temp_object_creation(t_instruction_set **instruction_set)
 
 int	main(int argc, char **argv)
 {
-	t_instruction_set	*instruction_set;
+	t_master	*master;
 
-	(void)argv;
-	instruction_set = (t_instruction_set *)malloc(sizeof(t_instruction_set));
 	if (argc == 2)
 	{
+		master = ft_parser(argv[1]);
 		ft_temp_object_creation(&instruction_set);
 		ft_render_scene(instruction_set);
 	}

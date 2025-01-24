@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/21 15:19:19 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/24 05:21:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/librgb/includes/librgb.h"
 # include "../libs/libvect/includes/libvect.h"
-# include "../minilibx-linux/mlx.h"
-# include "../srcs/renderplane/plane.h"
+// # include "../minilibx-linux/mlx.h"
 # include "parser.h"
+# include "plane.h"
 # include "structures.h"
 # include "utilities.h"
 # include <errno.h>
@@ -87,25 +87,6 @@ int		key_hook(int keycode, void *param);
 // UTILS
 void	ft_fatal(char *msg);
 void	ft_exit(t_master *master, char *error_message);
-# include "../minilibx-linux/mlx.h"
-# include "../srcs/renderplane/plane.h"
-# include "structures.h"
-
-# define WHITE 0xFFFFFFFF // Full white
-# define BLACK 0xFF000000 // Full black
-# define RED 0xFFFF0000 // Bright red
-# define GREEN 0xFF00FF00 // Bright green
-# define BLUE 0xFF0000FF // Bright blue
-# define CYAN 0xFF00FFFF // Bright cyan
-# define MAGENTA 0xFFFF00FF // Bright magenta
-# define YELLOW 0xFFFFFF00 // Bright yellow
-# define ORANGE 0xFFFFA500 // Orange
-# define PURPLE 0xFF800080 // Purple
-# define GRAY 0xFF808080 // Gray
-# define SEMI_RED 0x80FF0000 // Semi-transparent red (alpha 50%)
-# define SEMI_GREEN 0x8000FF00 // Semi-transparent green (alpha 50%)
-# define SEMI_BLUE 0x800000FF // Semi-transparent blue (alpha 50%)
-# define TRANSPARENT 0x00000000 // Fully transparent
 
 // RENDERPLANE
 

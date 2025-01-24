@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/11 17:32:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/24 08:12:03 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_p_node	*ft_create_p_node(ssize_t line, ssize_t pos, char val)
 		ft_fatal("Failed to create parser node");
 	node->line = line;
 	node->pos = pos;
-	node->val = ft_strdup(val);
+	node->val = val;
 	return (node);
 }
 
@@ -42,28 +42,14 @@ void	ft_add_p_node_next(t_p_node **head, t_p_node *new_node)
 	t_p_node	*current;
 
 	if (!head)
+	{
 		*head = new_node;
+		return ;
+	}
 	current = *head;
 	while (current->next)
 		current = current->next;
 	current->next = new_node;
-}
-
-/*
-** @brief Adds a new parser node to the end of the list
-** @param head pointer to the head of the list
-** @param new_node pointer to the new parser node
-*/
-void	ft_add_p_node_down(t_p_node **head, t_p_node *new_node)
-{
-	t_p_node	*current;
-
-	if (!head)
-		*head = new_node;
-	current = *head;
-	while (current->down)
-		current = current->down;
-	current->down = new_node;
 }
 
 /*
@@ -91,6 +77,5 @@ void	ft_free_p_list(t_p_node *head)
 			to_free = NULL;
 		}
 	}
-	free(head);
 	head = NULL;
 }

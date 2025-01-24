@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/21 01:25:15 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/24 05:36:53 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * @return double Returns the parameter t if intersection is within bounds,
 	-1.0 otherwise
  */
-static double	check_height(t_ray ray, double t, t_cone_object *cone)
+static double	check_height(t_ray ray, double t, t_cone *cone)
 {
 	t_vect	intersection;
 	t_vect	v;
@@ -31,10 +31,10 @@ static double	check_height(t_ray ray, double t, t_cone_object *cone)
 	t_vect	normalized_normal;
 
 	intersection = vect_add(ray.origin, vect_multiply(ray.direction, t));
-	v = vect_sub(intersection, cone->cone_pos);
-	normalized_normal = vect_normalize(cone->cone_normal);
+	v = vect_sub(intersection, cone->cord);
+	normalized_normal = vect_normalize(cone->norm);
 	height = vect_dot(v, normalized_normal);
-	if (height >= 0 && height <= cone->cone_height)
+	if (height >= 0 && height <= cone->height)
 		return (t);
 	return (-1.0);
 }
@@ -47,7 +47,7 @@ static double	check_height(t_ray ray, double t, t_cone_object *cone)
  * @return double Returns the closest valid intersection parameter t, or
 	-1.0 if no intersection
  */
-static double	check_cone_surface(t_ray ray, t_cone_object *cone)
+static double	check_cone_surface(t_ray ray, t_cone *cone)
 {
 	t_vect	oc;
 	double	radius;
@@ -60,10 +60,10 @@ static double	check_cone_surface(t_ray ray, t_cone_object *cone)
 	double	t2;
 
 	double a, b, c;
-	oc = vect_sub(ray.origin, cone->cone_pos);
-	normalized_normal = vect_normalize(cone->cone_normal);
-	radius = cone->cone_diameter / 2.0;
-	cos_angle = cos(atan(radius / cone->cone_height));
+	oc = vect_sub(ray.origin, cone->cord);
+	normalized_normal = vect_normalize(cone->norm);
+	radius = cone->diameter / 2.0;
+	cos_angle = cos(atan(radius / cone->height));
 	dot_dir_axis = vect_dot(ray.direction, normalized_normal);
 	dot_oc_axis = vect_dot(oc, normalized_normal);
 	a = vect_dot(ray.direction, ray.direction) - (1.0 + cos_angle * cos_angle)
@@ -100,16 +100,18 @@ static double	check_cone_surface(t_ray ray, t_cone_object *cone)
  * @return double Returns the intersection parameter t, or
 	-1.0 if no intersection
  */
-static double	check_cone_base(t_ray ray, t_cone_object *cone)
+static double	check_cone_base(t_ray ray, t_cone *cone)
 {
-	t_vect			normalized_normal;
-	t_vect			base_normal;
-	t_capped_plane	base = {.position = cone->cone_pos, .normal;
+	t_vect	normalized_normal;
+	t_vect	base_normal;
+	t_plane	base;
 
-	base = {.position = cone->cone_pos, .normal = base_normal, .radius;
-	normalized_normal = vect_normalize(cone->cone_normal);
+	base = {.position;
+	base = {.position = cone->cord, .normal;
+	base = {.position = cone->cord, .normal = base_normal, .radius;
+	normalized_normal = vect_normalize(cone->norm);
 	base_normal = vect_multiply(normalized_normal, -1);
-	base = {.position = cone->cone_pos, .normal = base_normal,
+	base = {.position = cone->cord, .normal = base_normal,
 		.radius = cone->cone_diameter / 2.0};
 	return (check_capped_plane_collision(ray, base));
 }
@@ -161,8 +163,8 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 	rec->t = collision.closest_t;
 	rec->point = vect_add(ray.origin, vect_multiply(ray.direction,
 				collision.closest_t));
-	cp = vect_sub(rec->point, collision.closest_cone->cone_pos);
-	normalized_normal = vect_normalize(collision.closest_cone->cone_normal);
+	cp = vect_sub(rec->point, collision.closest_cone->cord);
+	normalized_normal = vect_normalize(collision.closest_cone->norm);
 	proj = vect_dot(cp, normalized_normal);
 	if (fabs(proj) < 1e-6)
 	{
@@ -175,11 +177,11 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 		height = proj;
 		// double radius = (collision.closest_cone->cone_diameter / 2.0) *
 		// 	(1.0 - height / collision.closest_cone->cone_height);
-		axis_point = vect_add(collision.closest_cone->cone_pos,
+		axis_point = vect_add(collision.closest_cone->cord,
 				vect_multiply(normalized_normal, height));
 		radial = vect_normalize(vect_sub(rec->point, axis_point));
-		cos_angle = cos(atan(collision.closest_cone->cone_diameter / (2.0
-						* collision.closest_cone->cone_height)));
+		cos_angle = cos(atan(collision.closest_cone->diameter / (2.0
+						* collision.closest_cone->height)));
 		rec->normal = vect_normalize(vect_add(vect_multiply(radial, cos_angle),
 					vect_multiply(normalized_normal, sin(acos(cos_angle)))));
 	}
