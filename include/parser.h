@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 11:51:12 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 15:22:04 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool				ft_check_rgb(char *str);
 double				ft_atod(t_p_node **cur);
 
 // ERROR UTILS
-void				ft_format_error(t_p_node *head, char *message);
+bool				ft_format_error(t_p_node *head, char *message);
 void				ft_warning(t_p_node *head, char *message);
 
 #endif

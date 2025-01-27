@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 05:30:37 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 11:07:05 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 15:13:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ double	ft_atod(t_p_node **cur)
 	double	decimal;
 	int		sign;
 
+	while (*cur && (*cur)->val == ' ')
+		(*cur) = (*cur)->next;
 	sign = ft_handle_sign(cur);
 	integer = ft_handle_integer(cur);
 	decimal = ft_handle_decimal(cur);

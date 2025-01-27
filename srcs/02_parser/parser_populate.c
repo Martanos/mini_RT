@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:30:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 11:39:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 15:23:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void	ft_identify(t_master **master, t_p_node **cur, char *id)
 	else if (id && ft_strcmp(id, "co") == 0)
 		error = ft_create_cone(master, cur);
 	else
-	{
-		ft_format_error(cur, "Invalid identifier");
-		error = true;
-	}
+		error = ft_format_error(cur, "Invalid identifier");
 	free(id);
 	return (error);
 }
