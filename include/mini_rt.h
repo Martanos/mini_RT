@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/24 05:21:43 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 10:41:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 // DEFINES
 
 # define M_PI 3.14159265358979323846
+# define DOUBLE_MAX 9007199254740991.0
+# define DOUBLE_MIN -9007199254740991.0
 # define WHITE 0xFFFFFFFF       // Full white
 # define BLACK 0xFF000000       // Full black
 # define RED 0xFFFF0000         // Bright red

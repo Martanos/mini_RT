@@ -6,11 +6,12 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/24 08:12:03 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/24 08:13:57 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+#include "parser.h"
 
 /*
 ** @brief Creates a new parser node
@@ -37,7 +38,7 @@ t_p_node	*ft_create_p_node(ssize_t line, ssize_t pos, char val)
 ** @param head pointer to the head of the list
 ** @param new_node pointer to the new parser node
 */
-void	ft_add_p_node_next(t_p_node **head, t_p_node *new_node)
+void	ft_add_p_node(t_p_node **head, t_p_node *new_node)
 {
 	t_p_node	*current;
 

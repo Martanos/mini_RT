@@ -6,17 +6,11 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:52:02 by malee             #+#    #+#             */
-/*   Updated: 2025/01/24 07:15:15 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 10:37:58 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-void	ft_skip_whitespace(t_p_node **head)
-{
-	while (head && ft_isspace(head->val))
-		head = head->next;
-}
 
 /*
 ** @brief Verifies the syntax of the file fatal error if syntax is incorrect
@@ -26,8 +20,6 @@ bool	ft_verify(t_p_node *head)
 {
 	while (head)
 	{
-		// skip whitespace
-		// skip comments
 		if (head->val == 'A')
 			ft_add_id(&id_list, head->val);
 		head = head->next;

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:33:45 by malee             #+#    #+#             */
-/*   Updated: 2025/01/24 07:19:20 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/24 08:26:12 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,38 @@ static void	ft_number_raw_data(t_p_node *head)
 }
 
 /*
+** @brief Cleans the data of comments and minimises whitespace
+** @param head pointer to the head of the list
+** @return pointer to the head of the cleaned list
+*/
+t_p_node	*ft_clean_data(t_p_node *head)
+{
+	t_p_node	*clean_data;
+
+	clean_data = NULL;
+	while (head)
+	{
+		if (head->val == '#')
+			while (head && head->val != '\n')
+				head = head->next;
+		if (head && head->val != '\n' && ft_isspace(head->val))
+		{
+			ft_add_p_node(&clean_data, ft_create_p_node(head->line, head->pos,
+					' '));
+			while (head && head->val != '\n' && ft_isspace(head->val))
+				head = head->next;
+		}
+		if (head)
+		{
+			ft_add_p_node(&clean_data, ft_create_p_node(head->line, head->pos,
+					head->val));
+			head = head->next;
+		}
+	}
+	return (clean_data);
+}
+
+/*
 ** @brief Facilitates the reading of the file
 ** @param file_path path to the file
 ** @return pointer to the head of the raw data
@@ -98,10 +130,13 @@ static void	ft_number_raw_data(t_p_node *head)
 t_p_node	*ft_read_file(char *file_path)
 {
 	t_p_node	*raw_data;
+	t_p_node	*clean_data;
 
 	raw_data = ft_gnl(ft_verify_file_path(file_path));
 	if (!raw_data)
 		ft_fatal("Empty file");
 	ft_number_raw_data(raw_data);
-	return (raw_data);
+	clean_data = ft_clean_data(raw_data);
+	ft_free_p_list(raw_data);
+	return (clean_data);
 }

@@ -6,39 +6,11 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:52:24 by malee             #+#    #+#             */
-/*   Updated: 2025/01/09 17:24:22 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:06:44 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-bool	ft_is_double(char **str)
-{
-	int		dot_count;
-	ssize_t	precision;
-
-	dot_count = 0;
-	precision = 1;
-	if (**str == '.')
-		return (false);
-	if (**str == '-' || **str == '+')
-		(*str)++;
-	while (**str && **str != ',')
-	{
-		if (!ft_isdigit(**str) && **str != '.')
-			return (false);
-		if (**str == '.')
-			dot_count++;
-		if (dot_count > 1)
-			return (false);
-		if (dot_count == 1)
-			precision++;
-		(*str)++;
-	}
-	if (precision > 15)
-		printf(ORANGE "WARNING: more than 15 significant digits" RESET);
-	return (true);
-}
 
 bool	ft_check_rgb(char *str)
 {
