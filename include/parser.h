@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 11:06:56 by malee            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:51:12 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@ typedef struct s_p_node
 t_p_node			*ft_read_file(char *file_path);
 t_p_node			*ft_create_list(int fd);
 void				ft_reconstructor(t_p_node **head);
-void				ft_add_id(t_id_list **id_list, char *str);
-bool				ft_dup_check(t_id_list *id_list, char *str);
 
 // verifying
-bool				ft_verify_syntax(t_parser_node *head);
-bool				ft_verify_line(t_parser_node **cur, ssize_t *line,
-						t_id_list **id_list);
+bool				ft_inrange(double value, double min, double max);
 
 // Individual element checks
 bool				ft_a_check(t_parser_node **cur, t_id_list *id_list,

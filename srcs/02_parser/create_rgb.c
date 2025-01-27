@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_main.c                                      :+:      :+:    :+:   */
+/*   create_rgb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 11:14:36 by malee            ###   ########.fr       */
+/*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
+/*   Updated: 2025/01/27 12:00:04 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-/*
-** @brief Facilitates the parsing of the file
-** @param file_path path to the file
-** @return pointer to the master structure
-*/
-t_master	*ft_parser(char *file_path)
+uint32_t	ft_create_rgb(t_p_node **cur)
 {
-	t_p_node	*head;
-	t_master	*master;
+	uint32_t	rgb;
 
-	head = ft_read_file(file_path);
-	master = ft_populate(head);
-	// POPULATE INSTRUCTION SET
-	return (master);
+	rgb = ft_atoi(cur);
+	return (rgb);
 }
