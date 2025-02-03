@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   functions1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:17:40 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:24:44 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 17:35:12 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "librgb.h"
+#include "../includes/librgb.h"
 
 /*
 ** @brief Creates a new rgb value
