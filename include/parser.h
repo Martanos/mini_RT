@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:08:17 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:27:35 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_master		*ft_populate(t_p_node *head);
 bool			ft_create_amb(t_master **master, t_p_node **cur);
 bool			ft_create_cam(t_master **master, t_p_node **cur);
 bool			ft_create_light(t_master **master, t_p_node **cur);
-bool			ft_create_plane(t_master **master, t_p_node **cur);
 bool			ft_create_cylinder(t_master **master, t_p_node **cur);
 bool			ft_create_cone(t_master **master, t_p_node **cur);
 
@@ -66,6 +65,16 @@ bool			ft_add_sphere_bump_map(t_master **master, t_sphere *sphere,
 					char *str);
 bool			ft_add_sphere_material(t_sphere **sphere, char *str);
 bool			ft_add_populate_texture(t_master **master, t_sphere **sphere,
+					char **split);
+
+// PLANE OBJECT CREATION UTILS
+bool			ft_create_plane(t_master **master, t_p_node **cur);
+bool			ft_add_plane_texture(t_master **master, t_plane **plane,
+					char *str);
+bool			ft_add_plane_bump_map(t_master **master, t_plane *plane,
+					char *str);
+bool			ft_add_plane_material(t_plane **plane, char *str);
+bool			ft_populate_plane_texture(t_master **master, t_plane **plane,
 					char **split);
 
 // Structure UTILS

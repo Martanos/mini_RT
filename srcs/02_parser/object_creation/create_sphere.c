@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:08:44 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:21:50 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static bool	ft_check_extra_data(t_master **master, t_sphere **sphere,
 			if (!ft_add_sphere_material(sphere, (*cur)->str + 4))
 				return (false);
 		}
+		else
+			return (ft_format_error("Unknown sphere data"));
 		(*cur) = (*cur)->next;
 	}
 	return (true);
