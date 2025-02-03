@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   master_utils.c                                     :+:      :+:    :+:   */
+/*   structure_free_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:52:08 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 21:45:03 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 17:26:19 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	ft_free_cylinder(t_cylinder *cylinder)
 
 void	ft_free_master(t_master *master)
 {
-	free(master->amb_head);
-	ft_free_cam(master->cam_head);
 	ft_free_light(master->light_head);
 	ft_free_plane(master->plane_head);
 	ft_free_cylinder(master->cylinder_head);

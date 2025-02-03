@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 16:30:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 17:59:39 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ typedef struct s_master
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			img;
-	t_amb			*amb_head;
-	t_cam			*cam_head;
+	t_amb			amb_head;
+	t_cam			cam_head;
 	t_light			*light_head;
 	t_sphere		*sphere_head;
 	t_plane			*plane_head;
@@ -129,7 +129,7 @@ typedef struct s_cam
 {
 	t_vect			norm;
 	t_vect			cord;
-	int				fov;
+	double			fov;
 	bool			set;
 }					t_cam;
 
@@ -143,9 +143,8 @@ typedef struct s_cam
 */
 typedef struct s_light
 {
-	t_vect			norm;
 	t_vect			cord;
-	double			intensity;
+	double			ratio;
 	uint32_t		color;
 	t_light			*next;
 }					t_light;

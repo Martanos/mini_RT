@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:01:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 12:20:11 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 16:49:02 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	ft_verify_file_path(char *file_path)
 ** @param fd file descriptor
 ** @return pointer to the head of the list
 */
-t_p_node	*ft_gnl(int fd)
+t_f_node	*ft_gnl(int fd)
 {
 	ssize_t		bytes_read;
 	ssize_t		pos;
-	t_p_node	*head;
+	t_f_node	*head;
 	char		buffer[BUFFER_SIZE];
 
 	head = NULL;
@@ -50,14 +50,14 @@ t_p_node	*ft_gnl(int fd)
 	{
 		pos = 0;
 		while (pos < bytes_read)
-			ft_add_p_node_next(&head, ft_create_p_node(0, 0, buffer[pos++]));
+			ft_add_f_node(&head, ft_create_f_node(buffer[pos++]));
 		ft_bzero(buffer, BUFFER_SIZE);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}
 	if (bytes_read == -1)
 	{
 		close(fd);
-		ft_free_p_list(head);
+		ft_free_f_list(head);
 		ft_fatal("Failed to read file");
 	}
 	close(fd);
@@ -65,39 +65,13 @@ t_p_node	*ft_gnl(int fd)
 }
 
 /*
-** @brief Numbers raw data
-** @param head pointer to the head of the raw data
-*/
-void	ft_number_raw_data(t_p_node *head)
-{
-	ssize_t	line;
-	ssize_t	pos;
-
-	line = 1;
-	pos = 0;
-	while (head)
-	{
-		head->line = line;
-		head->pos = pos;
-		if (head->val == '\n')
-		{
-			line++;
-			pos = 0;
-		}
-		else
-			pos++;
-		head = head->next;
-	}
-}
-
-/*
 ** @brief Cleans the data of comments and minimises whitespace
 ** @param head pointer to the head of the list
 ** @return pointer to the head of the cleaned list
 */
-t_p_node	*ft_clean_data(t_p_node *head)
+t_f_node	*ft_clean_data(t_f_node *head)
 {
-	t_p_node	*clean_data;
+	t_f_node	*clean_data;
 
 	clean_data = NULL;
 	while (head)
@@ -107,15 +81,13 @@ t_p_node	*ft_clean_data(t_p_node *head)
 				head = head->next;
 		if (head && head->val != '\n' && ft_isspace(head->val))
 		{
-			ft_add_p_node(&clean_data, ft_create_p_node(head->line, head->pos,
-					' '));
+			ft_add_f_node(&clean_data, ft_create_f_node(' '));
 			while (head && head->val != '\n' && ft_isspace(head->val))
 				head = head->next;
 		}
 		if (head)
 		{
-			ft_add_p_node(&clean_data, ft_create_p_node(head->line, head->pos,
-					head->val));
+			ft_add_f_node(&clean_data, ft_create_f_node(head->val));
 			head = head->next;
 		}
 	}

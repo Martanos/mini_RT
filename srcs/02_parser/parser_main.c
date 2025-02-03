@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 13:21:56 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 17:09:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_master	*ft_parser(char *file_path)
 	if (!head)
 		return (NULL);
 	master = ft_populate(head);
-	// POPULATE INSTRUCTION SET
+	ft_free_p_list(head);
+	if (!master)
+		return (NULL);
 	return (master);
 }

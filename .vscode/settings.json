@@ -5,6 +5,8 @@
 		"stdio.h": "c",
 		"plane.h": "c",
 		"libft.h": "c",
-		"librgb.h": "c"
+		"librgb.h": "c",
+		"type_traits": "c",
+		"limits": "c"
 	}
 }
