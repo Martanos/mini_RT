@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/24 05:46:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:02:21 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ uint32_t	ft_background_color(t_vect unit_direction)
 	return (0xFF000000 | (r << 16) | (g << 8) | b);
 }
 
-uint32_t	ray_color(t_ray ray, t_data *mlx_data)
+uint32_t	ray_color(t_ray ray, t_data *mlx_data, t_master *master)
 {
 	t_sphere_collision		sphere_collision;
 	t_plane_collision		plane_collision;
@@ -52,7 +52,7 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	double					final_g;
 	double					final_b;
 	int						i;
-	t_light_obj				*light;
+	t_light					*light;
 	t_vect					light_dir;
 	double					light_distance;
 	t_ray					shadow_ray;
@@ -81,7 +81,7 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 			|| sphere_collision.closest_t < cone_collision.closest_t))
 	{
 		calculate_sphere_hit(ray, sphere_collision, &hit_record);
-		obj_color = sphere_collision.closest_sphere->sphere_rgb;
+		obj_color = sphere_collision.closest_sphere->rgb;
 	}
 	else if (plane_collision.closest_plane
 		&& (!cylinder_collision.closest_cylinder
@@ -90,33 +90,33 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 			|| plane_collision.closest_t < cone_collision.closest_t))
 	{
 		calculate_plane_hit(ray, plane_collision, &hit_record);
-		obj_color = plane_collision.closest_plane->plane_rgb;
+		obj_color = plane_collision.closest_plane->rgb;
 	}
 	else if (cylinder_collision.closest_cylinder
 		&& (!cone_collision.closest_cone
 			|| cylinder_collision.closest_t < cone_collision.closest_t))
 	{
 		calculate_cylinder_hit(ray, cylinder_collision, &hit_record);
-		obj_color = cylinder_collision.closest_cylinder->cylinder_rgb;
+		obj_color = cylinder_collision.closest_cylinder->rgb;
 	}
 	else if (cone_collision.closest_cone)
 	{
 		calculate_cone_hit(ray, cone_collision, &hit_record);
-		obj_color = cone_collision.closest_cone->cone_rgb;
+		obj_color = cone_collision.closest_cone->rgb;
 	}
 	else
 	{
 		// Return background color if no collision
 		unit_direction = vect_normalize(ray.direction);
-		return (background_color(unit_direction));
+		return (ft_background_color(unit_direction));
 	}
 	// Extract RGB components from object's color
 	r = (uint8_t)((obj_color >> 16) & 0xFF);
 	g = (uint8_t)((obj_color >> 8) & 0xFF);
 	b = (uint8_t)(obj_color & 0xFF);
 	// Apply ambient lighting
-	ambient = mlx_data->instruction_set->amb_light_ratio;
-	amb_color = mlx_data->instruction_set->amb_light_rgb;
+	ambient = master->amb_head->ratio;
+	amb_color = master->amb_head->rgb;
 	amb_r = (uint8_t)((amb_color >> 16) & 0xFF);
 	amb_g = (uint8_t)((amb_color >> 8) & 0xFF);
 	amb_b = (uint8_t)(amb_color & 0xFF);
@@ -126,11 +126,11 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 	final_b = b * ambient * (amb_b / 255.0);
 	// Add contribution from each light source
 	i = 0;
-	while (mlx_data->instruction_set->light_obj_list[i])
+	light = master->light_head;
+	while (light)
 	{
-		light = mlx_data->instruction_set->light_obj_list[i];
 		// Calculate direction and distance to light
-		light_dir = vect_sub(light->light_pos, hit_record.point);
+		light_dir = vect_sub(light->cord, hit_record.point);
 		light_distance = vect_magnitude(light_dir);
 		light_dir = vect_normalize(light_dir);
 		// Create shadow ray (offset origin slightly along normal to prevent self-intersection)
@@ -158,16 +158,16 @@ uint32_t	ray_color(t_ray ray, t_data *mlx_data)
 		}
 		// Calculate diffuse lighting
 		diff = fmax(vect_dot(hit_record.normal, light_dir), 0.0);
-		intensity = light->light_intensity * diff;
+		intensity = light->ratio * diff;
 		// Get light color
-		light_r = (uint8_t)((light->light_rgb >> 16) & 0xFF);
-		light_g = (uint8_t)((light->light_rgb >> 8) & 0xFF);
-		light_b = (uint8_t)(light->light_rgb & 0xFF);
+		light_r = (uint8_t)((light->rgb >> 16) & 0xFF);
+		light_g = (uint8_t)((light->rgb >> 8) & 0xFF);
+		light_b = (uint8_t)(light->rgb & 0xFF);
 		// Add light contribution (only if not in shadow)
 		final_r += r * intensity * (light_r / 255.0);
 		final_g += g * intensity * (light_g / 255.0);
 		final_b += b * intensity * (light_b / 255.0);
-		i++;
+		light = light->next;
 	}
 	// Clamp values between 0 and 255
 	r = (uint8_t)fmin(fmax(final_r, 0), 255);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cone.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/24 05:36:53 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:16:30 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "plane.h"
 
 /**
-
-	* @brief Checks if a ray-cone intersection point lies within the cone's height bounds
+ * @brief Checks if a ray-cone intersection point lies within the cone's height bounds
  *
  * @param ray The ray being cast in the scene
  * @param t The parameter value at which the ray intersects the cone
@@ -58,8 +57,10 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 	double	discriminant;
 	double	t1;
 	double	t2;
+	double	a;
+	double	b;
+	double	c;
 
-	double a, b, c;
 	oc = vect_sub(ray.origin, cone->cord);
 	normalized_normal = vect_normalize(cone->norm);
 	radius = cone->diameter / 2.0;
@@ -106,14 +107,12 @@ static double	check_cone_base(t_ray ray, t_cone *cone)
 	t_vect	base_normal;
 	t_plane	base;
 
-	base = {.position;
-	base = {.position = cone->cord, .normal;
-	base = {.position = cone->cord, .normal = base_normal, .radius;
 	normalized_normal = vect_normalize(cone->norm);
 	base_normal = vect_multiply(normalized_normal, -1);
-	base = {.position = cone->cord, .normal = base_normal,
-		.radius = cone->cone_diameter / 2.0};
-	return (check_capped_plane_collision(ray, base));
+	base.cord = cone->cord;
+	base.norm = base_normal;
+	base.radius = cone->diameter / 2.0;
+	return (check_plane_collision(ray, &base));
 }
 
 /**
@@ -124,7 +123,7 @@ static double	check_cone_base(t_ray ray, t_cone *cone)
  * @return double Returns the closest valid intersection parameter t, or
 	-1.0 if no intersection
  */
-double	check_cone_collision(t_ray ray, t_cone_object *cone)
+double	check_cone_collision(t_ray ray, t_cone *cone)
 {
 	double	t_surface;
 	double	t_base;
@@ -175,8 +174,6 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 	{
 		// Hit is on conical surface
 		height = proj;
-		// double radius = (collision.closest_cone->cone_diameter / 2.0) *
-		// 	(1.0 - height / collision.closest_cone->cone_height);
 		axis_point = vect_add(collision.closest_cone->cord,
 				vect_multiply(normalized_normal, height));
 		radial = vect_normalize(vect_sub(rec->point, axis_point));
@@ -191,32 +188,30 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
  * @brief Finds the closest cone intersection for a given ray
  *
  * @param ray The ray being cast in the scene
-
-	* @param mlx_data Pointer to the main data structure containing scene information
-
-	* @return t_cone_collision Returns a structure containing the closest intersection
+ * @param mlx_data Pointer to the main data structure containing scene information
+ * @param master Pointer to the master structure containing all scene objects
+ * @return t_cone_collision Returns a structure containing the closest intersection
  *         parameter and pointer to the intersected cone
  */
-t_cone_collision	find_closest_cone(t_ray ray, t_data *mlx_data)
+t_cone_collision	find_closest_cone(t_ray ray, t_data *mlx_data, t_master *master)
 {
-	double				t;
+	double			t;
 	t_cone_collision	result;
-	t_cone_object		*cone;
-	int					i;
+	t_cone			*cone;
 
-	i = 0;
+	(void)mlx_data;
 	result.closest_t = INFINITY;
 	result.closest_cone = NULL;
-	while (mlx_data->instruction_set->cone_obj_list[i])
+	cone = master->cone_head;
+	while (cone)
 	{
-		cone = mlx_data->instruction_set->cone_obj_list[i];
 		t = check_cone_collision(ray, cone);
 		if (t > 0.0 && t < result.closest_t)
 		{
 			result.closest_t = t;
 			result.closest_cone = cone;
 		}
-		i++;
+		cone = cone->next;
 	}
 	return (result);
 }

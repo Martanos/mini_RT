@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/11 17:50:02 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/03 15:00:47 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static t_vect calculate_viewport_up(t_vect camera_dir)
 	t_vect right = vect_normalize(vect_cross(camera_dir, world_up));
 	return vect_normalize(vect_cross(right, camera_dir));
 }
-void initmlx(t_data *mlx_data, t_instruction_set *instruction_set)
+
+void initmlx(t_data *mlx_data, t_master *master)
 {
 	mlx_data->mlx_ptr = mlx_init();
 	if (!mlx_data->mlx_ptr)
@@ -33,13 +34,10 @@ void initmlx(t_data *mlx_data, t_instruction_set *instruction_set)
 	mlx_data->img.pixels_ptr = mlx_get_data_addr(mlx_data->img.img_ptr, &mlx_data->img.bpp, &mlx_data->img.line_len, &mlx_data->img.endian);
 	if (!mlx_data->img.pixels_ptr)
 		error_exit("mlx failed to get image address");
-	mlx_data->instruction_set = instruction_set;
-	
+	(void)master;
 }
 
-
-
-uint32_t	calculations(int x, int y, t_data *mlx_data)
+uint32_t	calculations(int x, int y, t_data *mlx_data, t_master *master)
 {
 	double	aspect_ratio;
 	t_vect	pixel_pos;
@@ -52,10 +50,10 @@ uint32_t	calculations(int x, int y, t_data *mlx_data)
 	double	focal_length;
 
 	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
-	camera_dir = vect_normalize(mlx_data->instruction_set->camera_dir);
+	camera_dir = vect_normalize(master->cam_head->norm);
 	
 	// Calculate viewport dimensions based on FOV
-	viewport_height = 2.0 * tan((mlx_data->instruction_set->camera_view_fov * M_PI / 180.0) / 2.0);
+	viewport_height = 2.0 * tan((master->cam_head->fov * M_PI / 180.0) / 2.0);
 	viewport_width = viewport_height * aspect_ratio;
 	focal_length = 1.0;
 	
@@ -68,12 +66,10 @@ uint32_t	calculations(int x, int y, t_data *mlx_data)
 	t_vect vertical = vect_multiply(viewport_up, -viewport_height);  // Negative to match screen coordinates
 	
 	// Calculate viewport center and corner
-	t_vect viewport_center = vect_add(mlx_data->instruction_set->camera_pos, 
+	t_vect viewport_center = vect_add(master->cam_head->cord, 
 		vect_multiply(camera_dir, focal_length));
 	t_vect viewport_upper_left = vect_sub(viewport_center, 
 		vect_add(vect_divide(horizontal, 2.0), vect_divide(vertical, 2.0)));
-
-		
 	
 	// Calculate pixel position
 	double u = (double)x / (WINDOW_WIDTH - 1);
@@ -82,14 +78,13 @@ uint32_t	calculations(int x, int y, t_data *mlx_data)
 		vect_add(vect_multiply(horizontal, u), vect_multiply(vertical, v)));
 	
 	// Setup and normalize ray
-	ray.origin = mlx_data->instruction_set->camera_pos;
+	ray.origin = master->cam_head->cord;
 	ray.direction = vect_normalize(vect_sub(pixel_pos, ray.origin));
 	
-	return (ray_color(ray, mlx_data));
+	return (ray_color(ray, mlx_data, master));
 }
 
-
-void start_renderloop(t_data *mlx_data)
+void start_renderloop(t_data *mlx_data, t_master *master)
 {
 	int x;
 	int y;
@@ -101,7 +96,7 @@ void start_renderloop(t_data *mlx_data)
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
-			color = calculations(x, y, mlx_data);
+			color = calculations(x, y, mlx_data, master);
 			my_pixel_put(&mlx_data->img, x, y, color);
 			x++;
 		}
@@ -114,10 +109,11 @@ void start_renderloop(t_data *mlx_data)
 	
 	mlx_loop(mlx_data->mlx_ptr);
 }
-void	ft_render_scene(t_instruction_set *instruction_set)
+
+void	ft_render_scene(t_master *master)
 {
 	t_data mlx_data;
 	
-	initmlx(&mlx_data, instruction_set);
-	start_renderloop(&mlx_data);
+	initmlx(&mlx_data, master);
+	start_renderloop(&mlx_data, master);
 }

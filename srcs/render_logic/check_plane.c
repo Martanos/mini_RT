@@ -3,98 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   check_plane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 16:07:50 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/24 05:35:22 by malee            ###   ########.fr       */
+/*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
+/*   Updated: 2025/02/03 15:06:10 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_rt.h"
-
-double	check_capped_plane_collision(t_ray ray, t_plane plane)
-{
-	double	denom;
-	t_vect	p0l0;
-	double	t;
-	t_vect	intersection_point;
-	t_vect	to_intersection;
-	double	proj_length;
-	t_vect	projected;
-	double	radial_distance;
-
-	// TODO: can be
-	t_vect normal = vect_normalize(plane.norm); // Ensure normal is normalized
-	denom = vect_dot(normal, ray.direction);
-	if (fabs(denom) < 1e-6) // Ray is parallel to plane
-		return (-1.0);
-	p0l0 = vect_sub(plane.cord, ray.origin);
-	t = vect_dot(p0l0, normal) / denom;
-	if (t < 0.0) // Plane is behind ray
-		return (-1.0);
-	// Check if intersection point is within radius
-	intersection_point = vect_add(ray.origin, vect_multiply(ray.direction, t));
-	to_intersection = vect_sub(intersection_point, plane.cord);
-	// Project the vector onto the plane by removing its component along the normal
-	proj_length = vect_dot(to_intersection, vect_normalize(normal));
-	projected = vect_sub(to_intersection, vect_multiply(vect_normalize(normal),
-				proj_length));
-	// Get the radial distance in the plane
-	radial_distance = vect_magnitude(projected);
-	if (radial_distance > plane.radius)
-		return (-1.0);
-	return (t);
-}
+#include "../include/mini_rt.h"
+#include "plane.h"
 
 double	check_plane_collision(t_ray ray, t_plane *plane)
 {
 	double	denom;
-	t_vect	p0l0;
 	double	t;
-	t_vect	normal;
+	t_vect	p0l0;
+	t_vect	hit_point;
+	t_vect	to_center;
+	double	distance_squared;
 
-	normal = vect_normalize(plane->norm);
-	// Ensure normal is normalized
-	denom = vect_dot(normal, ray.direction);
-	if (fabs(denom) < 1e-6) // Ray is parallel to plane
-		return (-1.0);
-	p0l0 = vect_sub(plane->cord, ray.origin);
-	t = vect_dot(p0l0, normal) / denom;
-	if (t < 0.0) // Plane is behind ray
-		return (-1.0);
-	return (t);
+	denom = vect_dot(plane->norm, ray.direction);
+	if (fabs(denom) > 1e-6)
+	{
+		p0l0 = vect_sub(plane->cord, ray.origin);
+		t = vect_dot(p0l0, plane->norm) / denom;
+		if (t >= 0)
+		{
+			// If plane has a radius, check if hit point is within radius
+			if (plane->radius > 0)
+			{
+				hit_point = vect_add(ray.origin, vect_multiply(ray.direction, t));
+				to_center = vect_sub(hit_point, plane->cord);
+				distance_squared = vect_dot(to_center, to_center);
+				if (distance_squared <= plane->radius * plane->radius)
+					return (t);
+				return (-1.0);
+			}
+			return (t);
+		}
+	}
+	return (-1.0);
 }
 
-t_plane_collision	find_closest_plane(t_ray ray, t_data *mlx_data)
+t_plane_collision	find_closest_plane(t_ray ray, t_data *mlx_data, t_master *master)
 {
-	double				t;
-	t_plane_collision	result;
-	t_plane				*plane;
-	int					i;
+	double			t;
+	t_plane_collision result;
+	t_plane			*plane;
 
-	i = 0;
+	(void)mlx_data;
 	result.closest_t = INFINITY;
 	result.closest_plane = NULL;
-	while (mlx_data->instruction_set->plane_obj_list[i])
+	plane = master->plane_head;
+	while (plane)
 	{
-		plane = mlx_data->instruction_set->plane_obj_list[i];
 		t = check_plane_collision(ray, plane);
 		if (t > 0.0 && t < result.closest_t)
 		{
 			result.closest_t = t;
 			result.closest_plane = plane;
 		}
-		i++;
+		plane = plane->next;
 	}
 	return (result);
 }
 
-void	calculate_plane_hit(t_ray ray, t_plane_collision collision,
-		t_hit_record *rec)
+void	calculate_plane_hit(t_ray ray, t_plane_collision collision, t_hit_record *rec)
 {
 	rec->t = collision.closest_t;
-	rec->point = vect_add(ray.origin, vect_multiply(ray.direction,
-				collision.closest_t));
-	rec->normal = vect_normalize(collision.closest_plane->norm);
-	// Ensure normal is normalized
+	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+	rec->normal = collision.closest_plane->norm;
 }
