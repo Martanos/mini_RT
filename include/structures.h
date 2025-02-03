@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 19:48:32 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:54:15 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,9 @@ typedef struct s_cylinder
 typedef struct s_cone
 {
 	t_vect			cord;
+	t_vect			norm;
 	double			height;
 	double			diameter;
-	t_vect			norm;
 	t_material		mat;
 	t_texture		txm;
 	t_bump_map		bpm;

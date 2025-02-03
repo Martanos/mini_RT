@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:45:15 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:57:03 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_master		*ft_populate(t_p_node *head);
 bool			ft_create_amb(t_master **master, t_p_node **cur);
 bool			ft_create_cam(t_master **master, t_p_node **cur);
 bool			ft_create_light(t_master **master, t_p_node **cur);
-bool			ft_create_cone(t_master **master, t_p_node **cur);
 
 // SPHERE OBJECT CREATION UTILS
 bool			ft_create_sphere(t_master **master, t_p_node **cur);
@@ -85,6 +84,16 @@ bool			ft_add_cylinder_bump_map(t_master **master,
 bool			ft_add_cylinder_material(t_cylinder **cylinder, char *str);
 bool			ft_populate_cylinder_texture(t_master **master,
 					t_cylinder **cylinder, char **split);
+
+// CONE OBJECT CREATION UTILS
+bool			ft_create_cone(t_master **master, t_p_node **cur);
+bool			ft_add_cone_texture(t_master **master, t_cone **cone,
+					char *str);
+bool			ft_add_cone_bump_map(t_master **master, t_cone *cone,
+					char *str);
+bool			ft_add_cone_material(t_cone **cone, char *str);
+bool			ft_populate_cone_texture(t_master **master, t_cone **cone,
+					char **split);
 
 // Structure UTILS
 t_p_node		*ft_create_p_node(char *str);
