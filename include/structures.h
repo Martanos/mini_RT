@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 16:16:23 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:30:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ typedef struct s_bump_map
 */
 typedef struct s_master
 {
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img			img;
 	t_amb			*amb_head;
 	t_cam			*cam_head;
 	t_light			*light_head;
@@ -216,13 +219,6 @@ typedef struct s_img
 	int				endian;
 	int				line_len;
 }					t_img;
-
-typedef struct s_data
-{
-	void			*mlx_ptr;
-	void			*win_ptr;
-	t_img			img;
-}					t_data;
 
 typedef struct s_sphere_collision
 {
