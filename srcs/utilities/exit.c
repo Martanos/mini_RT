@@ -3,53 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:25:29 by malee             #+#    #+#             */
-/*   Updated: 2025/01/07 11:49:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:17:54 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	ft_free_instruction_set(t_instruction_set *instruction_set)
+void	ft_free_master(t_master *master)
 {
-	while (instruction_set->light_obj_list)
+	t_light		*curr_light;
+	t_light		*next_light;
+	t_sphere	*curr_sphere;
+	t_sphere	*next_sphere;
+	t_plane		*curr_plane;
+	t_plane		*next_plane;
+	t_cylinder	*curr_cylinder;
+	t_cylinder	*next_cylinder;
+	t_cone		*curr_cone;
+	t_cone		*next_cone;
+
+	// Free ambient light
+	if (master->amb_head)
+		free(master->amb_head);
+
+	// Free camera
+	if (master->cam_head)
+		free(master->cam_head);
+
+	// Free light objects
+	curr_light = master->light_head;
+	while (curr_light)
 	{
-		free(instruction_set->light_obj_list);
-		instruction_set->light_obj_list++;
+		next_light = curr_light->next;
+		free(curr_light);
+		curr_light = next_light;
 	}
-	while (instruction_set->sphere_obj_list)
+
+	// Free sphere objects
+	curr_sphere = master->sphere_head;
+	while (curr_sphere)
 	{
-		free(instruction_set->sphere_obj_list);
-		instruction_set->sphere_obj_list++;
+		next_sphere = curr_sphere->next;
+		free(curr_sphere);
+		curr_sphere = next_sphere;
 	}
-	while (instruction_set->plane_obj_list)
+
+	// Free plane objects
+	curr_plane = master->plane_head;
+	while (curr_plane)
 	{
-		free(instruction_set->plane_obj_list);
-		instruction_set->plane_obj_list++;
+		next_plane = curr_plane->next;
+		free(curr_plane);
+		curr_plane = next_plane;
 	}
-	while (instruction_set->cylinder_obj_list)
+
+	// Free cylinder objects
+	curr_cylinder = master->cylinder_head;
+	while (curr_cylinder)
 	{
-		free(instruction_set->cylinder_obj_list);
-		instruction_set->cylinder_obj_list++;
+		next_cylinder = curr_cylinder->next;
+		free(curr_cylinder);
+		curr_cylinder = next_cylinder;
 	}
-	free(instruction_set);
+
+	// Free cone objects
+	curr_cone = master->cone_head;
+	while (curr_cone)
+	{
+		next_cone = curr_cone->next;
+		free(curr_cone);
+		curr_cone = next_cone;
+	}
+
+	free(master);
 }
 
 // TODO: Add memory management for mlx objects
 // @brief Graceful exit handles all expected memory leaks
-// @param instruction_set pointer to the instruction set
+// @param master pointer to the master structure
 // @param error_message pointer to the error message
-void	ft_exit(t_instruction_set *instruction_set, char *error_message)
+void	ft_exit(t_master *master, char *error_message)
 {
 	if (error_message)
 	{
-		ft_free_instruction_set(instruction_set);
+		ft_free_master(master);
 		printf("Error\n");
 		perror(error_message);
 		exit(1);
 	}
-	ft_free_instruction_set(instruction_set);
+	ft_free_master(master);
 	exit(0);
 }

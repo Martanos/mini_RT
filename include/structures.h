@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 16:04:12 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 16:16:23 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,9 @@ typedef struct s_cam
 */
 typedef struct s_light
 {
+	t_vect			norm;
 	t_vect			cord;
-	double			ratio;
+	double			intensity;
 	uint32_t		color;
 	t_light			*next;
 }					t_light;

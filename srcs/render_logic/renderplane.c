@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/03 15:00:47 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:09:11 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_vect calculate_viewport_up(t_vect camera_dir)
 	t_vect right = vect_normalize(vect_cross(camera_dir, world_up));
 	return vect_normalize(vect_cross(right, camera_dir));
 }
-
+// todo: move to parser
 void initmlx(t_data *mlx_data, t_master *master)
 {
 	mlx_data->mlx_ptr = mlx_init();
