@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:10:18 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:21:26 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:40:17 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,11 @@ static bool	ft_populate_plane(t_master **master, t_plane **plane,
 		t_p_node **cur)
 {
 	(*plane)->cord = ft_get_xyz(cur);
-	if (!ft_inrange((*plane)->cord.x, -INFINITY, INFINITY)
-		|| !ft_inrange((*plane)->cord.y, -INFINITY, INFINITY)
-		|| !ft_inrange((*plane)->cord.z, -INFINITY, INFINITY))
+	if (!ft_is_valid_vector((*plane)->cord, -INFINITY, INFINITY))
 		return (ft_format_error("Plane coordinates are not a valid vector"));
 	(*cur) = (*cur)->next;
 	(*plane)->norm = ft_get_xyz(cur);
-	if (!ft_inrange((*plane)->norm.x, -1, 1) || !ft_inrange((*plane)->norm.y,
-			-1, 1) || !ft_inrange((*plane)->norm.z, -1, 1))
+	if (!ft_is_valid_vector((*plane)->norm, -1, 1))
 		return (ft_format_error("Plane coordinates are not a valid vector"));
 	(*cur) = (*cur)->next;
 	(*plane)->txm.pri_color = ft_get_rgb((*cur)->str);

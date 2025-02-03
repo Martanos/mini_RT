@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:45:49 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 19:17:10 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:38:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	ft_create_light(t_master **master, t_p_node **cur)
 		return (false);
 	(*cur) = (*cur)->next;
 	light->cord = ft_get_xyz(cur);
-	if (isnan(light->cord.x) || isnan(light->cord.y) || isnan(light->cord.z))
+	if (!ft_is_valid_vector(light->cord, -INFINITY, INFINITY))
 		return (free(light),
 			ft_format_error("Light coordinates are not a valid vector"));
 	(*cur) = (*cur)->next;

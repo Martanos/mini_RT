@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:21:50 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:39:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	ft_create_sphere(t_master **master, t_p_node **cur)
 		return (false);
 	(*cur) = (*cur)->next;
 	sphere->cord = ft_get_xyz(cur);
-	if (isnan(sphere->cord.x) || isnan(sphere->cord.y) || isnan(sphere->cord.z))
+	if (!ft_is_valid_vector(sphere->cord, -INFINITY, INFINITY))
 		return (free(sphere),
 			ft_format_error("Sphere coordinates are not a valid vector"));
 	(*cur) = (*cur)->next;
