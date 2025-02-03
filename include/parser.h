@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 18:06:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:08:17 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,17 @@ bool			ft_create_cam(t_master **master, t_p_node **cur);
 bool			ft_create_light(t_master **master, t_p_node **cur);
 bool			ft_create_plane(t_master **master, t_p_node **cur);
 bool			ft_create_cylinder(t_master **master, t_p_node **cur);
-bool			ft_create_sphere(t_master **master, t_p_node **cur);
 bool			ft_create_cone(t_master **master, t_p_node **cur);
+
+// SPHERE OBJECT CREATION UTILS
+bool			ft_create_sphere(t_master **master, t_p_node **cur);
+bool			ft_add_sphere_texture(t_master **master, t_sphere **sphere,
+					char *str);
+bool			ft_add_sphere_bump_map(t_master **master, t_sphere *sphere,
+					char *str);
+bool			ft_add_sphere_material(t_sphere **sphere, char *str);
+bool			ft_add_populate_texture(t_master **master, t_sphere **sphere,
+					char **split);
 
 // Structure UTILS
 t_p_node		*ft_create_p_node(char *str);
@@ -65,7 +74,6 @@ void			ft_add_p_node(t_p_node **head, t_p_node *new_node);
 void			ft_free_p_list(t_p_node *head);
 
 // Utils
-void			ft_skip_spaces(t_p_node **cur);
 t_vect			ft_get_xyz(t_p_node **cur);
 double			ft_atod(char *str);
 uint32_t		ft_get_rgb(char *str);

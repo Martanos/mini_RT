@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 17:59:39 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 19:48:32 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,20 @@ typedef struct		s_bump_map;
 */
 typedef struct s_material
 {
-	double			amb;
-	double			diff;
-	double			spec;
-	double			shin;
-	double			refl;
+	double amb;  // Range: [0.0, 1.0] - How much ambient light is reflected
+	double diff; // Range: [0.0, 1.0] - How much diffuse light is reflected
+	double spec; // Range: [0.0, 1.0] - How much specular light is reflected
+	double shin; // Range: [0.0, ∞)   - Typically [1.0, 200.0] is common
+					// Higher values = smaller, sharper highlights
+	double refl; // Range: [0.0, 1.0] - How reflective the surface is
+					// 0.0 = not reflective, 1.0 = perfect mirror
 }					t_material;
 
 typedef enum e_texture_type
 {
-	SOLID_COLOR,
-	CHECKERED,
-	CUSTOM
+	SOLID_COLOR = 0,
+	CHECKERED = 1,
+	UNKNOWN = 2
 }					t_texture_type;
 /*
 ** @brief Texture properties for surface patterns
@@ -67,6 +69,8 @@ typedef struct s_texture
 	uint32_t		pri_color;
 	uint32_t		sec_color;
 	void			*texture_data;
+	int				width;
+	int				height;
 }					t_texture;
 
 /*
@@ -78,6 +82,8 @@ typedef struct s_bump_map
 {
 	bool			enabled;
 	void			*map;
+	int				width;
+	int				height;
 }					t_bump_map;
 
 // MEMORY MANAGEMENT
@@ -154,7 +160,6 @@ typedef struct s_plane
 	t_vect			norm;
 	t_vect			cord;
 	double			radius;
-	uint32_t		rgb;
 	t_material		mat;
 	t_texture		txm;
 	t_bump_map		bpm;
@@ -165,7 +170,6 @@ typedef struct s_sphere
 {
 	t_vect			cord;
 	double			diameter;
-	uint32_t		rgb;
 	t_material		mat;
 	t_texture		txm;
 	t_bump_map		bpm;
