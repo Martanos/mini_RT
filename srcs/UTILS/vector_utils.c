@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:21:38 by seayeo            #+#    #+#             */
-/*   Updated: 2025/01/11 17:21:31 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:00:58 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ double	vect_dot(t_vect v1, t_vect v2)
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-
 t_vect	vect_normalize(t_vect v)
 {
 	double	mag;
@@ -64,9 +63,9 @@ t_vect	vect_divide(t_vect v1, double n)
 	return (v);
 }
 
-t_vect vect_create(double x, double y, double z)
+t_vect	vect_create(double x, double y, double z)
 {
-	t_vect v;
+	t_vect	v;
 
 	v.x = x;
 	v.y = y;
@@ -99,7 +98,8 @@ t_vect	ft_vect_mul_all(t_vect a, double scalar)
 	return ((t_vect){a.x * scalar, a.y * scalar, a.z * scalar});
 }
 
-void	set_face_normal(t_hit_record *rec, const t_ray *r, const t_vect *outward_normal)
+void	set_face_normal(t_hit_record *rec, const t_ray *r,
+		const t_vect *outward_normal)
 {
 	if (vect_dot(r->direction, *outward_normal) > 0.0)
 		rec->normal = vect_multiply(*outward_normal, -1); // Inside

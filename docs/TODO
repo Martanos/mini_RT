@@ -1,0 +1,13 @@
+TODO:
+- Add new files to MAKEFILE
+- Clean up helper files
+- Move MLX creation and free logic to master
+- Consolidate vector functions into vector library
+
+PERPETUAL TODO:
+- Debugging
+- Documentation
+- Error handling
+- Refactoring
+- Optimization
+- Code cleanup
