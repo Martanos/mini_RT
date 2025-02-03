@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 15:09:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 12:20:52 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@
 # define SEMI_BLUE 0x800000FF   // Semi-transparent blue (alpha 50%)
 # define TRANSPARENT 0x00000000 // Fully transparent
 
-// RENDERPLANE
-
-void		ft_render_scene(t_instruction_set *instruction_set);
 // UTILS
 
 // vector_utils.c

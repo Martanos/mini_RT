@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atod.c                                             :+:      :+:    :+:   */
+/*   parser_atod.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 05:30:37 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 15:13:27 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 13:13:53 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ double	ft_atod(t_p_node **cur)
 	double	decimal;
 	int		sign;
 
-	while (*cur && (*cur)->val == ' ')
-		(*cur) = (*cur)->next;
+	ft_skip_spaces(cur);
+	if (!(*cur))
+		return (NAN);
 	sign = ft_handle_sign(cur);
 	integer = ft_handle_integer(cur);
 	decimal = ft_handle_decimal(cur);

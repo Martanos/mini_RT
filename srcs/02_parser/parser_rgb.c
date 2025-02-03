@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_rgb.c                                       :+:      :+:    :+:   */
+/*   parser_rgb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/01/27 15:13:44 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/03 13:17:46 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ uint32_t	ft_get_rgb(t_p_node **cur)
 	uint8_t	g;
 	uint8_t	b;
 
-	while (*cur && (*cur)->val == ' ')
-		(*cur) = (*cur)->next;
+	ft_skip_spaces(cur);
+	if (!(*cur))
+		return (ft_format_error(cur, "Empty RGB value found"), -1);
 	r = ft_atorgb(cur);
 	g = ft_atorgb(cur);
 	b = ft_atorgb(cur);
