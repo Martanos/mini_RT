@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
+#    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/04 16:28:12 by seayeo           ###   ########.fr        #
+#    Updated: 2025/02/04 16:32:04 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,15 +32,24 @@ INCS		= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBVECT_DIR) -I$(LIBRGB_DIR)
 LIBFT		= $(LIBFT_DIR)/libft.a
 LIBVECT		= $(LIBVECT_DIR)/libvect.a
 LIBRGB		= $(LIBRGB_DIR)/librgb.a
-LIBS		= -L$(LIBFT_DIR) -lft -L$(LIBVECT_DIR) -lvect -L$(LIBRGB_DIR) -lrgb
+LIBS		= $(LIBFT) $(LIBVECT) $(LIBRGB)
 
 # Source files
-SRCS =	$(addprefix $(SRCS_DIR)/,\
-		main.c \
-		ray_utils.c \
-		# ...existing code...
-		)
-# Remove vector_utils.c from SRCS list
+SRC_MAIN		= main.c
+SRC_LEXER		= file_struct_utils.c read_file.c read_file_utils.c \
+					reconstruct_strings.c
+SRC_PARSING		= create_amb.c create_cam.c create_cone.c create_cylinder.c \
+					create_light.c create_plane.c create_sphere.c \
+					extra_data.c extra_data_utils.c \
+					parser_main.c parser_atod.c parser_error_utils.c \
+					parser_list_utils.c parser_populate.c parser_rgb.c \
+					parser_utils.c parser_xyz.c
+SRC_UTILITIES	= fatal.c exit.c master_utils.c misc.c
+SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
+					$(addprefix $(SRC_DIR)/02_lexer/, $(SRC_LEXER)) \
+					$(addprefix $(SRC_DIR)/03_parser/, $(SRC_PARSING)) \
+					$(addprefix $(SRC_DIR)/utilities/, $(SRC_UTILITIES)) \
+
 
 # Object files
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -52,7 +61,7 @@ NAME		= minirt
 .PHONY: all
 all:        $(NAME)
 
-$(NAME):		$(LIBFT) $(OBJS)
+$(NAME):		$(LIBS) $(OBJS)
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Linking $(NAME)...$(RESET)"
 	@$(CC) $(CFLAGS) $(INCS) $(OBJS) $(LIBS) -o $@ $(LDFLAGS)
@@ -66,6 +75,14 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 $(LIBFT):
 	@echo "$(YELLOW)Compiling libft...$(RESET)"
 	@make -C $(LIBFT_DIR)
+
+$(LIBVECT):
+	@echo "$(YELLOW)Compiling libvect...$(RESET)"
+	@make -C $(LIBVECT_DIR)
+
+$(LIBRGB):
+	@echo "$(YELLOW)Compiling librgb...$(RESET)"
+	@make -C $(LIBRGB_DIR)
 
 .PHONY: clean fclean re
 clean:

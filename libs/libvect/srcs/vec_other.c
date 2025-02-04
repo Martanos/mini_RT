@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:30:30 by malee             #+#    #+#             */
-/*   Updated: 2025/01/21 15:18:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 16:27:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 t_vect	ft_vect_norm(t_vect a)
 {
 	double	mag;
-	t_vect	v;
 
 	mag = ft_vect_mag(a);
 	return (ft_vect_div_all(a, mag));

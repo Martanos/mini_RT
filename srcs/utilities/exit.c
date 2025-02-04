@@ -3,83 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:25:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 15:17:54 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:06:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-void	ft_free_master(t_master *master)
-{
-	t_light		*curr_light;
-	t_light		*next_light;
-	t_sphere	*curr_sphere;
-	t_sphere	*next_sphere;
-	t_plane		*curr_plane;
-	t_plane		*next_plane;
-	t_cylinder	*curr_cylinder;
-	t_cylinder	*next_cylinder;
-	t_cone		*curr_cone;
-	t_cone		*next_cone;
-
-	// Free ambient light
-	if (master->amb_head)
-		free(master->amb_head);
-
-	// Free camera
-	if (master->cam_head)
-		free(master->cam_head);
-
-	// Free light objects
-	curr_light = master->light_head;
-	while (curr_light)
-	{
-		next_light = curr_light->next;
-		free(curr_light);
-		curr_light = next_light;
-	}
-
-	// Free sphere objects
-	curr_sphere = master->sphere_head;
-	while (curr_sphere)
-	{
-		next_sphere = curr_sphere->next;
-		free(curr_sphere);
-		curr_sphere = next_sphere;
-	}
-
-	// Free plane objects
-	curr_plane = master->plane_head;
-	while (curr_plane)
-	{
-		next_plane = curr_plane->next;
-		free(curr_plane);
-		curr_plane = next_plane;
-	}
-
-	// Free cylinder objects
-	curr_cylinder = master->cylinder_head;
-	while (curr_cylinder)
-	{
-		next_cylinder = curr_cylinder->next;
-		free(curr_cylinder);
-		curr_cylinder = next_cylinder;
-	}
-
-	// Free cone objects
-	curr_cone = master->cone_head;
-	while (curr_cone)
-	{
-		next_cone = curr_cone->next;
-		free(curr_cone);
-		curr_cone = next_cone;
-	}
-
-	free(master);
-}
 
 // TODO: Add memory management for mlx objects
 // @brief Graceful exit handles all expected memory leaks

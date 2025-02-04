@@ -6,11 +6,11 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 15:23:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 16:18:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mini_rt.h"
+#include "mini_rt.h"
 
 // void	ft_temp_object_creation(t_instruction_set **instruction_set)
 // {

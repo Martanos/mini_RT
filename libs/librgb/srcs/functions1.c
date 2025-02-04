@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:17:40 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 15:36:05 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:30:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ uint32_t	ft_get_r(uint32_t rgb)
 uint32_t	ft_get_g(uint32_t rgb)
 {
 	return ((rgb >> 8) & 0xFF);
-	return ((rgb >> 8) & 0xFF);
 }
 
 /*
@@ -74,9 +73,9 @@ void	ft_convert_rgb_arr(uint32_t rgb, uint8_t *rgb_arr)
 {
 	if (!rgb_arr)
 		return ;
-	rgb_arr[0] = (rgb >> 16) & 0xFF;  // red
-	rgb_arr[1] = (rgb >> 8) & 0xFF;   // green
-	rgb_arr[2] = rgb & 0xFF;          // blue
+	rgb_arr[0] = (rgb >> 16) & 0xFF; // red
+	rgb_arr[1] = (rgb >> 8) & 0xFF;  // green
+	rgb_arr[2] = rgb & 0xFF;         // blue
 }
 
 /*
