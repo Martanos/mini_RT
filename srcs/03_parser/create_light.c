@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:45:49 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:01:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:55:31 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static bool	ft_populate_light(t_light **light, t_p_node **cur)
 		return (ft_format_error("Light ratio is out of range [0,1]"));
 	if (!ft_next(cur, "Light has no color"))
 		return (false);
-	(*light)->color = ft_get_rgb((*cur)->str);
-	if ((*light)->color > 255)
+	if (!ft_get_rgb(&(*light)->color, (*cur)->str))
 		return (false);
 	if ((*cur)->next && (*cur)->next->str != NULL
 		&& (*cur)->next->str[0] != '\n')
@@ -60,5 +59,6 @@ bool	ft_create_light(t_master **master, t_p_node **cur)
 	if (!ft_populate_light(&light, cur))
 		return (free(light), false);
 	ft_add_light(master, light);
+	printf(GREEN "Light created successfully\n" RESET);
 	return (true);
 }

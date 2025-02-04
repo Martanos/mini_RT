@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:10:18 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:02:27 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:55:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ static bool	ft_populate_plane(t_master **master, t_plane **plane,
 			"Plane coordinates are not a valid vector") || !ft_next(cur,
 			"Plane has no color"))
 		return (false);
-	(*plane)->pro.txm.pri_color = ft_get_rgb((*cur)->str);
-	if ((*plane)->pro.txm.pri_color > 255)
+	if (!ft_get_rgb(&(*plane)->pro.txm.pri_color, (*cur)->str))
 		return (false);
 	return (ft_extra_data(master, (t_obj_pro **)&((*plane)->pro), cur));
 }
@@ -62,5 +61,6 @@ bool	ft_create_plane(t_master **master, t_p_node **cur)
 	if (!ft_populate_plane(master, &plane, cur))
 		return (free(plane), false);
 	ft_add_plane(master, plane);
+	printf(GREEN "Plane created successfully\n" RESET);
 	return (true);
 }

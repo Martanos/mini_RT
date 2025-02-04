@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 18:55:14 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:29:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static bool	ft_initmlx(t_master **master)
 	return (true);
 }
 
+static void	ft_print_list(t_p_node *head)
+{
+	while (head)
+	{
+		printf("head: %s\n", head->str);
+		head = head->next;
+	}
+}
 /*
 ** @brief Facilitates the parsing of the file
 ** @param file_path path to the file
@@ -48,9 +56,13 @@ t_master	*ft_parser(char *file_path)
 	if (!head)
 		return (NULL);
 	master = ft_populate(head);
+	ft_print_list(head);
 	ft_free_p_list(head);
 	if (!master)
+	{
+		printf(RED "Master is NULL\n" RESET);
 		return (NULL);
+	}
 	if (!ft_initmlx(&master))
 		return (ft_free_master(master), NULL);
 	return (master);

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:49:09 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:00:01 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:55:15 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static bool	ft_populate_cone(t_master **master, t_cone **cone, t_p_node **cur)
 		return (ft_format_error("Cone diameter is not a positive integer"));
 	if (!ft_next(cur, "Cone has no color"))
 		return (false);
-	(*cone)->pro.txm.pri_color = ft_get_rgb((*cur)->str);
-	if ((*cone)->pro.txm.pri_color > 255)
+	if (!ft_get_rgb(&(*cone)->pro.txm.pri_color, (*cur)->str))
 		return (false);
 	return (ft_extra_data(master, (t_obj_pro **)&((*cone)->pro), cur));
 }
@@ -71,5 +70,6 @@ bool	ft_create_cone(t_master **master, t_p_node **cur)
 	if (!ft_populate_cone(master, &cone, cur))
 		return (free(cone), false);
 	ft_add_cone(master, cone);
+	printf(GREEN "Cone created successfully\n" RESET);
 	return (true);
 }

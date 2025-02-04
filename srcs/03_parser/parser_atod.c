@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 05:30:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 18:43:22 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:23:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static double	ft_handle_decimal(char **str)
 			ft_warning("Decimal part exceeds maximum precise value");
 		(*str)++;
 	}
-	return (count ? decimal / pow(10, count) : 0);
+	return (decimal / pow(10, count));
 }
 
 double	ft_atod(char *str)

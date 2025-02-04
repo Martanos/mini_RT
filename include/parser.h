@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 16:42:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:54:14 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool					ft_add_material(t_obj_pro **pro, char *str);
 // Utils
 t_vect					ft_get_xyz(t_p_node **cur);
 double					ft_atod(char *str);
-uint32_t				ft_get_rgb(char *str);
+bool					ft_get_rgb(uint32_t *rgb, char *str);
 bool					ft_is_valid_vector(t_vect vector, double min,
 							double max, char *str);
 bool					ft_next(t_p_node **cur, char *str);
