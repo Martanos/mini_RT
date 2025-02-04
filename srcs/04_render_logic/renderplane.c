@@ -6,12 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 16:23:28 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 17:16:50 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "libvect.h"
 
 static t_vect calculate_viewport_up(t_vect camera_dir)
 {

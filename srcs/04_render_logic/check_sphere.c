@@ -6,12 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 16:23:29 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 17:17:02 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "libvect.h"
 
 double	check_sphere_collision(t_ray ray, t_sphere *sphere)
 {
