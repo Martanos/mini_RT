@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:24:24 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 16:41:24 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 18:21:44 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_p_node	*ft_read_file(char *file_path)
 	clean_data = ft_clean_data(raw_data);
 	ft_free_f_list(raw_data);
 	str = ft_reconstruct_strings(clean_data);
+	ft_print_p_list(str);
 	ft_free_f_list(clean_data);
 	return (str);
 }

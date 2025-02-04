@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:32:25 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 17:39:44 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,10 @@ typedef struct s_intersection_info	t_intersection_info;
 
 /*
  * Core Ray Tracing Structures:
- * These structures form the foundation of the ray tracing system, working together
+ * These structures form the foundation of the ray tracing system,
+	working together
  * to determine what objects are hit by rays and how they should be rendered.
  */
-
-// Combines hit information with color data for the final pixel output
-// - hit: Contains the intersection point, normal, and distance
-// - color: The final calculated color for this intersection
-typedef struct s_intersection_info
-{
-	t_hit_record	hit;
-	uint32_t		color;
-}	t_intersection_info;
-
-// Represents a ray in 3D space used for ray tracing
-// - origin: Starting point of the ray
-// - direction: Normalized vector indicating ray's direction
-typedef struct s_ray
-{
-	t_vect							origin;
-	t_vect							direction;
-}									t_ray;
 
 // Records information about where a ray intersects with an object
 // - point: The exact point of intersection in 3D space
@@ -61,10 +44,30 @@ typedef struct s_hit_record
 	double							t;
 }									t_hit_record;
 
+// Combines hit information with color data for the final pixel output
+// - hit: Contains the intersection point, normal, and distance
+// - color: The final calculated color for this intersection
+typedef struct s_intersection_info
+{
+	t_hit_record					hit;
+	uint32_t						color;
+}									t_intersection_info;
+
+// Represents a ray in 3D space used for ray tracing
+// - origin: Starting point of the ray
+// - direction: Normalized vector indicating ray's direction
+typedef struct s_ray
+{
+	t_vect							origin;
+	t_vect							direction;
+}									t_ray;
+
 /*
  * Collision Tracking Structures:
- * Each geometric shape has its own collision structure that follows the same pattern.
- * These structures store the closest intersection found for that shape type during
+
+	* Each geometric shape has its own collision structure that follows the same pattern.
+
+	* These structures store the closest intersection found for that shape type during
  * ray tracing, allowing us to determine which object is visible at each pixel.
  */
 
@@ -106,10 +109,14 @@ typedef struct s_cone_collision
 
 /*
  * Shape-Specific Intersection Functions:
- * Each geometric shape (sphere, plane, cylinder, cone) has three associated functions:
- * 1. find_closest_*: Finds the closest intersection with any object of that type
- * 2. check_*_collision: Tests for intersection between a ray and a single object
- * 3. calculate_*_hit: Computes intersection details (point, normal) when a hit occurs
+ * Each geometric shape (sphere, plane, cylinder,
+	cone) has three associated functions:
+
+	* 1. find_closest_*: Finds the closest intersection with any object of that type
+
+	* 2. check_*_collision: Tests for intersection between a ray and a single object
+ * 3. calculate_*_hit: Computes intersection details (point,
+	normal) when a hit occurs
  */
 
 // check_sphere.c
@@ -158,8 +165,7 @@ void								calculate_cone_hit(t_ray ray,
  */
 
 // intersection_checks.c - Intersection testing and management
-void								update_closest_intersection(
-										t_intersection_info *closest,
+void								update_closest_intersection(t_intersection_info *closest,
 										t_intersection_info current);
 void								check_sphere_intersection(t_ray ray,
 										t_master *master,
@@ -173,10 +179,11 @@ void								check_cylinder_intersection(t_ray ray,
 void								check_cone_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
-										
+
 /*
  * Ray Tracing Core Functions:
- * These functions handle the main ray tracing logic, from determining background
+ * These functions handle the main ray tracing logic,
+	from determining background
  * colors to calculating final pixel colors based on ray intersections.
  */
 

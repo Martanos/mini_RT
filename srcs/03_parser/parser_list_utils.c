@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 16:54:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 18:12:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_add_p_node(t_p_node **head, t_p_node *new_node)
 {
 	t_p_node	*current;
 
-	if (!head)
+	if (!*head)
 	{
 		*head = new_node;
 		return ;

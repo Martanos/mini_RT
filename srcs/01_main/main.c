@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 16:18:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 17:38:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("Error\nInvalid number of arguments\n");
+		printf(RED "Error\nInvalid number of arguments\n" RESET);
 		return (1);
 	}
 	return (0);
