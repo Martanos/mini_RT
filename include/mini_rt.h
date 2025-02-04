@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:09:24 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 16:28:13 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ t_vect	vect_create(double x, double y, double z);
 t_vect	vect_multiply(t_vect v1, double n);
 t_vect	vect_cross(t_vect v1, t_vect v2);
 t_vect	ft_vect_mul_all(t_vect a, double scalar);
-void	set_face_normal(t_hit_record *rec, const t_ray *r,
-			const t_vect *outward_normal);
+
+// Add ray_utils.c function declaration
+void set_face_normal(t_hit_record *rec, const t_ray *r, const t_vect *outward_normal);
 
 // misc.c
 void	error_exit(char *error_message);
@@ -92,19 +93,6 @@ void	ft_exit(t_master *master, char *error_message);
 void	ft_render_scene(t_instruction_set *instruction_set);
 // UTILS
 bool	ft_inrange(double value, double min, double max);
-// vector_utils.c
-t_vect	vect_add(t_vect v1, t_vect v2);
-t_vect	vect_sub(t_vect v1, t_vect v2);
-double	vect_magnitude(t_vect v);
-double	vect_dot(t_vect v1, t_vect v2);
-t_vect	vect_normalize(t_vect v);
-t_vect	vect_divide(t_vect v1, double n);
-t_vect	vect_create(double x, double y, double z);
-t_vect	vect_multiply(t_vect v1, double n);
-t_vect	vect_cross(t_vect v1, t_vect v2);
-t_vect	ft_vect_mul_all(t_vect a, double scalar);
-void	set_face_normal(t_hit_record *rec, const t_ray *r,
-			const t_vect *outward_normal);
 
 // misc.c
 void	error_exit(char *error_message);

@@ -6,12 +6,13 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 13:50:24 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:25:21 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
 #include "plane.h"
+#include "libvect.h"
 
 /**
  * @brief Checks if a ray-cone intersection point lies within the cone's height bounds
@@ -29,10 +30,10 @@ static double	check_height(t_ray ray, double t, t_cone *cone)
 	double	height;
 	t_vect	normalized_normal;
 
-	intersection = vect_add(ray.origin, vect_multiply(ray.direction, t));
-	v = vect_sub(intersection, cone->cord);
-	normalized_normal = vect_normalize(cone->norm);
-	height = vect_dot(v, normalized_normal);
+	intersection = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction, t));
+	v = ft_vect_sub(intersection, cone->cord);
+	normalized_normal = ft_vect_norm(cone->norm);
+	height = ft_vect_dot(v, normalized_normal);
 	if (height >= 0 && height <= cone->height)
 		return (t);
 	return (-1.0);
@@ -61,12 +62,12 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 	double	b;
 	double	c;
 
-	oc = vect_sub(ray.origin, cone->cord);
-	normalized_normal = vect_normalize(cone->norm);
+	oc = ft_vect_sub(ray.origin, cone->cord);
+	normalized_normal = ft_vect_norm(cone->norm);
 	radius = cone->diameter / 2.0;
 	cos_angle = cos(atan(radius / cone->height));
-	dot_dir_axis = vect_dot(ray.direction, normalized_normal);
-	dot_oc_axis = vect_dot(oc, normalized_normal);
+	dot_dir_axis = ft_vect_dot(ray.direction, normalized_normal);
+	dot_oc_axis = ft_vect_dot(oc, normalized_normal);
 	a = vect_dot(ray.direction, ray.direction) - (1.0 + cos_angle * cos_angle)
 		* dot_dir_axis * dot_dir_axis;
 	b = 2.0 * (vect_dot(ray.direction, oc) - (1.0 + cos_angle * cos_angle)
@@ -160,10 +161,10 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 	double	cos_angle;
 
 	rec->t = collision.closest_t;
-	rec->point = vect_add(ray.origin, vect_multiply(ray.direction,
+	rec->point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction,
 				collision.closest_t));
-	cp = vect_sub(rec->point, collision.closest_cone->cord);
-	normalized_normal = vect_normalize(collision.closest_cone->norm);
+	cp = ft_vect_sub(rec->point, collision.closest_cone->cord);
+	normalized_normal = ft_vect_norm(collision.closest_cone->norm);
 	proj = vect_dot(cp, normalized_normal);
 	if (fabs(proj) < 1e-6)
 	{

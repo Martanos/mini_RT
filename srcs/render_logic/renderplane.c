@@ -6,18 +6,18 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 13:54:22 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:23:28 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "plane.h"
+#include "libvect.h"
 
 static t_vect calculate_viewport_up(t_vect camera_dir)
 {
-	t_vect world_up = vect_create(0.0, 1.0, 0.0);
-	t_vect right = vect_normalize(vect_cross(camera_dir, world_up));
-	return vect_normalize(vect_cross(right, camera_dir));
+	t_vect world_up = ft_vect_create(0.0, 1.0, 0.0);
+	t_vect right = ft_vect_norm(ft_vect_cross(camera_dir, world_up));
+	return ft_vect_norm(ft_vect_cross(right, camera_dir));
 }
 // todo: move to parser
 void initmlx(t_master *master)
@@ -49,7 +49,7 @@ uint32_t	calculations(int x, int y, t_master *master)
 	double	focal_length;
 
 	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
-	camera_dir = vect_normalize(master->cam_head.norm);
+	camera_dir = ft_vect_norm(master->cam_head.norm);
 	
 	// Calculate viewport dimensions based on FOV
 	viewport_height = 2.0 * tan((master->cam_head.fov * M_PI / 180.0) / 2.0);
@@ -58,27 +58,27 @@ uint32_t	calculations(int x, int y, t_master *master)
 	
 	// Calculate viewport orientation vectors
 	viewport_up = calculate_viewport_up(camera_dir);
-	viewport_right = vect_normalize(vect_cross(camera_dir, viewport_up));
+	viewport_right = ft_vect_norm(ft_vect_cross(camera_dir, viewport_up));
 	
 	// Calculate viewport vectors
-	t_vect horizontal = vect_multiply(viewport_right, viewport_width);
-	t_vect vertical = vect_multiply(viewport_up, -viewport_height);  // Negative to match screen coordinates
+	t_vect horizontal = ft_vect_mul_all(viewport_right, viewport_width);
+	t_vect vertical = ft_vect_mul_all(viewport_up, -viewport_height);  // Negative to match screen coordinates
 	
 	// Calculate viewport center and corner
-	t_vect viewport_center = vect_add(master->cam_head.cord, 
-		vect_multiply(camera_dir, focal_length));
-	t_vect viewport_upper_left = vect_sub(viewport_center, 
-		vect_add(vect_divide(horizontal, 2.0), vect_divide(vertical, 2.0)));
+	t_vect viewport_center = ft_vect_add(master->cam_head.cord, 
+		ft_vect_mul_all(camera_dir, focal_length));
+	t_vect viewport_upper_left = ft_vect_sub(viewport_center, 
+		ft_vect_add(ft_vect_div_all(horizontal, 2.0), ft_vect_div_all(vertical, 2.0)));
 	
 	// Calculate pixel position
 	double u = (double)x / (WINDOW_WIDTH - 1);
 	double v = (double)y / (WINDOW_HEIGHT - 1);
-	pixel_pos = vect_add(viewport_upper_left,
-		vect_add(vect_multiply(horizontal, u), vect_multiply(vertical, v)));
+	pixel_pos = ft_vect_add(viewport_upper_left,
+		ft_vect_add(ft_vect_mul_all(horizontal, u), ft_vect_mul_all(vertical, v)));
 	
 	// Setup and normalize ray
 	ray.origin = master->cam_head.cord;
-	ray.direction = vect_normalize(vect_sub(pixel_pos, ray.origin));
+	ray.direction = ft_vect_norm(ft_vect_sub(pixel_pos, ray.origin));
 	
 	return (ray_color(ray, master));
 }

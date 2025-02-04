@@ -6,12 +6,13 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:18:06 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 13:50:25 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:25:14 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
 #include "../include/plane.h"
+#include "libvect.h"
 
 /**
  * @brief Checks if a ray-cylinder intersection point lies within the cylinder's height bounds
@@ -69,10 +70,10 @@ static double check_height(t_ray ray, double t, t_cylinder *cylinder)
  */
 static double check_cylinder_side(t_ray ray, t_cylinder *cylinder)
 {
-	t_vect oc = vect_sub(ray.origin, cylinder->cord);
-	t_vect normalized_normal = vect_normalize(cylinder->norm);
-	t_vect cross_dir_normal = vect_cross(ray.direction, normalized_normal);
-	t_vect cross_oc_normal = vect_cross(oc, normalized_normal);
+	t_vect oc = ft_vect_sub(ray.origin, cylinder->cord);
+	t_vect normalized_normal = ft_vect_norm(cylinder->norm);
+	t_vect cross_dir_normal = ft_vect_cross(ray.direction, normalized_normal);
+	t_vect cross_oc_normal = ft_vect_cross(oc, normalized_normal);
 	double radius = cylinder->diameter / 2.0;
 
 	// Compute the coefficients of the quadratic equation
@@ -255,11 +256,11 @@ t_cylinder_collision find_closest_cylinder(t_ray ray, t_master *master)
 void	calculate_cylinder_hit(t_ray ray, t_cylinder_collision collision, t_hit_record *rec)
 {
 	rec->t = collision.closest_t;
-	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+	rec->point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction, collision.closest_t));
 
 	// First, determine if the hit point is on a cap or the cylindrical surface
-	t_vect cp = vect_sub(rec->point, collision.closest_cylinder->cord);
-	t_vect normalized_normal = vect_normalize(collision.closest_cylinder->norm);
+	t_vect cp = ft_vect_sub(rec->point, collision.closest_cylinder->cord);
+	t_vect normalized_normal = ft_vect_norm(collision.closest_cylinder->norm);
 	double proj = vect_dot(cp, normalized_normal);
 	
 	// Check if hit point is near either cap (using a small epsilon for floating-point comparison)

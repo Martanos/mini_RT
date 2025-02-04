@@ -6,35 +6,27 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 13:50:16 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:23:33 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "plane.h"
+#include "libvect.h"
 
 double	check_plane_collision(t_ray ray, t_plane *plane)
 {
-	double	denom;
-	double	t;
-	t_vect	p0l0;
-	t_vect	hit_point;
-	t_vect	to_center;
-	double	distance_squared;
-
-	denom = vect_dot(plane->norm, ray.direction);
+	double	denom = ft_vect_dot(plane->norm, ray.direction);
 	if (fabs(denom) > 1e-6)
 	{
-		p0l0 = vect_sub(plane->cord, ray.origin);
-		t = vect_dot(p0l0, plane->norm) / denom;
+		t_vect p0l0 = ft_vect_sub(plane->cord, ray.origin);
+		double t = ft_vect_dot(p0l0, plane->norm) / denom;
 		if (t >= 0)
 		{
-			// If plane has a radius, check if hit point is within radius
 			if (plane->radius > 0)
 			{
-				hit_point = vect_add(ray.origin, vect_multiply(ray.direction, t));
-				to_center = vect_sub(hit_point, plane->cord);
-				distance_squared = vect_dot(to_center, to_center);
+				t_vect hit_point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction, t));
+				t_vect to_center = ft_vect_sub(hit_point, plane->cord);
+				double distance_squared = ft_vect_dot(to_center, to_center);
 				if (distance_squared <= plane->radius * plane->radius)
 					return (t);
 				return (-1.0);

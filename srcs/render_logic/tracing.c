@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 15:28:52 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 16:10:45 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_intersection_info find_closest_intersection(t_ray ray, t_master *master)
     if (sphere.closest_sphere)
     {
         calculate_sphere_hit(ray, sphere, &current.hit);
-        current.color = sphere.closest_sphere->txm.pri_color;
+        current.color = sphere.closest_sphere->pro.txm.pri_color;
         update_closest_intersection(&closest, current);
     }
 
@@ -119,7 +119,7 @@ t_intersection_info find_closest_intersection(t_ray ray, t_master *master)
     if (plane.closest_plane)
     {
         calculate_plane_hit(ray, plane, &current.hit);
-        current.color = plane.closest_plane->txm.pri_color;
+        current.color = plane.closest_plane->pro.txm.pri_color;
         update_closest_intersection(&closest, current);
     }
 
@@ -128,7 +128,7 @@ t_intersection_info find_closest_intersection(t_ray ray, t_master *master)
     if (cylinder.closest_cylinder)
     {
         calculate_cylinder_hit(ray, cylinder, &current.hit);
-        current.color = cylinder.closest_cylinder->txm.pri_color;
+        current.color = cylinder.closest_cylinder->pro.txm.pri_color;
         update_closest_intersection(&closest, current);
     }
 
@@ -137,7 +137,7 @@ t_intersection_info find_closest_intersection(t_ray ray, t_master *master)
     if (cone.closest_cone)
     {
         calculate_cone_hit(ray, cone, &current.hit);
-        current.color = cone.closest_cone->txm.pri_color;
+        current.color = cone.closest_cone->pro.txm.pri_color;
         update_closest_intersection(&closest, current);
     }
 

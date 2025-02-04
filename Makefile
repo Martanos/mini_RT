@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
+#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/01/20 17:44:35 by malee            ###   ########.fr        #
+#    Updated: 2025/02/04 16:28:12 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,12 @@ LIBRGB		= $(LIBRGB_DIR)/librgb.a
 LIBS		= -L$(LIBFT_DIR) -lft -L$(LIBVECT_DIR) -lvect -L$(LIBRGB_DIR) -lrgb
 
 # Source files
-SRC_MAIN						= main.c
-SRC_PARSING						= parser_main.c
-SRC_UTILITIES					= exit.c
-SRCS							= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
-									$(addprefix $(SRC_DIR)/02_parsing/, $(SRC_PARSING)) \
-									$(addprefix $(SRC_DIR)/utilities/, $(SRC_UTILITIES)) \
-									$(addprefix $(SRC_DIR)/, $(SRC_OTHERS))
-
+SRCS =	$(addprefix $(SRCS_DIR)/,\
+		main.c \
+		ray_utils.c \
+		# ...existing code...
+		)
+# Remove vector_utils.c from SRCS list
 
 # Object files
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
