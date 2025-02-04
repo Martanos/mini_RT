@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:17:40 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 17:35:12 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 14:38:39 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 */
 uint32_t	ft_create_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
-	return ((r << 24) | (g << 16) | (b << 8) | 0xFF);
+	return ((r << 16) | (g << 8) | b);
 }
 
 /*
@@ -31,7 +31,7 @@ uint32_t	ft_create_rgb(uint8_t r, uint8_t g, uint8_t b)
 */
 uint32_t	ft_get_r(uint32_t rgb)
 {
-	return ((rgb >> 24) & 0xFF);
+	return ((rgb >> 16) & 0xFF);
 }
 
 /*
@@ -41,7 +41,7 @@ uint32_t	ft_get_r(uint32_t rgb)
 */
 uint32_t	ft_get_g(uint32_t rgb)
 {
-	return ((rgb >> 16) & 0xFF);
+	return ((rgb >> 8) & 0xFF);
 }
 
 /*
@@ -50,16 +50,6 @@ uint32_t	ft_get_g(uint32_t rgb)
 ** @return blue value
 */
 uint32_t	ft_get_b(uint32_t rgb)
-{
-	return ((rgb >> 8) & 0xFF);
-}
-
-/*
-** @brief Gets the alpha value (4th 8 bits) from an rgb value
-** @param rgb rgb value
-** @return alpha value
-*/
-uint32_t	ft_get_a(uint32_t rgb)
 {
 	return (rgb & 0xFF);
 }

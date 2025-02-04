@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:39:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 15:22:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,31 @@ static void	ft_add_sphere(t_master **master, t_sphere *sphere)
 	}
 }
 
-static bool	ft_check_extra_data(t_master **master, t_sphere **sphere,
-		t_p_node **cur)
-{
-	while (*cur)
-	{
-		if (ft_strcmp((*cur)->str, "txm:") == 0)
-		{
-			if (!ft_add_sphere_texture(master, sphere, (*cur)->str + 4))
-				return (false);
-		}
-		else if (ft_strcmp((*cur)->str, "bpm:") == 0)
-		{
-			if (!ft_add_sphere_bump_map(master, sphere, (*cur)->str + 4))
-				return (false);
-		}
-		else if (ft_strcmp((*cur)->str, "mat:"))
-		{
-			if (!ft_add_sphere_material(sphere, (*cur)->str + 4))
-				return (false);
-		}
-		else
-			return (ft_format_error("Unknown sphere data"));
-		(*cur) = (*cur)->next;
-	}
-	return (true);
-}
-
 // @brief Creates a sphere object
 // @param master pointer to the master structure
 // @param cur pointer to the current node in the parser node list
 // @return true if successful, false if error
+static bool	ft_populate_sphere(t_master **master, t_sphere **sphere,
+		t_p_node **cur)
+{
+	if (!ft_next(cur, "Sphere has no coordinates"))
+		return (false);
+	(*sphere)->cord = ft_get_xyz(cur);
+	if (!ft_is_valid_vector((*sphere)->cord, -INFINITY, INFINITY,
+			"Sphere coordinates are not a valid vector") || !ft_next(cur,
+			"Sphere has no diameter"))
+		return (false);
+	(*sphere)->diameter = ft_atod((*cur)->str);
+	if (!ft_inrange((*sphere)->diameter, 0, INFINITY))
+		return (ft_format_error("Sphere diameter is not a positive number"));
+	if (!ft_next(cur, "Sphere has no color"))
+		return (false);
+	(*sphere)->pro.txm.pri_color = ft_get_rgb((*cur)->str);
+	if ((*sphere)->pro.txm.pri_color == -1)
+		return (false);
+	return (ft_extra_data(master, &(*sphere)->pro, cur));
+}
+
 bool	ft_create_sphere(t_master **master, t_p_node **cur)
 {
 	t_sphere	*sphere;
@@ -65,23 +59,7 @@ bool	ft_create_sphere(t_master **master, t_p_node **cur)
 	sphere = (t_sphere *)ft_calloc(1, sizeof(t_sphere));
 	if (!sphere)
 		return (false);
-	(*cur) = (*cur)->next;
-	sphere->cord = ft_get_xyz(cur);
-	if (!ft_is_valid_vector(sphere->cord, -INFINITY, INFINITY))
-		return (free(sphere),
-			ft_format_error("Sphere coordinates are not a valid vector"));
-	(*cur) = (*cur)->next;
-	sphere->diameter = ft_atod((*cur)->str);
-	if (sphere->diameter <= 0)
-		return (free(sphere),
-			ft_format_error("Sphere diameter is not a positive number"));
-	(*cur) = (*cur)->next;
-	sphere->txm.pri_color = ft_get_rgb((*cur)->str);
-	if (sphere->txm.pri_color < 0 || sphere->txm.pri_color > 0xFFFFFF)
-		return (free(sphere),
-			ft_format_error("Sphere color is out of range [0,255]"));
-	(*cur) = (*cur)->next;
-	if (*cur && !ft_check_extra_data(master, &sphere, cur))
+	if (!ft_populate_sphere(master, &sphere, cur))
 		return (free(sphere), false);
 	ft_add_sphere(master, sphere);
 	return (true);

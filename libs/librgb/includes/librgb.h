@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:17:18 by malee             #+#    #+#             */
-/*   Updated: 2025/01/10 17:24:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 14:38:55 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
-//# include <mlx.h>
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdio.h>

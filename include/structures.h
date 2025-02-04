@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:23:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:54:15 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 15:05:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_hit_record;
 typedef struct		s_material;
 typedef struct		s_texture;
 typedef struct		s_bump_map;
-
+typedef struct		s_obj_pro;
 // BONUS STRUCTURES
 /*
 ** @brief Material properties for Phong reflection model
@@ -85,6 +85,13 @@ typedef struct s_bump_map
 	int				width;
 	int				height;
 }					t_bump_map;
+
+typedef struct s_obj_pro
+{
+	t_material		mat;
+	t_texture		txm;
+	t_bump_map		bpm;
+}					t_obj_pro;
 
 // MEMORY MANAGEMENT
 /*
@@ -160,9 +167,7 @@ typedef struct s_plane
 	t_vect			norm;
 	t_vect			cord;
 	double			radius;
-	t_material		mat;
-	t_texture		txm;
-	t_bump_map		bpm;
+	t_obj_pro		pro;
 	t_plane			*next;
 }					t_plane;
 
@@ -170,9 +175,7 @@ typedef struct s_sphere
 {
 	t_vect			cord;
 	double			diameter;
-	t_material		mat;
-	t_texture		txm;
-	t_bump_map		bpm;
+	t_obj_pro		pro;
 	t_sphere		*next;
 }					t_sphere;
 
@@ -182,9 +185,7 @@ typedef struct s_cylinder
 	t_vect			norm;
 	double			diameter;
 	double			height;
-	t_material		mat;
-	t_texture		txm;
-	t_bump_map		bpm;
+	t_obj_pro		pro;
 	t_cylinder		*next;
 }					t_cylinder;
 
@@ -194,9 +195,7 @@ typedef struct s_cone
 	t_vect			norm;
 	double			height;
 	double			diameter;
-	t_material		mat;
-	t_texture		txm;
-	t_bump_map		bpm;
+	t_obj_pro		pro;
 	t_cone			*next;
 }					t_cone;
 

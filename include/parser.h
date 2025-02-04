@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:57:03 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 15:15:15 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,46 +54,17 @@ t_master		*ft_populate(t_p_node *head);
 bool			ft_create_amb(t_master **master, t_p_node **cur);
 bool			ft_create_cam(t_master **master, t_p_node **cur);
 bool			ft_create_light(t_master **master, t_p_node **cur);
-
-// SPHERE OBJECT CREATION UTILS
 bool			ft_create_sphere(t_master **master, t_p_node **cur);
-bool			ft_add_sphere_texture(t_master **master, t_sphere **sphere,
-					char *str);
-bool			ft_add_sphere_bump_map(t_master **master, t_sphere *sphere,
-					char *str);
-bool			ft_add_sphere_material(t_sphere **sphere, char *str);
-bool			ft_add_populate_texture(t_master **master, t_sphere **sphere,
-					char **split);
-
-// PLANE OBJECT CREATION UTILS
 bool			ft_create_plane(t_master **master, t_p_node **cur);
-bool			ft_add_plane_texture(t_master **master, t_plane **plane,
-					char *str);
-bool			ft_add_plane_bump_map(t_master **master, t_plane *plane,
-					char *str);
-bool			ft_add_plane_material(t_plane **plane, char *str);
-bool			ft_populate_plane_texture(t_master **master, t_plane **plane,
-					char **split);
-
-// CYLINDER OBJECT CREATION UTILS
 bool			ft_create_cylinder(t_master **master, t_p_node **cur);
-bool			ft_add_cylinder_texture(t_master **master,
-					t_cylinder **cylinder, char *str);
-bool			ft_add_cylinder_bump_map(t_master **master,
-					t_cylinder *cylinder, char *str);
-bool			ft_add_cylinder_material(t_cylinder **cylinder, char *str);
-bool			ft_populate_cylinder_texture(t_master **master,
-					t_cylinder **cylinder, char **split);
-
-// CONE OBJECT CREATION UTILS
 bool			ft_create_cone(t_master **master, t_p_node **cur);
-bool			ft_add_cone_texture(t_master **master, t_cone **cone,
-					char *str);
-bool			ft_add_cone_bump_map(t_master **master, t_cone *cone,
-					char *str);
-bool			ft_add_cone_material(t_cone **cone, char *str);
-bool			ft_populate_cone_texture(t_master **master, t_cone **cone,
-					char **split);
+
+// Property Creation
+bool			ft_extra_data(t_master **master, t_obj_pro **pro,
+					t_p_node **cur);
+bool			ft_add_texture(t_master **master, t_obj_pro **pro, char *str);
+bool			ft_add_bump_map(t_master **master, t_obj_pro **pro, char *str);
+bool			ft_add_material(t_obj_pro **pro, char *str);
 
 // Structure UTILS
 t_p_node		*ft_create_p_node(char *str);
@@ -104,7 +75,9 @@ void			ft_free_p_list(t_p_node *head);
 t_vect			ft_get_xyz(t_p_node **cur);
 double			ft_atod(char *str);
 uint32_t		ft_get_rgb(char *str);
-bool			ft_is_valid_vector(t_vect vector, double min, double max);
+bool			ft_is_valid_vector(t_vect vector, double min, double max,
+					char *str);
+bool			ft_next(t_p_node **cur, char *str);
 
 // ERROR UTILS
 bool			ft_format_error(char *message);

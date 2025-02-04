@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:10:18 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 20:40:17 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 15:21:57 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,51 +27,25 @@ static void	ft_add_plane(t_master **master, t_plane *plane)
 	}
 }
 
-static bool	ft_check_extra_data(t_master **master, t_plane **plane,
-		t_p_node **cur)
-{
-	while (*cur)
-	{
-		if (ft_strcmp((*cur)->str, "txm:") == 0)
-		{
-			if (!ft_add_plane_texture(master, plane, (*cur)->str + 4))
-				return (false);
-		}
-		else if (ft_strcmp((*cur)->str, "bpm:") == 0)
-		{
-			if (!ft_add_plane_bump_map(master, plane, (*cur)->str + 4))
-				return (false);
-		}
-		else if (ft_strcmp((*cur)->str, "mat:"))
-		{
-			if (!ft_add_plane_material(plane, (*cur)->str + 4))
-				return (false);
-		}
-		else
-			return (ft_format_error("Unknown plane data"));
-		(*cur) = (*cur)->next;
-	}
-	return (true);
-}
-
 static bool	ft_populate_plane(t_master **master, t_plane **plane,
 		t_p_node **cur)
 {
-	(*plane)->cord = ft_get_xyz(cur);
-	if (!ft_is_valid_vector((*plane)->cord, -INFINITY, INFINITY))
-		return (ft_format_error("Plane coordinates are not a valid vector"));
-	(*cur) = (*cur)->next;
-	(*plane)->norm = ft_get_xyz(cur);
-	if (!ft_is_valid_vector((*plane)->norm, -1, 1))
-		return (ft_format_error("Plane coordinates are not a valid vector"));
-	(*cur) = (*cur)->next;
-	(*plane)->txm.pri_color = ft_get_rgb((*cur)->str);
-	if ((*plane)->txm.pri_color < 0 || (*plane)->txm.pri_color > 0xFFFFFF)
-		return (ft_format_error("Plane color is out of range [0,255]"));
-	(*cur) = (*cur)->next;
-	if (*cur && !ft_check_extra_data(master, plane, cur))
+	if (!ft_next(cur, "Plane has no coordinates"))
 		return (false);
-	return (true);
+	(*plane)->cord = ft_get_xyz(cur);
+	if (!ft_is_valid_vector((*plane)->cord, -INFINITY, INFINITY,
+			"Plane coordinates are not a valid vector") || !ft_next(cur,
+			"Plane has no normal"))
+		return (false);
+	(*plane)->norm = ft_get_xyz(cur);
+	if (!ft_is_valid_vector((*plane)->norm, -1, 1,
+			"Plane coordinates are not a valid vector") || !ft_next(cur,
+			"Plane has no color"))
+		return (false);
+	(*plane)->pro.txm.pri_color = ft_get_rgb((*cur)->str);
+	if ((*plane)->pro.txm.pri_color == -1)
+		return (false);
+	return (ft_extra_data(master, &(*plane)->pro, cur));
 }
 
 // @brief Creates a plane object
@@ -85,7 +59,6 @@ bool	ft_create_plane(t_master **master, t_p_node **cur)
 	plane = (t_plane *)ft_calloc(1, sizeof(t_plane));
 	if (!plane)
 		return (false);
-	(*cur) = (*cur)->next;
 	if (!ft_populate_plane(master, &plane, cur))
 		return (free(plane), false);
 	ft_add_plane(master, plane);
