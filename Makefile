@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/04 16:32:04 by malee            ###   ########.fr        #
+#    Updated: 2025/02/04 17:31:47 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ CFLAGS		= -Wall -Wextra -Werror -g
 SRC_DIR		= srcs
 OBJ_DIR		= obj
 LIBFT_DIR	= libs/libft
+LIBRGB_DIR	= libs/librgb
 LIBVECT_DIR	= libs/libvect
 INC_DIR		= include
 
@@ -32,7 +33,15 @@ INCS		= -I$(INC_DIR) -I$(LIBFT_DIR) -I$(LIBVECT_DIR) -I$(LIBRGB_DIR)
 LIBFT		= $(LIBFT_DIR)/libft.a
 LIBVECT		= $(LIBVECT_DIR)/libvect.a
 LIBRGB		= $(LIBRGB_DIR)/librgb.a
-LIBS		= $(LIBFT) $(LIBVECT) $(LIBRGB)
+LIBFT_FLAGS	= -L$(LIBFT_DIR) -lft
+LIBVECT_FLAGS	= -L$(LIBVECT_DIR) -lvect
+LIBRGB_FLAGS	= -L$(LIBRGB_DIR) -lrgb
+
+# Add MLX library paths and flags
+MLX_DIR     = minilibx-linux
+MLX         = $(MLX_DIR)/libmlx.a
+MLX_FLAGS   = -L$(MLX_DIR) -lmlx -lXext -lX11
+LDFLAGS     = $(MLX_FLAGS) -lm
 
 # Source files
 SRC_MAIN		= main.c
@@ -61,10 +70,10 @@ NAME		= minirt
 .PHONY: all
 all:        $(NAME)
 
-$(NAME):		$(LIBS) $(OBJS)
+$(NAME):		$(LIBFT) $(LIBVECT) $(LIBRGB) $(MLX) $(OBJS)
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Linking $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCS) $(OBJS) $(LIBS) -o $@ $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBFT_FLAGS) $(LIBVECT) $(LIBVECT_FLAGS) $(LIBRGB) $(LIBRGB_FLAGS) $(MLX) $(LDFLAGS) -o $@
 	@echo "$(GREEN)$(NAME) has been compiled.$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
@@ -84,12 +93,18 @@ $(LIBRGB):
 	@echo "$(YELLOW)Compiling librgb...$(RESET)"
 	@make -C $(LIBRGB_DIR)
 
+$(MLX):
+	@echo "$(YELLOW)Compiling MLX...$(RESET)"
+	@make -C $(MLX_DIR)
+
 .PHONY: clean fclean re
 clean:
 	@echo "$(YELLOW)Cleaning object files...$(RESET)"
 	@rm -rf $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean
 	@make -C $(LIBVECT_DIR) clean
+	@make -C $(LIBRGB_DIR) clean
+	@make -C $(MLX_DIR) clean
 	@echo "$(RED)Object files have been removed.$(RESET)"
 
 fclean:			clean
@@ -97,6 +112,7 @@ fclean:			clean
 	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean
 	@make -C $(LIBVECT_DIR) fclean
+	@make -C $(LIBRGB_DIR) fclean
 	@echo "$(RED)$(NAME) and all object files have been removed.$(RESET)"
 
 re:				fclean all

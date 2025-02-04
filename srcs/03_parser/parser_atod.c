@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 05:30:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 17:31:07 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 17:04:05 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static double	ft_handle_sign(char **str)
 {
-	while (*str && **str == '-' || **str == '+')
+	while (*str && (**str == '-' || **str == '+'))
 	{
 		if (**str == '-')
 		{
@@ -92,9 +92,9 @@ double	ft_atod(char *str)
 
 	if (str == NULL)
 		return (NAN);
-	sign = ft_handle_sign(str);
-	integer = ft_handle_integer(str);
-	decimal = ft_handle_decimal(str);
+	sign = ft_handle_sign(&str);
+	integer = ft_handle_integer(&str);
+	decimal = ft_handle_decimal(&str);
 	if (isnan(integer) || isnan(decimal))
 		return (NAN);
 	return (sign * (integer + decimal));

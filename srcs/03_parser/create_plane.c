@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:10:18 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 15:21:57 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 17:02:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_add_plane(t_master **master, t_plane *plane)
 {
-	t_sphere	*temp;
+	t_plane	*temp;
 
 	temp = (*master)->plane_head;
 	if (!(*master)->plane_head)
@@ -43,9 +43,9 @@ static bool	ft_populate_plane(t_master **master, t_plane **plane,
 			"Plane has no color"))
 		return (false);
 	(*plane)->pro.txm.pri_color = ft_get_rgb((*cur)->str);
-	if ((*plane)->pro.txm.pri_color == -1)
+	if ((*plane)->pro.txm.pri_color > 255)
 		return (false);
-	return (ft_extra_data(master, &(*plane)->pro, cur));
+	return (ft_extra_data(master, (t_obj_pro **)&((*plane)->pro), cur));
 }
 
 // @brief Creates a plane object

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:14:23 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 14:50:35 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 16:54:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	ft_create_cam(t_master **master, t_p_node **cur)
 			"Camera coordinates are out of range [-INFINITY, INFINITY]")
 		|| !ft_next(cur, "Camera has no FOV"))
 		return (false);
-	(*master)->cam_head.fov = ft_atod(cur);
+	(*master)->cam_head.fov = ft_atod((*cur)->str);
 	if (!ft_inrange((*master)->cam_head.fov, 0, 180))
 		return (ft_format_error("Camera FOV must be between 0 and 180"));
 	if ((*cur)->next && (*cur)->next->str != NULL

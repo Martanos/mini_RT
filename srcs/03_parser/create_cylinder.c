@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:28:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 15:17:34 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 17:01:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_add_cylinder(t_master **master, t_cylinder *cylinder)
 {
 	t_cylinder	*temp;
 
-	temp = (*master)->plane_head;
+	temp = (*master)->cylinder_head;
 	if (!(*master)->cylinder_head)
 		(*master)->cylinder_head = cylinder;
 	else
@@ -51,9 +51,9 @@ static bool	ft_populate_cylinder(t_master **master, t_cylinder **cylinder,
 	if (!ft_next(cur, "Cylinder has no color"))
 		return (false);
 	(*cylinder)->pro.txm.pri_color = ft_get_rgb((*cur)->str);
-	if ((*cylinder)->pro.txm.pri_color == -1)
+	if ((*cylinder)->pro.txm.pri_color > 255)
 		return (false);
-	return (ft_extra_data(master, &(*cylinder)->pro, cur));
+	return (ft_extra_data(master, (t_obj_pro **)&((*cylinder)->pro), cur));
 }
 
 bool	ft_create_cylinder(t_master **master, t_p_node **cur)

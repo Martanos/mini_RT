@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:02:35 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 16:07:00 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 17:09:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ void	ft_free_img(t_master *master)
 	mlx_destroy_image(master->mlx_ptr, master->img.img_ptr);
 	free(master->img.img_ptr);
 	free(master->img.pixels_ptr);
-	free(master->img.bpp);
-	free(master->img.endian);
-	free(master->img.line_len);
 }
 
 void	ft_free_master(t_master *master)

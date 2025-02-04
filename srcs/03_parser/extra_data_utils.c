@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cone_utils.c                                :+:      :+:    :+:   */
+/*   extra_data_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 15:09:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 16:53:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 		return (ft_format_error("Texture scale is out of range [0,1]"));
 	if (split && split[2])
 		(*pro)->txm.sec_color = ft_get_rgb(split[3]);
-	if (!ft_inrange((*pro)->txm.sec_color, 0, 0xFFFFFF))
-		return (ft_format_error("Secondary color is out of range [0,255]"));
+	if ((*pro)->txm.sec_color > 255)
+		return (false);
 	if (split && split[3])
 		(*pro)->txm.texture_data = mlx_xpm_file_to_image((*master)->mlx_ptr,
 				split[3], &(*pro)->txm.width, &(*pro)->txm.height);

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 16:32:56 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 16:42:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_f_node				*ft_clean_data(t_f_node *head);
 t_f_node				*ft_create_f_node(char val);
 void					ft_add_f_node(t_f_node **head, t_f_node *new_node);
 void					ft_free_f_list(t_f_node *head);
+t_p_node				*ft_reconstruct_strings(t_f_node *head);
 
 // PARSER NODE UTILS
 t_p_node				*ft_create_p_node(char *str);

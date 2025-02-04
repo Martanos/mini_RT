@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/03 18:06:05 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 17:07:14 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,40 @@ static int	ft_atorgb(char *str)
 	while (*str && (*str == '+' || *str == '-'))
 	{
 		if (*str == '-')
-			return (ft_format_error("Negative RGB values not allowed"), -1);
+			return (ft_format_error("Negative RGB values not allowed"), 512);
 		str++;
 	}
 	while (*str && (*str != ',' || !ft_isspace(*str)))
 	{
 		if (!ft_isdigit(*str))
-			return (ft_format_error("Non numeric RGB value"), -1);
+			return (ft_format_error("Non numeric RGB value"), 512);
 		rgb = rgb * 10 + *str - '0';
 		str++;
 	}
 	if (!ft_inrange(rgb, 0, 255))
-		return (ft_format_error("RGB value out of range [0, 255]"), -1);
+		return (ft_format_error("RGB value out of range [0, 255]"), 512);
 	return (rgb);
 }
 
 uint32_t	ft_get_rgb(char *str)
 {
 	char	**split;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
+	int		r;
+	int		g;
+	int		b;
 
 	if (!str)
 		return (-1);
 	split = ft_split(str, ',');
 	if (!split)
-		return (ft_format_error("Empty RGB value found"), -1);
+		return (ft_format_error("Empty RGB value found"), 512);
 	if (split && split[0] && split[1] && split[2])
 	{
-		r = ft_atorgb(split);
-		g = ft_atorgb(split);
-		b = ft_atorgb(split);
+		r = ft_atorgb(split[0]);
+		g = ft_atorgb(split[1]);
+		b = ft_atorgb(split[2]);
 	}
-	if (r == -1 || g == -1 || b == -1)
-		return (-1);
+	if (r > 255 || g > 255 || b > 255)
+		return (512);
 	return ((r << 16) | (g << 8) | b);
 }
