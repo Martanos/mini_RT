@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:38:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/04 18:46:38 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,18 @@
 // 	(*instruction_set)->cone_obj_list = cone_list;
 // }
 
+static void	ft_print_amb_light(t_amb *amb_head)
+{
+	printf("Ambient light ratio: %f\n", amb_head->ratio);
+	printf("Ambient light RGB: %d %d %d\n", ft_get_r(amb_head->rgb),
+		ft_get_g(amb_head->rgb), ft_get_b(amb_head->rgb));
+}
+
+static void	ft_print_master(t_master *master)
+{
+	ft_print_amb_light(&master->amb_head);
+}
+
 int	main(int argc, char **argv)
 {
 	t_master	*master;
@@ -108,6 +120,7 @@ int	main(int argc, char **argv)
 		master = ft_parser(argv[1]);
 		if (!master)
 			return (1);
+		ft_print_master(master);
 		// ft_render_scene(master);
 		ft_free_master(master);
 	}
