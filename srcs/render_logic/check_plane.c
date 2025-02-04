@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/03 15:06:10 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 13:50:16 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ double	check_plane_collision(t_ray ray, t_plane *plane)
 	return (-1.0);
 }
 
-t_plane_collision	find_closest_plane(t_ray ray, t_data *mlx_data, t_master *master)
+t_plane_collision	find_closest_plane(t_ray ray, t_master *master)
 {
 	double			t;
 	t_plane_collision result;
 	t_plane			*plane;
 
-	(void)mlx_data;
 	result.closest_t = INFINITY;
 	result.closest_plane = NULL;
 	plane = master->plane_head;

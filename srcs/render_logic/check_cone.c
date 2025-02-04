@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/03 15:16:30 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 13:50:24 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,18 +188,16 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
  * @brief Finds the closest cone intersection for a given ray
  *
  * @param ray The ray being cast in the scene
- * @param mlx_data Pointer to the main data structure containing scene information
  * @param master Pointer to the master structure containing all scene objects
  * @return t_cone_collision Returns a structure containing the closest intersection
  *         parameter and pointer to the intersected cone
  */
-t_cone_collision	find_closest_cone(t_ray ray, t_data *mlx_data, t_master *master)
+t_cone_collision	find_closest_cone(t_ray ray, t_master *master)
 {
 	double			t;
 	t_cone_collision	result;
 	t_cone			*cone;
 
-	(void)mlx_data;
 	result.closest_t = INFINITY;
 	result.closest_cone = NULL;
 	cone = master->cone_head;

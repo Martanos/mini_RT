@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/03 15:04:10 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 13:50:15 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ double	check_sphere_collision(t_ray ray, t_sphere *sphere)
 	return (-1.0);  // Both hits are behind camera
 }
 
-t_sphere_collision	find_closest_sphere(t_ray ray, t_data *mlx_data, t_master *master)
+t_sphere_collision	find_closest_sphere(t_ray ray, t_master *master)
 {
 	double			t;
 	t_sphere_collision result;
 	t_sphere	*sphere;
 
-	(void)mlx_data;
 	result.closest_t = INFINITY;
 	result.closest_sphere = NULL;
 	sphere = master->sphere_head;

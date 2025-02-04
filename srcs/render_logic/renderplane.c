@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/03 16:09:11 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 13:54:22 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,23 @@ static t_vect calculate_viewport_up(t_vect camera_dir)
 	return vect_normalize(vect_cross(right, camera_dir));
 }
 // todo: move to parser
-void initmlx(t_data *mlx_data, t_master *master)
+void initmlx(t_master *master)
 {
-	mlx_data->mlx_ptr = mlx_init();
-	if (!mlx_data->mlx_ptr)
+	master->mlx_ptr = mlx_init();
+	if (!master->mlx_ptr)
 		error_exit("mlx failed to initialize");
-	mlx_data->win_ptr = mlx_new_window(mlx_data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "miniRT");
-	if (!mlx_data->win_ptr)
+	master->win_ptr = mlx_new_window(master->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "miniRT");
+	if (!master->win_ptr)
 		error_exit("mlx failed to create window");
-	mlx_data->img.img_ptr = mlx_new_image(mlx_data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!mlx_data->img.img_ptr)
+	master->img.img_ptr = mlx_new_image(master->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!master->img.img_ptr)
 		error_exit("mlx failed to create image");
-	mlx_data->img.pixels_ptr = mlx_get_data_addr(mlx_data->img.img_ptr, &mlx_data->img.bpp, &mlx_data->img.line_len, &mlx_data->img.endian);
-	if (!mlx_data->img.pixels_ptr)
+	master->img.pixels_ptr = mlx_get_data_addr(master->img.img_ptr, &master->img.bpp, &master->img.line_len, &master->img.endian);
+	if (!master->img.pixels_ptr)
 		error_exit("mlx failed to get image address");
-	(void)master;
 }
 
-uint32_t	calculations(int x, int y, t_data *mlx_data, t_master *master)
+uint32_t	calculations(int x, int y, t_master *master)
 {
 	double	aspect_ratio;
 	t_vect	pixel_pos;
@@ -50,10 +49,10 @@ uint32_t	calculations(int x, int y, t_data *mlx_data, t_master *master)
 	double	focal_length;
 
 	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
-	camera_dir = vect_normalize(master->cam_head->norm);
+	camera_dir = vect_normalize(master->cam_head.norm);
 	
 	// Calculate viewport dimensions based on FOV
-	viewport_height = 2.0 * tan((master->cam_head->fov * M_PI / 180.0) / 2.0);
+	viewport_height = 2.0 * tan((master->cam_head.fov * M_PI / 180.0) / 2.0);
 	viewport_width = viewport_height * aspect_ratio;
 	focal_length = 1.0;
 	
@@ -66,7 +65,7 @@ uint32_t	calculations(int x, int y, t_data *mlx_data, t_master *master)
 	t_vect vertical = vect_multiply(viewport_up, -viewport_height);  // Negative to match screen coordinates
 	
 	// Calculate viewport center and corner
-	t_vect viewport_center = vect_add(master->cam_head->cord, 
+	t_vect viewport_center = vect_add(master->cam_head.cord, 
 		vect_multiply(camera_dir, focal_length));
 	t_vect viewport_upper_left = vect_sub(viewport_center, 
 		vect_add(vect_divide(horizontal, 2.0), vect_divide(vertical, 2.0)));
@@ -78,13 +77,13 @@ uint32_t	calculations(int x, int y, t_data *mlx_data, t_master *master)
 		vect_add(vect_multiply(horizontal, u), vect_multiply(vertical, v)));
 	
 	// Setup and normalize ray
-	ray.origin = master->cam_head->cord;
+	ray.origin = master->cam_head.cord;
 	ray.direction = vect_normalize(vect_sub(pixel_pos, ray.origin));
 	
-	return (ray_color(ray, mlx_data, master));
+	return (ray_color(ray, master));
 }
 
-void start_renderloop(t_data *mlx_data, t_master *master)
+void start_renderloop(t_master *master)
 {
 	int x;
 	int y;
@@ -96,24 +95,22 @@ void start_renderloop(t_data *mlx_data, t_master *master)
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
-			color = calculations(x, y, mlx_data, master);
-			my_pixel_put(&mlx_data->img, x, y, color);
+			color = calculations(x, y, master);
+			my_pixel_put(&master->img, x, y, color);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(mlx_data->mlx_ptr, mlx_data->win_ptr, mlx_data->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(master->mlx_ptr, master->win_ptr, master->img.img_ptr, 0, 0);
 	
-	mlx_hook(mlx_data->win_ptr, 17, 0, close_window, mlx_data);
-	mlx_key_hook(mlx_data->win_ptr, key_hook, mlx_data);
+	mlx_hook(master->win_ptr, 17, 0, close_window, master);
+	mlx_key_hook(master->win_ptr, key_hook, master);
 	
-	mlx_loop(mlx_data->mlx_ptr);
+	mlx_loop(master->mlx_ptr);
 }
 
 void	ft_render_scene(t_master *master)
 {
-	t_data mlx_data;
-	
-	initmlx(&mlx_data, master);
-	start_renderloop(&mlx_data, master);
+	initmlx(master);
+	start_renderloop(master);
 }

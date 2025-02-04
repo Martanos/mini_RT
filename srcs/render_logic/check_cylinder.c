@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:18:06 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/03 15:11:58 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 13:50:25 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,6 @@ double check_cylinder_collision(t_ray ray, t_cylinder *cylinder)
  * @brief Finds the closest cylinder intersection for a given ray
  * 
  * @param ray The ray being cast in the scene
- * @param mlx_data Pointer to the main data structure containing scene information
  * @param master Pointer to the master structure containing all scene objects
  * @return t_cylinder_collision Returns a structure containing the closest intersection
  *         parameter and pointer to the intersected cylinder
@@ -211,13 +210,12 @@ double check_cylinder_collision(t_ray ray, t_cylinder *cylinder)
  * 3. Keeps track of the closest intersection found
  * 4. Returns both the intersection parameter and the intersected cylinder
  */
-t_cylinder_collision find_closest_cylinder(t_ray ray, t_data *mlx_data, t_master *master)
+t_cylinder_collision find_closest_cylinder(t_ray ray, t_master *master)
 {
 	double t;
 	t_cylinder_collision result;
 	t_cylinder *cylinder;
 
-	(void)mlx_data;
 	result.closest_t = INFINITY;
 	result.closest_cylinder = NULL;
 	
