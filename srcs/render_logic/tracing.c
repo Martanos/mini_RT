@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 13:53:43 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/04 15:28:52 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,21 @@ t_intersection_info find_closest_intersection(t_ray ray, t_master *master);
 
 uint32_t	calculate_ambient_lighting(uint32_t obj_color, t_master *master)
 {
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	double	ambient;
+	double		ambient;
 	uint32_t	amb_color;
-	uint8_t	amb_r;
-	uint8_t	amb_g;
-	uint8_t	amb_b;
-	double	final_r;
-	double	final_g;
-	double	final_b;
+	double		final[3];
+	uint8_t		rgb[3];
+	uint8_t		amb_rgb[3];
 
-	r = (uint8_t)((obj_color >> 16) & 0xFF);
-	g = (uint8_t)((obj_color >> 8) & 0xFF);
-	b = (uint8_t)(obj_color & 0xFF);
 	ambient = master->amb_head.ratio;
 	amb_color = master->amb_head.rgb;
-	amb_r = (uint8_t)((amb_color >> 16) & 0xFF);
-	amb_g = (uint8_t)((amb_color >> 8) & 0xFF);
-	amb_b = (uint8_t)(amb_color & 0xFF);
-	final_r = r * ambient * (amb_r / 255.0);
-	final_g = g * ambient * (amb_g / 255.0);
-	final_b = b * ambient * (amb_b / 255.0);
-	r = (uint8_t)fmin(fmax(final_r, 0), 255);
-	g = (uint8_t)fmin(fmax(final_g, 0), 255);
-	b = (uint8_t)fmin(fmax(final_b, 0), 255);
-	return (0xFF000000 | (r << 16) | (g << 8) | b);
+	ft_convert_rgb_arr(obj_color, rgb);
+	ft_convert_rgb_arr(amb_color, amb_rgb);
+	final[0] = rgb[0] * ambient * (amb_rgb[0] / 255.0);
+	final[1] = rgb[1] * ambient * (amb_rgb[1] / 255.0);
+	final[2] = rgb[2] * ambient * (amb_rgb[2] / 255.0);
+	ft_clamp_rgb_values(final, rgb);
+	return (ft_create_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
 t_ray	calculate_shadow_ray(t_vect hit_point, t_vect light_pos, t_vect normal)
@@ -84,84 +72,76 @@ bool	check_shadow_intersection(t_ray shadow_ray, double light_distance,
 uint32_t	calculate_light_contribution(t_hit_record hit, t_light *light,
 	uint32_t obj_color)
 {
-	double	diff;
-	double	intensity;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	light_r;
-	uint8_t	light_g;
-	uint8_t	light_b;
-	double	final_r;
-	double	final_g;
-	double	final_b;
-	t_vect	light_dir;
+	double		diff;
+	double		intensity;
+	uint8_t		rgb[3];
+	uint8_t		light_rgb[3];
+	double		final[3];
+	t_vect		light_dir;
 
-	r = (uint8_t)((obj_color >> 16) & 0xFF);
-	g = (uint8_t)((obj_color >> 8) & 0xFF);
-	b = (uint8_t)(obj_color & 0xFF);
 	light_dir = vect_normalize(vect_sub(light->cord, hit.point));
 	diff = fmax(vect_dot(hit.normal, light_dir), 0.0);
 	intensity = light->ratio * diff;
-	light_r = (uint8_t)((light->color >> 16) & 0xFF);
-	light_g = (uint8_t)((light->color >> 8) & 0xFF);
-	light_b = (uint8_t)(light->color & 0xFF);
-	final_r = r * intensity * (light_r / 255.0);
-	final_g = g * intensity * (light_g / 255.0);
-	final_b = b * intensity * (light_b / 255.0);
-	r = (uint8_t)fmin(fmax(final_r, 0), 255);
-	g = (uint8_t)fmin(fmax(final_g, 0), 255);
-	b = (uint8_t)fmin(fmax(final_b, 0), 255);
-	return (0xFF000000 | (r << 16) | (g << 8) | b);
+	ft_convert_rgb_arr(obj_color, rgb);
+	ft_convert_rgb_arr(light->color, light_rgb);
+	final[0] = rgb[0] * intensity * (light_rgb[0] / 255.0);
+	final[1] = rgb[1] * intensity * (light_rgb[1] / 255.0);
+	final[2] = rgb[2] * intensity * (light_rgb[2] / 255.0);
+	ft_clamp_rgb_values(final, rgb);
+	return (ft_create_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
-t_intersection_info	find_closest_intersection(t_ray ray,
-	t_master *master)
+static void update_closest_intersection(t_intersection_info *closest, 
+    t_intersection_info current)
 {
-	t_intersection_info	info;
-	t_sphere_collision	sphere_collision;
-	t_plane_collision	plane_collision;
-	t_cylinder_collision	cylinder_collision;
-	t_cone_collision	cone_collision;
+    if (current.hit.t > 0 && (!closest->hit.t || current.hit.t < closest->hit.t))
+    {
+        *closest = current;
+    }
+}
 
-	sphere_collision = find_closest_sphere(ray, master);
-	plane_collision = find_closest_plane(ray, master);
-	cylinder_collision = find_closest_cylinder(ray, master);
-	cone_collision = find_closest_cone(ray, master);
-	if (sphere_collision.closest_sphere && (!plane_collision.closest_plane
-			|| sphere_collision.closest_t < plane_collision.closest_t)
-		&& (!cylinder_collision.closest_cylinder
-			|| sphere_collision.closest_t < cylinder_collision.closest_t)
-		&& (!cone_collision.closest_cone
-			|| sphere_collision.closest_t < cone_collision.closest_t))
-	{
-		calculate_sphere_hit(ray, sphere_collision, &info.hit);
-		info.color = sphere_collision.closest_sphere->txm.pri_color;
-	}
-	else if (plane_collision.closest_plane
-		&& (!cylinder_collision.closest_cylinder
-			|| plane_collision.closest_t < cylinder_collision.closest_t)
-		&& (!cone_collision.closest_cone
-			|| plane_collision.closest_t < cone_collision.closest_t))
-	{
-		calculate_plane_hit(ray, plane_collision, &info.hit);
-		info.color = plane_collision.closest_plane->txm.pri_color;
-	}
-	else if (cylinder_collision.closest_cylinder
-		&& (!cone_collision.closest_cone
-			|| cylinder_collision.closest_t < cone_collision.closest_t))
-	{
-		calculate_cylinder_hit(ray, cylinder_collision, &info.hit);
-		info.color = cylinder_collision.closest_cylinder->txm.pri_color;
-	}
-	else if (cone_collision.closest_cone)
-	{
-		calculate_cone_hit(ray, cone_collision, &info.hit);
-		info.color = cone_collision.closest_cone->txm.pri_color;
-	}
-	else
-		info.hit.t = 0;
-	return (info);
+t_intersection_info find_closest_intersection(t_ray ray, t_master *master)
+{
+    t_intersection_info closest = {0};
+    t_intersection_info current;
+
+    // Test sphere intersection
+    t_sphere_collision sphere = find_closest_sphere(ray, master);
+    if (sphere.closest_sphere)
+    {
+        calculate_sphere_hit(ray, sphere, &current.hit);
+        current.color = sphere.closest_sphere->txm.pri_color;
+        update_closest_intersection(&closest, current);
+    }
+
+    // Test plane intersection
+    t_plane_collision plane = find_closest_plane(ray, master);
+    if (plane.closest_plane)
+    {
+        calculate_plane_hit(ray, plane, &current.hit);
+        current.color = plane.closest_plane->txm.pri_color;
+        update_closest_intersection(&closest, current);
+    }
+
+    // Test cylinder intersection
+    t_cylinder_collision cylinder = find_closest_cylinder(ray, master);
+    if (cylinder.closest_cylinder)
+    {
+        calculate_cylinder_hit(ray, cylinder, &current.hit);
+        current.color = cylinder.closest_cylinder->txm.pri_color;
+        update_closest_intersection(&closest, current);
+    }
+
+    // Test cone intersection
+    t_cone_collision cone = find_closest_cone(ray, master);
+    if (cone.closest_cone)
+    {
+        calculate_cone_hit(ray, cone, &current.hit);
+        current.color = cone.closest_cone->txm.pri_color;
+        update_closest_intersection(&closest, current);
+    }
+
+    return closest;
 }
 
 /**
@@ -171,46 +151,34 @@ t_intersection_info	find_closest_intersection(t_ray ray,
  */
 uint32_t	ft_background_color(t_vect unit_direction)
 {
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
+	uint8_t	rgb[3];
 	double	t;
 
 	t = (unit_direction.y + 1.0) * 0.5;
-	r = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
-	g = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
-	b = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
-	return (0xFF000000 | (r << 16) | (g << 8) | b);
+	rgb[0] = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
+	rgb[1] = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
+	rgb[2] = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
+	return (ft_create_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
 uint32_t	ray_color(t_ray ray, t_master *master)
 {
 	t_intersection_info	info;
-	t_vect				unit_direction;
 	uint32_t			color;
 	t_light				*light;
 	t_ray				shadow_ray;
 	double				light_distance;
-	uint8_t				r;
-	uint8_t				g;
-	uint8_t				b;
-	double				final_r;
-	double				final_g;
-	double				final_b;
+	double				final[3];
+	uint8_t				rgb[3];
 
 	info = find_closest_intersection(ray, master);
 	if (info.hit.t == 0)
-	{
-		unit_direction = vect_normalize(ray.direction);
-		return (ft_background_color(unit_direction));
-	}
+		return (ft_background_color(vect_normalize(ray.direction)));
 	color = calculate_ambient_lighting(info.color, master);
-	r = (uint8_t)((color >> 16) & 0xFF);
-	g = (uint8_t)((color >> 8) & 0xFF);
-	b = (uint8_t)(color & 0xFF);
-	final_r = r;
-	final_g = g;
-	final_b = b;
+	ft_convert_rgb_arr(color, rgb);
+	final[0] = rgb[0];
+	final[1] = rgb[1];
+	final[2] = rgb[2];
 	light = master->light_head;
 	while (light)
 	{
@@ -222,13 +190,12 @@ uint32_t	ray_color(t_ray ray, t_master *master)
 			continue ;
 		}
 		color = calculate_light_contribution(info.hit, light, info.color);
-		final_r += (uint8_t)((color >> 16) & 0xFF);
-		final_g += (uint8_t)((color >> 8) & 0xFF);
-		final_b += (uint8_t)(color & 0xFF);
+		ft_convert_rgb_arr(color, rgb);
+		final[0] += rgb[0];
+		final[1] += rgb[1];
+		final[2] += rgb[2];
 		light = light->next;
 	}
-	r = (uint8_t)fmin(fmax(final_r, 0), 255);
-	g = (uint8_t)fmin(fmax(final_g, 0), 255);
-	b = (uint8_t)fmin(fmax(final_b, 0), 255);
-	return (0xFF000000 | (r << 16) | (g << 8) | b);
+	ft_clamp_rgb_values(final, rgb);
+	return (ft_create_rgb(rgb[0], rgb[1], rgb[2]));
 }
