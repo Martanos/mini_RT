@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:53:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/05 19:35:01 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ bool	ft_get_rgb(uint32_t *rgb, char *str)
 	}
 	if (r > 255 || g > 255 || b > 255)
 		return (false);
-	printf(GREEN "RGB value: %d %d %d\n" RESET, r, g, b);
 	*rgb = (r << 16) | (g << 8) | b;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:14:23 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:45:14 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/05 19:49:48 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ bool	ft_create_cam(t_master **master, t_p_node **cur)
 		return (ft_format_error("Camera already exists"));
 	else
 		(*master)->cam_head.set = true;
-	if (!ft_next(cur, "Camera has no normal"))
-		return (false);
-	(*master)->cam_head.norm = ft_get_xyz(cur);
-	if (!ft_is_valid_vector((*master)->cam_head.norm, -1, 1,
-			"Camera normal is out of range [-1, 1]") || !ft_next(cur,
-			"Camera has no coordinates"))
+	if (!ft_next(cur, "Camera has no coordinates"))
 		return (false);
 	(*master)->cam_head.cord = ft_get_xyz(cur);
 	if (!ft_is_valid_vector((*master)->cam_head.cord, -INFINITY, INFINITY,
 			"Camera coordinates are out of range [-INFINITY, INFINITY]")
-		|| !ft_next(cur, "Camera has no FOV"))
+		|| !ft_next(cur, "Camera has no normal"))
+		return (false);
+	(*master)->cam_head.norm = ft_get_xyz(cur);
+	if (!ft_is_valid_vector((*master)->cam_head.norm, -1, 1,
+			"Camera normal is out of range [-1, 1]") || !ft_next(cur,
+			"Camera has no FOV"))
 		return (false);
 	(*master)->cam_head.fov = ft_atod((*cur)->str);
 	if (!ft_inrange((*master)->cam_head.fov, 0, 180))
 		return (ft_format_error("Camera FOV must be between 0 and 180"));
-	if ((*cur)->next && (*cur)->next->str != NULL
-		&& (*cur)->next->str[0] != '\n')
+	(*cur) = (*cur)->next;
+	if ((*cur) && (*cur)->str != NULL && (*cur)->str[0] != '\n')
 		return (ft_format_error("Camera has extra data"));
 	printf(GREEN "Camera created successfully\n" RESET);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:36:26 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:07:59 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/05 19:41:20 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ t_vect	ft_get_xyz(t_p_node **cur)
 		free(*split);
 		split++;
 	}
-	free(split);
 	return (xyz);
 }

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:30:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 20:10:31 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/05 19:47:55 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static bool	ft_identify(t_master **master, t_p_node **cur)
 {
+	printf(GREEN "Identifying: %s\n" RESET, (*cur)->str);
 	if (ft_strcmp((*cur)->str, "A") == 0)
 		return (ft_create_amb(master, cur));
 	else if (ft_strcmp((*cur)->str, "C") == 0)
@@ -28,7 +29,6 @@ static bool	ft_identify(t_master **master, t_p_node **cur)
 		return (ft_create_sphere(master, cur));
 	else if (ft_strcmp((*cur)->str, "co") == 0)
 		return (ft_create_cone(master, cur));
-	printf("Invalid identifier: [%s]\n", (*cur)->str);
 	return (ft_format_error("Invalid identifier"));
 }
 /*
@@ -46,10 +46,7 @@ t_master	*ft_populate(t_p_node *cur)
 		if (!ft_identify(&master, &cur))
 			return (ft_free_master(master), NULL);
 		while (cur && cur->str && ft_isspace(cur->str[0]))
-		{
-			printf("Skipping whitespace: [%s]\n", cur->str);
 			cur = cur->next;
-		}
 	}
 	return (master);
 }

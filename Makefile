@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/04 17:46:14 by malee            ###   ########.fr        #
+#    Updated: 2025/02/05 20:23:57 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ SRC_PARSING		= create_amb.c create_cam.c create_cone.c create_cylinder.c \
 					parser_main.c parser_atod.c parser_error_utils.c \
 					parser_list_utils.c parser_populate.c parser_rgb.c \
 					parser_utils.c parser_xyz.c
-SRC_UTILITIES	= fatal.c exit.c master_utils.c misc.c
+SRC_UTILITIES	= fatal.c exit.c misc.c memory_management.c \
+					master_management.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_lexer/, $(SRC_LEXER)) \
 					$(addprefix $(SRC_DIR)/03_parser/, $(SRC_PARSING)) \
