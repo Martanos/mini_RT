@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:50:53 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 19:36:53 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 14:35:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_construct_str(t_f_node **head)
 
 	str = ft_strdup("");
 	holder = (char *)ft_calloc(2, sizeof(char));
-	while (head && !ft_isspace((*head)->val))
+	while (*head && !ft_isspace((*head)->val))
 	{
 		holder[0] = (*head)->val;
 		temp = ft_strjoin(str, holder);

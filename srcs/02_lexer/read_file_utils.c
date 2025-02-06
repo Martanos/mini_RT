@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:01:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 18:13:20 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 14:46:07 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,12 @@ t_f_node	*ft_clean_data(t_f_node *head)
 	while (head)
 	{
 		if (head->val == '#')
+		{
 			while (head && head->val != '\n')
 				head = head->next;
+			if (head && head->val == '\n')
+				head = head->next;
+		}
 		if (head && head->val != '\n' && ft_isspace(head->val))
 		{
 			ft_add_f_node(&clean_data, ft_create_f_node(' '));
