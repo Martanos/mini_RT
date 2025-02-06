@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 15:45:40 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 16:01:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 {
+	if (len > 5)
+		return (ft_format_error("Extra data in material"));
 	if (len > 0)
 		(*pro)->mat.amb = ft_atod(split[0]);
 	if (!ft_inrange((*pro)->mat.amb, 0, 1))
@@ -60,18 +62,20 @@ bool	ft_add_material(t_obj_pro **pro, char *str)
 static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 		char **split, int len)
 {
-	if (split && split[0])
+	if (len > 5)
+		return (ft_format_error("Extra data in texture"));
+	if (len > 0)
 		(*pro)->txm.type = ft_atoi(split[0]);
 	if ((*pro)->txm.type > 1 || (*pro)->txm.type < 0)
 		return (ft_format_error("Unknown texture type"));
-	if (split && split[1])
+	if (len > 1)
 		(*pro)->txm.scale = ft_atod(split[1]);
 	if (!ft_inrange((*pro)->txm.scale, 0, 1))
 		return (ft_format_error("Texture scale is out of range [0,1]"));
-	if (split && split[2])
+	if (len > 2)
 		if (!ft_get_rgb(&(*pro)->txm.sec_color, split[3]))
 			return (false);
-	if (split && split[3])
+	if (len > 3)
 		(*pro)->txm.texture_data = mlx_xpm_file_to_image((*master)->mlx_ptr,
 				split[3], &(*pro)->txm.width, &(*pro)->txm.height);
 	if (!(*pro)->txm.texture_data)
@@ -101,6 +105,8 @@ bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
 
 bool	ft_add_bump_map(t_master **master, t_obj_pro **pro, char *str)
 {
+	if (!str)
+		return (ft_format_error("No bump map data specified"));
 	(*pro)->bpm.enabled = true;
 	(*pro)->bpm.map = mlx_xpm_file_to_image((*master)->mlx_ptr, str,
 			&(*pro)->bpm.width, &(*pro)->bpm.height);
