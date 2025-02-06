@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 20:24:48 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:49:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ int		key_hook(int keycode, void *param);
 // Master management UTILS
 void	ft_free_master(t_master *master);
 void	ft_free_img(t_master *master);
-void	ft_free_obj_pro(t_obj_pro *obj_pro);
 
 // Memory management UTILS
-size_t	ft_offsetof(void *base, void *member);
-void	ft_free_list_generic(void *head, size_t offset_next, size_t offset_pro);
+void	free_node(void *node, t_obj_type type);
+void	free_list(void *head, t_obj_type type);
 
 // UTILS
 void	ft_fatal(char *msg);

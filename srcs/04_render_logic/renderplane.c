@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 14:10:24 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 19:40:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ uint32_t	calculations(int x, int y, t_master *master)
 	t_vect	viewport_upper_left;
 	double	u;
 	double	v;
+	t_vect	vertical;
 
 	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
 	camera_dir = ft_vect_norm(master->cam_head.norm);
@@ -50,8 +51,8 @@ uint32_t	calculations(int x, int y, t_master *master)
 	viewport_right = ft_vect_norm(ft_vect_cross(camera_dir, viewport_up));
 	// Calculate viewport vectors
 	horizontal = ft_vect_mul_all(viewport_right, viewport_width);
-	t_vect vertical = ft_vect_mul_all(viewport_up, -viewport_height);
-		// Negative to match screen coordinates
+	vertical = ft_vect_mul_all(viewport_up, -viewport_height);
+	// Negative to match screen coordinates
 	// Calculate viewport center and corner
 	viewport_center = ft_vect_add(master->cam_head.cord,
 			ft_vect_mul_all(camera_dir, focal_length));
@@ -90,8 +91,8 @@ void	start_renderloop(t_master *master)
 	}
 	mlx_put_image_to_window(master->mlx_ptr, master->win_ptr,
 		master->img.img_ptr, 0, 0);
-	mlx_hook(master->win_ptr, 17, 0, close_window, master);
-	mlx_key_hook(master->win_ptr, key_hook, master);
+	mlx_hook(master->win_ptr, 17, 0, close_window, (void *)master);
+	mlx_key_hook(master->win_ptr, key_hook, (void *)master);
 	mlx_loop(master->mlx_ptr);
 }
 
