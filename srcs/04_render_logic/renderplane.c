@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 17:11:00 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 19:40:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_vect	calculate_viewport_dimensions(t_master *master, double *width)
 {
 	double	aspect_ratio;
 	double	viewport_height;
-
+  
 	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
 	viewport_height = 2.0 * tan((master->cam_head.fov * M_PI / 180.0) / 2.0);
 	*width = viewport_height * aspect_ratio;

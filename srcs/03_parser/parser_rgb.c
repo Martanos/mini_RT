@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 19:35:01 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 20:06:48 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,25 @@ bool	ft_get_rgb(uint32_t *rgb, char *str)
 	int		r;
 	int		g;
 	int		b;
+	char	**original;
 
 	split = ft_split(str, ',');
 	if (!split)
-		return (ft_format_error("Empty RGB value found"), 512);
-	if (split && split[0] && split[1] && split[2])
+		return (ft_format_error("Empty RGB value found"), false);
+	original = split;
+	if (!split[0] || !split[1] || !split[2] || split[3])
 	{
-		r = ft_atorgb(split[0]);
-		g = ft_atorgb(split[1]);
-		b = ft_atorgb(split[2]);
+		while (*split)
+			free(*split++);
+		return (free(original), ft_format_error("Invalid RGB format"), false);
 	}
+	r = ft_atorgb(split[0]);
+	g = ft_atorgb(split[1]);
+	b = ft_atorgb(split[2]);
+	while (*split)
+		free(*split++);
+	free(original);
 	if (r > 255 || g > 255 || b > 255)
 		return (false);
-	*rgb = (r << 16) | (g << 8) | b;
-	return (true);
+	return (*rgb = (r << 16) | (g << 8) | b, true);
 }

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 18:12:43 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 20:11:45 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,12 @@ void	ft_free_p_list(t_p_node *head)
 	if (!head)
 		return ;
 	current = head;
-	to_free = NULL;
 	while (current)
 	{
 		to_free = current;
 		current = current->next;
-		if (to_free)
-		{
-			ft_bzero(to_free, sizeof(t_p_node));
-			free(to_free->str);
-			free(to_free);
-			to_free = NULL;
-		}
+		free(to_free->str);
+		free(to_free);
 	}
 	head = NULL;
 }
