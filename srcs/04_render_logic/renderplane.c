@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 19:40:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/07 00:57:07 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,20 @@ uint32_t	calculations(int x, int y, t_master *master)
 	t_vect	camera_dir;
 	t_vect	viewport_up;
 	t_vect	viewport_right;
-	t_vect	h_axis;
+	t_vect	viewport_hori;
 	t_ray	ray;
 
-	camera_dir = calculate_viewport_dimensions(master, &h_axis.x);
+	camera_dir = calculate_viewport_dimensions(master, &viewport_hori.x);
 	viewport_up = calculate_viewport_up(camera_dir);
 	viewport_right = ft_vect_norm(ft_vect_cross(camera_dir, viewport_up));
-	h_axis = ft_vect_mul_all(viewport_right, h_axis.x);
-	viewport_up = ft_vect_mul_all(viewport_up, h_axis.x);
+	viewport_hori = ft_vect_mul_all(viewport_right, -viewport_hori.x);
+	viewport_up = ft_vect_mul_all(viewport_up, -viewport_hori.x);
 	viewport_right = ft_vect_add(master->cam_head.cord,
-			ft_vect_mul_all(camera_dir, 1.0));
+			ft_vect_mul_all(camera_dir, 0.5));
 	ray.origin = master->cam_head.cord;
 	ray.direction = get_pixel_position(get_viewport_upper_left(viewport_right,
-				h_axis, viewport_up), h_axis, viewport_up, x, y);
+				viewport_hori, viewport_up), viewport_hori,
+				viewport_up, x, y);
 	ray.direction = ft_vect_norm(ft_vect_sub(ray.direction, ray.origin));
 	return (ray_color(ray, master));
 }
-
-
