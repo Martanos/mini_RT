@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 13:55:02 by seayeo            #+#    #+#             */
+/*   Updated: 2025/02/06 13:55:03 by seayeo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/mini_rt.h"
-#include "libvect.h"
 
 void set_face_normal(t_hit_record *rec, const t_ray *r,
         const t_vect *outward_normal)

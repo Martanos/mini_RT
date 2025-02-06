@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
+#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/05 20:23:57 by malee            ###   ########.fr        #
+#    Updated: 2025/02/06 13:53:42 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,13 @@ SRC_PARSING		= create_amb.c create_cam.c create_cone.c create_cylinder.c \
 					parser_utils.c parser_xyz.c
 SRC_UTILITIES	= fatal.c exit.c misc.c memory_management.c \
 					master_management.c
+SRC_RENDER		= check_cone.c check_cylinder.c check_plane.c check_sphere.c \
+					intersection_checks.c ray_utils.c renderplane.c tracing.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_lexer/, $(SRC_LEXER)) \
 					$(addprefix $(SRC_DIR)/03_parser/, $(SRC_PARSING)) \
 					$(addprefix $(SRC_DIR)/utilities/, $(SRC_UTILITIES)) \
+					$(addprefix $(SRC_DIR)/04_render_logic/, $(SRC_RENDER))
 
 
 # Object files

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 20:21:09 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 13:43:39 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,5 +194,7 @@ uint32_t							ray_color(t_ray ray, t_master *master);
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);
+
+void								ft_render_scene(t_master *master);
 
 #endif

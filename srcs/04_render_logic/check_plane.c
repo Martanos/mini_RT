@@ -6,12 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 16:23:33 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 14:02:20 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "libvect.h"
 
 double	check_plane_collision(t_ray ray, t_plane *plane)
 {
@@ -62,6 +61,6 @@ t_plane_collision	find_closest_plane(t_ray ray, t_master *master)
 void	calculate_plane_hit(t_ray ray, t_plane_collision collision, t_hit_record *rec)
 {
 	rec->t = collision.closest_t;
-	rec->point = vect_add(ray.origin, vect_multiply(ray.direction, collision.closest_t));
+	rec->point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction, collision.closest_t));
 	rec->normal = collision.closest_plane->norm;
 }

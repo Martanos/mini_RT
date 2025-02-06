@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 18:50:39 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 14:10:24 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ void	start_renderloop(t_master *master)
 
 void	ft_render_scene(t_master *master)
 {
-	initmlx(master);
 	start_renderloop(master);
 }

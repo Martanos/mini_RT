@@ -6,13 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 16:52:17 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 13:59:52 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "plane.h"
-#include "libvect.h"
 
 /**
  * @brief Checks if a ray-cone intersection point lies within the cone's height bounds
@@ -68,11 +66,11 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 	cos_angle = cos(atan(radius / cone->height));
 	dot_dir_axis = ft_vect_dot(ray.direction, normalized_normal);
 	dot_oc_axis = ft_vect_dot(oc, normalized_normal);
-	a = vect_dot(ray.direction, ray.direction) - (1.0 + cos_angle * cos_angle)
+	a = ft_vect_dot(ray.direction, ray.direction) - (1.0 + cos_angle * cos_angle)
 		* dot_dir_axis * dot_dir_axis;
-	b = 2.0 * (vect_dot(ray.direction, oc) - (1.0 + cos_angle * cos_angle)
+	b = 2.0 * (ft_vect_dot(ray.direction, oc) - (1.0 + cos_angle * cos_angle)
 			* dot_dir_axis * dot_oc_axis);
-	c = vect_dot(oc, oc) - (1.0 + cos_angle * cos_angle) * dot_oc_axis
+	c = ft_vect_dot(oc, oc) - (1.0 + cos_angle * cos_angle) * dot_oc_axis
 		* dot_oc_axis;
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
@@ -108,8 +106,8 @@ static double	check_cone_base(t_ray ray, t_cone *cone)
 	t_vect	base_normal;
 	t_plane	base;
 
-	normalized_normal = vect_normalize(cone->norm);
-	base_normal = vect_multiply(normalized_normal, -1);
+	normalized_normal = ft_vect_norm(cone->norm);
+	base_normal = ft_vect_mul_all(normalized_normal, -1);
 	base.cord = cone->cord;
 	base.norm = base_normal;
 	base.radius = cone->diameter / 2.0;
@@ -165,23 +163,23 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 				collision.closest_t));
 	cp = ft_vect_sub(rec->point, collision.closest_cone->cord);
 	normalized_normal = ft_vect_norm(collision.closest_cone->norm);
-	proj = vect_dot(cp, normalized_normal);
+	proj = ft_vect_dot(cp, normalized_normal);
 	if (fabs(proj) < 1e-6)
 	{
 		// Hit is on base
-		rec->normal = vect_multiply(normalized_normal, -1);
+		rec->normal = ft_vect_mul_all(normalized_normal, -1);
 	}
 	else
 	{
 		// Hit is on conical surface
 		height = proj;
-		axis_point = vect_add(collision.closest_cone->cord,
-				vect_multiply(normalized_normal, height));
-		radial = vect_normalize(vect_sub(rec->point, axis_point));
+		axis_point = ft_vect_add(collision.closest_cone->cord,
+				ft_vect_mul_all(normalized_normal, height));
+		radial = ft_vect_norm(ft_vect_sub(rec->point, axis_point));
 		cos_angle = cos(atan(collision.closest_cone->diameter / (2.0
 						* collision.closest_cone->height)));
-		rec->normal = vect_normalize(vect_add(vect_multiply(radial, cos_angle),
-					vect_multiply(normalized_normal, sin(acos(cos_angle)))));
+		rec->normal = ft_vect_norm(ft_vect_add(ft_vect_mul_all(radial, cos_angle),
+					ft_vect_mul_all(normalized_normal, sin(acos(cos_angle)))));
 	}
 }
 

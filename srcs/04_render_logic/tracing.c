@@ -6,11 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 17:26:55 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 13:54:46 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "renderer.h"
+#include "../include/mini_rt.h"
 
 t_intersection_info	find_closest_intersection(t_ray ray, t_master *master);
 

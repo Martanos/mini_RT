@@ -6,13 +6,11 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:18:06 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 16:25:14 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 14:01:16 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-#include "../include/plane.h"
-#include "libvect.h"
 
 /**
  * @brief Checks if a ray-cylinder intersection point lies within the cylinder's height bounds
@@ -35,14 +33,14 @@ static double check_height(t_ray ray, double t, t_cylinder *cylinder)
 	double height;
 
 	// Calculate the intersection point of the ray and the cylinder
-	intersection = vect_add(ray.origin, vect_multiply(ray.direction, t));
+	intersection = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction, t));
 	
 	// Calculate the vector from the cylinder's position to the intersection point
-	v = vect_sub(intersection, cylinder->cord);
+	v = ft_vect_sub(intersection, cylinder->cord);
 
 	// Project the vector onto the cylinder's axis (normal)
-	t_vect normalized_normal = vect_normalize(cylinder->norm);
-	height = vect_dot(v, normalized_normal);
+	t_vect normalized_normal = ft_vect_norm(cylinder->norm);
+	height = ft_vect_dot(v, normalized_normal);
 
 	// Check if the intersection point is within the height bounds of the cylinder
 	if (height >= -cylinder->height / 2 && height <= cylinder->height / 2)
@@ -77,9 +75,9 @@ static double check_cylinder_side(t_ray ray, t_cylinder *cylinder)
 	double radius = cylinder->diameter / 2.0;
 
 	// Compute the coefficients of the quadratic equation
-	double a = vect_dot(cross_dir_normal, cross_dir_normal);
-	double b = 2.0 * vect_dot(cross_dir_normal, cross_oc_normal);
-	double c = vect_dot(cross_oc_normal, cross_oc_normal) - (radius * radius);
+	double a = ft_vect_dot(cross_dir_normal, cross_dir_normal);
+	double b = 2.0 * ft_vect_dot(cross_dir_normal, cross_oc_normal);
+	double c = ft_vect_dot(cross_oc_normal, cross_oc_normal) - (radius * radius);
 
 	// Compute the discriminant
 	double discriminant = b * b - 4 * a * c;
@@ -131,18 +129,18 @@ static double check_cylinder_caps(t_ray ray, t_cylinder *cylinder)
 {
 	double t;
 	double closest_t = INFINITY;
-	t_vect normalized_normal = vect_normalize(cylinder->norm);
-	t_vect bottom_normal = vect_multiply(normalized_normal, -1);
+	t_vect normalized_normal = ft_vect_norm(cylinder->norm);
+	t_vect bottom_normal = ft_vect_mul_all(normalized_normal, -1);
 	t_vect top_normal = normalized_normal;  // Already normalized
 
 	t_plane bottom_cap = {
-		.cord = vect_add(cylinder->cord, vect_multiply(normalized_normal, -cylinder->height / 2)),
+		.cord = ft_vect_add(cylinder->cord, ft_vect_mul_all(normalized_normal, -cylinder->height / 2)),
 		.norm = bottom_normal,
 		.radius = cylinder->diameter / 2.0
 	};
 
 	t_plane top_cap = {
-		.cord = vect_add(cylinder->cord, vect_multiply(normalized_normal, cylinder->height / 2)),
+		.cord = ft_vect_add(cylinder->cord, ft_vect_mul_all(normalized_normal, cylinder->height / 2)),
 		.norm = top_normal,
 		.radius = cylinder->diameter / 2.0
 	};
@@ -261,14 +259,14 @@ void	calculate_cylinder_hit(t_ray ray, t_cylinder_collision collision, t_hit_rec
 	// First, determine if the hit point is on a cap or the cylindrical surface
 	t_vect cp = ft_vect_sub(rec->point, collision.closest_cylinder->cord);
 	t_vect normalized_normal = ft_vect_norm(collision.closest_cylinder->norm);
-	double proj = vect_dot(cp, normalized_normal);
+	double proj = ft_vect_dot(cp, normalized_normal);
 	
 	// Check if hit point is near either cap (using a small epsilon for floating-point comparison)
 	double half_height = collision.closest_cylinder->height / 2.0;
 	if (fabs(proj + half_height) < 1e-6)
 	{
 		// Hit is on bottom cap
-		rec->normal = vect_multiply(normalized_normal, -1);
+		rec->normal = ft_vect_mul_all(normalized_normal, -1);
 	}
 	else if (fabs(proj - half_height) < 1e-6)
 	{
@@ -278,8 +276,8 @@ void	calculate_cylinder_hit(t_ray ray, t_cylinder_collision collision, t_hit_rec
 	else
 	{
 		// Hit is on cylindrical surface
-		t_vect axis_point = vect_add(collision.closest_cylinder->cord, 
-			vect_multiply(normalized_normal, proj));
-		rec->normal = vect_normalize(vect_sub(rec->point, axis_point));
+		t_vect axis_point = ft_vect_add(collision.closest_cylinder->cord, 
+			ft_vect_mul_all(normalized_normal, proj));
+		rec->normal = ft_vect_norm(ft_vect_sub(rec->point, axis_point));
 	}
 }
