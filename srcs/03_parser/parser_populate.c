@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:30:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 14:34:13 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:28:38 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static bool	ft_identify(t_master **master, t_p_node **cur)
 		return (ft_create_cone(master, cur));
 	return (ft_format_error("Invalid identifier"));
 }
+
 /*
 ** @brief Returns a master structure with the parsed data
 ** @param head pointer to the head of the parser node list

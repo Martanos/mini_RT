@@ -6,12 +6,13 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:46:05 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 20:43:21 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:34:04 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+// TODO: Potential issue with freeing the image may need mlx_destroy_image
 void	ft_free_node(void *node, t_obj_type type)
 {
 	t_obj_pro	*properties;
@@ -32,7 +33,7 @@ void	ft_free_node(void *node, t_obj_type type)
 	}
 	if (properties)
 	{
-		free(properties->txm.texture_data);
+		free(properties->txm.img);
 		if (properties->bpm.map)
 			free(properties->bpm.map);
 	}

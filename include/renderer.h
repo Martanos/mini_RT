@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 22:26:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:27:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ typedef struct s_cone_collision
 
 /*
  * Shape-Specific Intersection Functions:
- * Each geometric shape (sphere, plane, cylinder,
-	cone) has three associated functions:
-
-	* 1. find_closest_*: Finds the closest intersection with any object of that type
-
-	* 2. check_*_collision: Tests for intersection between a ray and a single object
+ * Each geometric shape (sphere, plane,
+ * cylinder, cone) has three associated functions:
+ * 1. find_closest_*: Finds the closest intersection
+ * with any object of that type
+ * 2. check_*_collision: Tests for intersection between
+ * a ray and a single object
  * 3. calculate_*_hit: Computes intersection details (point,
-	normal) when a hit occurs
+ * normal) when a hit occurs
  */
 
 // check_sphere.c
@@ -165,7 +165,7 @@ void								calculate_cone_hit(t_ray ray,
  */
 
 // intersection_checks.c - Intersection testing and management
-void								update_closest_intersection(t_intersection_info *closest,
+void								update_closesintersection(t_intersection_info *closest,
 										t_intersection_info current);
 void								check_sphere_intersection(t_ray ray,
 										t_master *master,

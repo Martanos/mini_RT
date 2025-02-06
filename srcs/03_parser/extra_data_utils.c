@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 21:02:09 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:32:51 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 		if (!ft_get_rgb(&(*pro)->txm.sec_color, split[3]))
 			return (false);
 	if (len > 3)
-		(*pro)->txm.texture_data = mlx_xpm_file_to_image((*master)->mlx_ptr,
-				split[3], &(*pro)->txm.width, &(*pro)->txm.height);
-	if (!(*pro)->txm.texture_data)
+		(*pro)->txm.img = mlx_xpm_file_to_image((*master)->mlx_ptr, split[3],
+				&(*pro)->txm.width, &(*pro)->txm.height);
+	if (!(*pro)->txm.img)
 		return (ft_format_error("Failed to load texture"));
 	return (true);
 }

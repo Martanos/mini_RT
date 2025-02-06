@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 21:03:35 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:28:31 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	ft_print_p_list(t_p_node *head)
 		head = head->next;
 	}
 }
+
 /*
 ** @brief Facilitates the parsing of the file
 ** @param file_path path to the file
