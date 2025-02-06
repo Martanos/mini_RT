@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 14:10:24 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 17:11:00 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,80 +22,59 @@ static t_vect	calculate_viewport_up(t_vect camera_dir)
 	return (ft_vect_norm(ft_vect_cross(right, camera_dir)));
 }
 
-uint32_t	calculations(int x, int y, t_master *master)
+static t_vect	calculate_viewport_dimensions(t_master *master, double *width)
 {
 	double	aspect_ratio;
-	t_vect	pixel_pos;
-	t_ray	ray;
+	double	viewport_height;
+
+	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
+	viewport_height = 2.0 * tan((master->cam_head.fov * M_PI / 180.0) / 2.0);
+	*width = viewport_height * aspect_ratio;
+	return (ft_vect_norm(master->cam_head.norm));
+}
+
+static t_vect	get_viewport_upper_left(t_vect center, t_vect h, t_vect v)
+{
+	t_vect	half_h;
+	t_vect	half_v;
+
+	half_h = ft_vect_div_all(h, 2.0);
+	half_v = ft_vect_div_all(v, 2.0);
+	return (ft_vect_sub(center, ft_vect_add(half_h, half_v)));
+}
+
+static t_vect	get_pixel_position(t_vect upper_left, t_vect h,
+		t_vect v, int x, int y)
+{
+	double	u;
+	double	v_coord;
+
+	u = (double)x / (WINDOW_WIDTH - 1);
+	v_coord = (double)y / (WINDOW_HEIGHT - 1);
+	return (ft_vect_add(upper_left,
+			ft_vect_add(ft_vect_mul_all(h, u), ft_vect_mul_all(v, v_coord))));
+}
+
+uint32_t	calculations(int x, int y, t_master *master)
+{
 	t_vect	camera_dir;
 	t_vect	viewport_up;
 	t_vect	viewport_right;
-	double	viewport_height;
-	double	viewport_width;
-	double	focal_length;
-	t_vect	horizontal;
-	t_vect	viewport_center;
-	t_vect	viewport_upper_left;
-	double	u;
-	double	v;
+	t_vect	h_axis;
+	t_ray	ray;
 
-	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
-	camera_dir = ft_vect_norm(master->cam_head.norm);
-	// Calculate viewport dimensions based on FOV
-	viewport_height = 2.0 * tan((master->cam_head.fov * M_PI / 180.0) / 2.0);
-	viewport_width = viewport_height * aspect_ratio;
-	focal_length = 1.0;
-	// Calculate viewport orientation vectors
+	camera_dir = calculate_viewport_dimensions(master, &h_axis.x);
 	viewport_up = calculate_viewport_up(camera_dir);
 	viewport_right = ft_vect_norm(ft_vect_cross(camera_dir, viewport_up));
-	// Calculate viewport vectors
-	horizontal = ft_vect_mul_all(viewport_right, viewport_width);
-	t_vect vertical = ft_vect_mul_all(viewport_up, -viewport_height);
-		// Negative to match screen coordinates
-	// Calculate viewport center and corner
-	viewport_center = ft_vect_add(master->cam_head.cord,
-			ft_vect_mul_all(camera_dir, focal_length));
-	viewport_upper_left = ft_vect_sub(viewport_center,
-			ft_vect_add(ft_vect_div_all(horizontal, 2.0),
-				ft_vect_div_all(vertical, 2.0)));
-	// Calculate pixel position
-	u = (double)x / (WINDOW_WIDTH - 1);
-	v = (double)y / (WINDOW_HEIGHT - 1);
-	pixel_pos = ft_vect_add(viewport_upper_left,
-			ft_vect_add(ft_vect_mul_all(horizontal, u),
-				ft_vect_mul_all(vertical, v)));
-	// Setup and normalize ray
+	h_axis = ft_vect_mul_all(viewport_right, h_axis.x);
+	viewport_up = ft_vect_mul_all(viewport_up, h_axis.x);
+	viewport_right = ft_vect_add(master->cam_head.cord,
+			ft_vect_mul_all(camera_dir, 1.0));
 	ray.origin = master->cam_head.cord;
-	ray.direction = ft_vect_norm(ft_vect_sub(pixel_pos, ray.origin));
+	ray.direction = get_pixel_position(get_viewport_upper_left(viewport_right,
+				h_axis, viewport_up), h_axis, viewport_up, x, y);
+	ray.direction = ft_vect_norm(ft_vect_sub(ray.direction, ray.origin));
 	return (ray_color(ray, master));
 }
 
-void	start_renderloop(t_master *master)
-{
-	int			x;
-	int			y;
-	uint32_t	color;
 
-	y = 0;
-	while (y < WINDOW_HEIGHT)
-	{
-		x = 0;
-		while (x < WINDOW_WIDTH)
-		{
-			color = calculations(x, y, master);
-			my_pixel_put(&master->img, x, y, color);
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(master->mlx_ptr, master->win_ptr,
-		master->img.img_ptr, 0, 0);
-	mlx_hook(master->win_ptr, 17, 0, close_window, master);
-	mlx_key_hook(master->win_ptr, key_hook, master);
-	mlx_loop(master->mlx_ptr);
-}
-
-void	ft_render_scene(t_master *master)
-{
-	start_renderloop(master);
-}

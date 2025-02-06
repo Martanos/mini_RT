@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 17:26:15 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 17:06:37 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	update_closest_intersection(t_intersection_info *closest,
 		t_intersection_info current)
 {
-	if (current.hit.t > 0 && (!closest->hit.t || current.hit.t < closest->hit.t))
+	if (current.hit.t > 0 && (!closest->hit.t
+			|| current.hit.t < closest->hit.t))
 		*closest = current;
 }
 
@@ -53,7 +54,7 @@ void	check_cylinder_intersection(t_ray ray, t_master *master,
 		t_intersection_info *closest)
 {
 	t_intersection_info		current;
-	t_cylinder_collision		cylinder;
+	t_cylinder_collision	cylinder;
 
 	cylinder = find_closest_cylinder(ray, master);
 	if (cylinder.closest_cylinder)

@@ -2,114 +2,204 @@
 
 ```mermaid
 classDiagram
-    class t_color {
-        float r
-        float g
-        float b
+    class t_f_node {
+        char val
+        t_f_node* next
     }
 
-    class t_vector {
+    class t_p_node {
+        char* str
+        t_p_node* next
+    }
+
+    class t_vect {
         float x
         float y
         float z
     }
 
     class t_ray {
-        t_vector origin
-        t_vector direction
+        t_vect origin
+        t_vect direction
     }
 
-    class t_intersection {
-        float distance
-        t_vector point
-        t_vector normal
-        t_color color
+    class t_hit_record {
+        t_vect point
+        t_vect normal
+        double t
     }
 
-    class t_collision {
-        bool hit
-        t_intersection intersection
-        void* object
-        int object_type
+    class t_intersection_info {
+        t_hit_record hit
+        uint32_t color
     }
 
-    class t_camera {
-        t_vector origin
-        t_vector direction
-        float fov
+    class t_sphere_collision {
+        double closest_t
+        t_sphere* closest_sphere
     }
 
-    class t_ambient {
-        float ratio
-        t_color color
+    class t_plane_collision {
+        double closest_t
+        t_plane* closest_plane
+    }
+
+    class t_cylinder_collision {
+        double closest_t
+        t_cylinder* closest_cylinder
+    }
+
+    class t_cone_collision {
+        double closest_t
+        t_cone* closest_cone
+    }
+
+    class t_material {
+        double amb
+        double diff
+        double spec
+        double shin
+        double refl
+    }
+
+    class t_texture {
+        t_texture_type type
+        double scale
+        uint32_t pri_color
+        uint32_t sec_color
+        void* texture_data
+        int width
+        int height
+    }
+
+    class t_bump_map {
+        bool enabled
+        void* map
+        int width
+        int height
+    }
+
+    class t_obj_pro {
+        t_material mat
+        t_texture txm
+        t_bump_map bpm
+    }
+
+    class t_img {
+        void* img_ptr
+        char* pixels_ptr
+        int bpp
+        int endian
+        int line_len
+    }
+
+    class t_amb {
+        double ratio
+        uint32_t rgb
+        bool set
+    }
+
+    class t_cam {
+        t_vect norm
+        t_vect cord
+        double fov
+        bool set
     }
 
     class t_light {
-        t_vector origin
-        float ratio
-        t_color color
+        t_vect cord
+        double ratio
+        uint32_t color
+        t_light* next
     }
 
     class t_sphere {
-        t_vector center
-        float diameter
-        t_color color
+        t_vect cord
+        double diameter
+        t_obj_pro pro
+        t_sphere* next
     }
 
     class t_plane {
-        t_vector position
-        t_vector normal
-        t_color color
+        t_vect norm
+        t_vect cord
+        double radius
+        t_obj_pro pro
+        t_plane* next
     }
 
     class t_cylinder {
-        t_vector position
-        t_vector direction
-        float diameter
-        float height
-        t_color color
+        t_vect cord
+        t_vect norm
+        double diameter
+        double height
+        t_obj_pro pro
+        t_cylinder* next
     }
 
-    class t_scene {
-        t_ambient* ambient
-        t_camera* camera
-        t_light* lights
-        t_sphere* spheres
-        t_plane* planes
-        t_cylinder* cylinders
+    class t_cone {
+        t_vect cord
+        t_vect norm
+        double height
+        double diameter
+        t_obj_pro pro
+        t_cone* next
     }
 
     class t_master {
-        void* mlx
-        void* window
-        void* image
-        int width
-        int height
-        t_scene* scene
+        void* mlx_ptr
+        void* win_ptr
+        t_img img
+        t_amb amb_head
+        t_cam cam_head
+        t_light* light_head
+        t_sphere* sphere_head
+        t_plane* plane_head
+        t_cylinder* cylinder_head
+        t_cone* cone_head
     }
 
-    t_ray --> t_vector
-    t_camera --> t_vector
-    t_light --> t_vector
-    t_light --> t_color
-    t_ambient --> t_color
-    t_sphere --> t_vector
-    t_sphere --> t_color
-    t_plane --> t_vector
-    t_plane --> t_color
-    t_cylinder --> t_vector
-    t_cylinder --> t_color
-    t_scene --> t_ambient
-    t_scene --> t_camera
-    t_scene --> t_light
-    t_scene --> t_sphere
-    t_scene --> t_plane
-    t_scene --> t_cylinder
-    t_intersection --> t_vector
-    t_intersection --> t_color
-    t_collision --> t_intersection
-    t_collision ..> t_sphere
-    t_collision ..> t_plane
-    t_collision ..> t_cylinder
-    t_master --> t_scene
-```
+    t_f_node --> t_f_node : next
+    t_p_node --> t_p_node : next
+    
+    t_ray --> t_vect
+    t_hit_record --> t_vect
+    t_intersection_info --> t_hit_record
+
+    t_sphere_collision --> t_sphere
+    t_plane_collision --> t_plane
+    t_cylinder_collision --> t_cylinder
+    t_cone_collision --> t_cone
+    
+    t_obj_pro --> t_material
+    t_obj_pro --> t_texture
+    t_obj_pro --> t_bump_map
+    
+    t_cam --> t_vect
+    t_light --> t_vect
+    t_light --> t_light : next
+    
+    t_sphere --> t_vect
+    t_sphere --> t_obj_pro
+    t_sphere --> t_sphere : next
+    
+    t_plane --> t_vect
+    t_plane --> t_obj_pro
+    t_plane --> t_plane : next
+    
+    t_cylinder --> t_vect
+    t_cylinder --> t_obj_pro
+    t_cylinder --> t_cylinder : next
+    
+    t_cone --> t_vect
+    t_cone --> t_obj_pro
+    t_cone --> t_cone : next
+    
+    t_master --> t_img
+    t_master --> t_amb
+    t_master --> t_cam
+    t_master --> t_light
+    t_master --> t_sphere
+    t_master --> t_plane
+    t_master --> t_cylinder
+    t_master --> t_cone
