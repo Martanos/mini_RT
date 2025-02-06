@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:01:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 20:23:32 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 20:37:51 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ t_f_node	*ft_gnl(int fd)
 	{
 		pos = 0;
 		while (pos < bytes_read)
-		{
-			printf("buffer[pos]: %c\n", buffer[pos]);
 			ft_add_f_node(&head, ft_create_f_node(buffer[pos++]));
-		}
 		ft_bzero(buffer, BUFFER_SIZE);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}

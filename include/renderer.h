@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 17:08:27 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 22:26:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ typedef struct s_ray
 /*
  * Collision Tracking Structures:
  * Each geometric shape has its own collision
-	*structure that follows the same pattern.
-
-		* These structures store the closest intersection found for that shape type during
-	* ray tracing,
-		allowing us to determine which object is visible at each pixel.
-	*/
+ * structure that follows the same pattern.
+ * These structures store the closest
+ * intersection found for that shape type during
+ * ray tracing, allowing us to determine which object is visible at each pixel.
+ */
 
 // Tracks the closest sphere intersection
 // - closest_t: Distance to the nearest sphere intersection
@@ -191,7 +190,8 @@ void								check_cone_intersection(t_ray ray,
 // tracing.c - Core rendering functions
 uint32_t							background_color(t_vect unit_direction);
 uint32_t							ray_color(t_ray ray, t_master *master);
-uint32_t							calculations(int x, int y, t_master *master);
+uint32_t							calculations(int x, int y,
+										t_master *master);
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);

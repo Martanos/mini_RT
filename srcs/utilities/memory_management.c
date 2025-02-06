@@ -6,13 +6,13 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:46:05 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 19:54:11 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 20:43:21 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	free_node(void *node, t_obj_type type)
+void	ft_free_node(void *node, t_obj_type type)
 {
 	t_obj_pro	*properties;
 
@@ -39,7 +39,7 @@ void	free_node(void *node, t_obj_type type)
 	free(node);
 }
 
-void	free_list(void *head, t_obj_type type)
+void	ft_free_list(void *head, t_obj_type type)
 {
 	void	*current;
 	void	*next;
@@ -59,7 +59,7 @@ void	free_list(void *head, t_obj_type type)
 			next = ((t_cylinder *)current)->next;
 		if (type == TYPE_CONE)
 			next = ((t_cone *)current)->next;
-		free_node(current, type);
+		ft_free_node(current, type);
 		current = next;
 		next = NULL;
 	}

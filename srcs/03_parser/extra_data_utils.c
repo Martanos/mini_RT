@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 16:01:27 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 21:02:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 {
 	if (len > 5)
 		return (ft_format_error("Extra data in material"));
+	if (len < 4)
+		return (ft_format_error("Material data is incomplete"));
 	if (len > 0)
 		(*pro)->mat.amb = ft_atod(split[0]);
 	if (!ft_inrange((*pro)->mat.amb, 0, 1))
@@ -42,6 +44,7 @@ static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 bool	ft_add_material(t_obj_pro **pro, char *str)
 {
 	char	**split;
+	char	**original;
 	bool	result;
 	int		len;
 
@@ -53,9 +56,10 @@ bool	ft_add_material(t_obj_pro **pro, char *str)
 	while (split[len])
 		len++;
 	result = ft_populate_material(pro, split, len);
+	original = split;
 	while (*split)
 		free(*split++);
-	free(split);
+	free(original);
 	return (result);
 }
 
@@ -64,6 +68,8 @@ static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 {
 	if (len > 5)
 		return (ft_format_error("Extra data in texture"));
+	if (len < 4)
+		return (ft_format_error("Texture data is incomplete"));
 	if (len > 0)
 		(*pro)->txm.type = ft_atoi(split[0]);
 	if ((*pro)->txm.type > 1 || (*pro)->txm.type < 0)
@@ -86,6 +92,7 @@ static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
 {
 	char	**split;
+	char	**original;
 	bool	result;
 	int		len;
 
@@ -97,9 +104,10 @@ bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
 	while (split[len])
 		len++;
 	result = ft_populate_texture(master, pro, split, len);
+	original = split;
 	while (*split)
 		free(*split++);
-	free(split);
+	free(original);
 	return (result);
 }
 
