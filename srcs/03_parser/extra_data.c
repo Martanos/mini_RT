@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:10:55 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 15:54:40 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 16:14:33 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ bool	ft_extra_data(t_master **master, t_obj_pro **pro, t_p_node **cur)
 		else if (*cur && ft_strcmp((*cur)->str, "mat:") == 0
 			&& !ft_add_material(pro, (*cur)->str + 4))
 			return (false);
-		else if (*cur)
-			return (ft_format_error("Unknown object data"),
-				ft_format_error((*cur)->str));
+		else if (*cur && ft_strcmp((*cur)->str, "txm:") != 0
+			&& ft_strcmp((*cur)->str, "bpm:") != 0 && ft_strcmp((*cur)->str,
+				"mat:") != 0)
+			return (ft_format_error("Unknown object data"));
 		if (*cur)
 			(*cur) = (*cur)->next;
 	}

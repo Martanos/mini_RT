@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:50:53 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 14:35:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:26:32 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,20 @@ t_p_node	*ft_reconstruct_strings(t_f_node *head)
 	{
 		while (head && ft_isspace(head->val))
 			head = head->next;
-		str = ft_construct_str(&head);
+		if (head)
+			str = ft_construct_str(&head);
 		if (str)
 		{
 			ft_add_p_node(&new_list, ft_create_p_node(str));
 			free(str);
+			str = NULL;
 		}
-		if (head)
+		if (head && ft_isspace(head->val))
 		{
-			if (head->val == '\n')
+			while (head && ft_isspace(head->val) && head->val != '\n')
+				head = head->next;
+			if (head && head->val == '\n')
 				ft_add_p_node(&new_list, ft_create_p_node("\n"));
-			head = head->next;
 		}
 	}
 	return (new_list);
