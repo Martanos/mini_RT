@@ -9,6 +9,7 @@
 		"type_traits": "c",
 		"limits": "c",
 		"math.h": "c",
-		"libvect.h": "c"
+		"libvect.h": "c",
+		"object_structures.h": "c"
 	}
 }

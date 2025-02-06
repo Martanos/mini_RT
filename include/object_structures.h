@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 15:23:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 17:55:58 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ typedef struct s_texture
 	double					scale;
 	uint32_t				pri_color;
 	uint32_t				sec_color;
-	void					*texture_data;
+	void					*img;
+	int						*data;
 	int						width;
 	int						height;
 }							t_texture;

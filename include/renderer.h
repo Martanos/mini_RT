@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 13:43:39 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 17:08:27 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void								check_cone_intersection(t_ray ray,
 // tracing.c - Core rendering functions
 uint32_t							background_color(t_vect unit_direction);
 uint32_t							ray_color(t_ray ray, t_master *master);
+uint32_t							calculations(int x, int y, t_master *master);
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);

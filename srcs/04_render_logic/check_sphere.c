@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/04 17:17:02 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 16:30:12 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ double	check_sphere_collision(t_ray ray, t_sphere *sphere)
 		return (t);
 	
 	// Try larger t if smaller t is behind camera
-	// t = (-b + sqrt(discriminant)) / (2.0 * a);
-	// if (t > 0.0)
-	// 	return (t);
+	t = (-b + sqrt(discriminant)) / (2.0 * a);
+	if (t > 0.0)
+		return (t);
 	
 	return (-1.0);  // Both hits are behind camera
 }
