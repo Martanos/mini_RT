@@ -6,49 +6,61 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:46:05 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 20:37:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:55:19 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-/*
-** @brief Calculates the offset of a member in a structure
-** @param ptr pointer to the structure
-** @param member pointer to the member
-** @return offset of the member
-*/
-size_t	ft_offsetof(void *base, void *member)
+void	free_node(void *node, t_obj_type type)
 {
-	return ((size_t)((char *)member - (char *)base));
+	t_obj_pro	*properties;
+
+	if (!node)
+		return ;
+	properties = NULL;
+	if (type != TYPE_LIGHT)
+	{
+		if (type == TYPE_SPHERE)
+			properties = &((t_sphere *)node)->pro;
+		else if (type == TYPE_PLANE)
+			properties = &((t_plane *)node)->pro;
+		else if (type == TYPE_CYLINDER)
+			properties = &((t_cylinder *)node)->pro;
+		else if (type == TYPE_CONE)
+			properties = &((t_cone *)node)->pro;
+	}
+	if (properties)
+	{
+		free(properties->txm.texture_data);
+		if (properties->bpm.map)
+			free(properties->bpm.map);
+	}
+	free(node);
 }
 
-/*
-** @brief Frees a list of objects with a generic structure
-** @param head pointer to the head of the list
-** @param offset_next offset of the next pointer
-** @param offset_pro offset of the object properties
-*/
-void	ft_free_list_generic(void *head, size_t offset_next, size_t offset_pro)
+void	free_list(void *head, t_obj_type type)
 {
-	void		*current;
-	void		*temp;
-	void		*next_ptr;
-	t_obj_pro	*pro_ptr;
+	void	*current;
+	void	*next;
 
+	if (!head)
+		return ;
 	current = head;
 	while (current)
 	{
-		temp = current;
-		next_ptr = NULL;
-		if (offset_next)
-			next_ptr = *(void **)((char *)current + offset_next);
-		if (offset_pro)
-		{
-			pro_ptr = (t_obj_pro *)((char *)current + offset_pro);
-			ft_free_obj_pro(pro_ptr);
-		}
-		current = next_ptr;
-		free(temp);
+		if (type == TYPE_LIGHT)
+			next = ((t_light *)current)->next;
+		if (type == TYPE_SPHERE)
+			next = ((t_sphere *)current)->next;
+		if (type == TYPE_PLANE)
+			next = ((t_plane *)current)->next;
+		if (type == TYPE_CYLINDER)
+			next = ((t_cylinder *)current)->next;
+		if (type == TYPE_CONE)
+			next = ((t_cone *)current)->next;
+		free_node(current, type);
+		current = next;
+		next = NULL;
 	}
 }

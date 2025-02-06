@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:55:52 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:45:40 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 {
-	if (len < 4 || len > 5)
-		return (ft_format_error("Material has incorrect number of parameters"));
 	if (len > 0)
 		(*pro)->mat.amb = ft_atod(split[0]);
 	if (!ft_inrange((*pro)->mat.amb, 0, 1))
@@ -62,8 +60,6 @@ bool	ft_add_material(t_obj_pro **pro, char *str)
 static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 		char **split, int len)
 {
-	if (len < 4 || len > 5)
-		return (ft_format_error("Texture has incorrect number of parameters"));
 	if (split && split[0])
 		(*pro)->txm.type = ft_atoi(split[0]);
 	if ((*pro)->txm.type > 1 || (*pro)->txm.type < 0)

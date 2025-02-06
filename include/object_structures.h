@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 20:21:14 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:23:54 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ typedef struct s_bump_map	t_bump_map;
 typedef struct s_obj_pro	t_obj_pro;
 
 // OBJECT PROPERTIES
+
+// Only for memory management
+typedef enum e_obj_type
+{
+	TYPE_LIGHT,
+	TYPE_SPHERE,
+	TYPE_PLANE,
+	TYPE_CYLINDER,
+	TYPE_CONE
+}							t_obj_type;
 
 typedef enum e_texture_type
 {
