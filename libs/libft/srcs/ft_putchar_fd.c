@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 01:24:03 by malee             #+#    #+#             */
-/*   Updated: 2023/09/16 01:25:34 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 22:29:50 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	if(write(fd, &c, 1) != 1)
+	if (write(fd, &c, 1) != 1)
 		exit(1);
 }

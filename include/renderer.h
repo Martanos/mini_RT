@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 17:08:27 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 22:27:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ typedef struct s_ray
 /*
  * Collision Tracking Structures:
  * Each geometric shape has its own collision
-	*structure that follows the same pattern.
-
-		* These structures store the closest intersection found for that shape type during
-	* ray tracing,
-		allowing us to determine which object is visible at each pixel.
-	*/
+ * structure that follows the same pattern.
+ * These structures store the closest
+ * intersection found for that shape type during
+ * ray tracing, allowing us to determine which object is visible at each pixel.
+ */
 
 // Tracks the closest sphere intersection
 // - closest_t: Distance to the nearest sphere intersection
@@ -110,14 +109,14 @@ typedef struct s_cone_collision
 
 /*
  * Shape-Specific Intersection Functions:
- * Each geometric shape (sphere, plane, cylinder,
-	cone) has three associated functions:
-
-	* 1. find_closest_*: Finds the closest intersection with any object of that type
-
-	* 2. check_*_collision: Tests for intersection between a ray and a single object
+ * Each geometric shape (sphere, plane,
+ * cylinder, cone) has three associated functions:
+ * 1. find_closest_*: Finds the closest intersection
+ * with any object of that type
+ * 2. check_*_collision: Tests for intersection between
+ * a ray and a single object
  * 3. calculate_*_hit: Computes intersection details (point,
-	normal) when a hit occurs
+ * normal) when a hit occurs
  */
 
 // check_sphere.c
@@ -166,7 +165,7 @@ void								calculate_cone_hit(t_ray ray,
  */
 
 // intersection_checks.c - Intersection testing and management
-void								update_closest_intersection(t_intersection_info *closest,
+void								update_closesintersection(t_intersection_info *closest,
 										t_intersection_info current);
 void								check_sphere_intersection(t_ray ray,
 										t_master *master,
@@ -191,7 +190,8 @@ void								check_cone_intersection(t_ray ray,
 // tracing.c - Core rendering functions
 uint32_t							background_color(t_vect unit_direction);
 uint32_t							ray_color(t_ray ray, t_master *master);
-uint32_t							calculations(int x, int y, t_master *master);
+uint32_t							calculations(int x, int y,
+										t_master *master);
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);

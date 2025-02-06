@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:10:55 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 16:14:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/06 21:01:45 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ bool	ft_extra_data(t_master **master, t_obj_pro **pro, t_p_node **cur)
 	{
 		while (*cur && ft_isspace((*cur)->str[0]) && (*cur)->str[0] != '\n')
 			(*cur) = (*cur)->next;
-		if (*cur && ft_strcmp((*cur)->str, "txm:") == 0
+		if (*cur && ft_strncmp((*cur)->str, "txm:", 4) == 0
 			&& !ft_add_texture(master, pro, (*cur)->str + 4))
 			return (false);
-		else if (*cur && ft_strcmp((*cur)->str, "bpm:") == 0
+		else if (*cur && ft_strncmp((*cur)->str, "bpm:", 4) == 0
 			&& !ft_add_bump_map(master, pro, (*cur)->str + 4))
 			return (false);
-		else if (*cur && ft_strcmp((*cur)->str, "mat:") == 0
+		else if (*cur && ft_strncmp((*cur)->str, "mat:", 4) == 0
 			&& !ft_add_material(pro, (*cur)->str + 4))
 			return (false);
-		else if (*cur && ft_strcmp((*cur)->str, "txm:") != 0
-			&& ft_strcmp((*cur)->str, "bpm:") != 0 && ft_strcmp((*cur)->str,
-				"mat:") != 0)
+		else if (*cur && ft_strncmp((*cur)->str, "txm:", 4) != 0
+			&& ft_strncmp((*cur)->str, "bpm:", 4) != 0
+			&& ft_strncmp((*cur)->str, "mat:", 4) != 0)
 			return (ft_format_error("Unknown object data"));
 		if (*cur)
 			(*cur) = (*cur)->next;
