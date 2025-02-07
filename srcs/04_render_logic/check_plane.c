@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 14:02:20 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/06 23:00:14 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ void	calculate_plane_hit(t_ray ray, t_plane_collision collision, t_hit_record *r
 	rec->t = collision.closest_t;
 	rec->point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction, collision.closest_t));
 	rec->normal = collision.closest_plane->norm;
+	if (ft_vect_dot(ray.direction, rec->normal) > 0)
+		rec->normal = ft_vect_mul_all(rec->normal, -1);
 }

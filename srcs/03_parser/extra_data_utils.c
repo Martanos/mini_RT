@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   extra_data_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
 /*   Updated: 2025/02/07 13:43:51 by malee            ###   ########.fr       */
