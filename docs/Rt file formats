@@ -1,0 +1,33 @@
+# RT file formats
+
+## Ambient Light (single instance)
+A intensity[0,1] color[255,255,255]
+
+## Camera (single instance)
+C pos[x,y,z] dir[x,y,z] fov[0,180]
+
+## Light (multiple instances)
+L pos[x,y,z] dir[x,y,z] intensity[0,1] color[255,255,255]
+
+## Sphere (multiple instances)
+sp pos[x,y,z] radius[0,INFINITY] Optional:obj_prop
+
+## Plane (multiple instances)
+pl pos[x,y,z] dir[x,y,z] Optional:obj_prop
+
+## Cylinder (multiple instances)
+cy pos[x,y,z] dir[x,y,z] radius[0,INFINITY] height[0,INFINITY] Optional:obj_prop
+
+## Cone (multiple instances)
+co pos[x,y,z] dir[x,y,z] radius[0,INFINITY] height[0,INFINITY] Optional:obj_prop
+
+## Optional objects properties
+## Texture
+txm:type[0 for solid color, 1 for checkered, 2 for custom];scale[0,1];secondary_color[255,255,255];custom_texture_data[path to xpm file]
+
+## Bump map
+bpm:custom_texture_data[path to xpm file]
+
+## Material
+mat:ambient[0,1];diffuse[0,1];specular[0,1];shininess[0,INFINITY];reflection[0,1]
+

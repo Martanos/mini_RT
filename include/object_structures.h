@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 22:27:59 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/07 13:35:08 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef enum e_texture_type
 {
 	SOLID_COLOR = 0,
 	CHECKERED = 1,
-	UNKNOWN = 2
+	CUSTOM = 2
 }							t_texture_type;
 
 /*
