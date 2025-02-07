@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 22:27:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/07 11:58:14 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,10 @@ void								calculate_cone_hit(t_ray ray,
 										t_cone_collision collision,
 										t_hit_record *rec);
 
+// xpm_utils.c - XPM texture loading and application
+void								apply_texture(t_texture texture, double u,
+										double v, uint32_t *color);
+
 /*
  * Intersection Management:
  * These functions handle the process of finding and tracking the closest
@@ -179,6 +183,19 @@ void								check_cylinder_intersection(t_ray ray,
 void								check_cone_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
+
+
+// texture_mapping.c - Texture mapping functions
+void								get_sphere_uv(t_vect point, double *u,
+										double *v);
+void								get_plane_uv(t_vect point, t_plane *plane,
+										double *u, double *v);
+void								get_cylinder_uv(t_vect point,
+										t_cylinder *cylinder, double *u,
+										double *v);
+void								get_cone_uv(t_vect point, t_cone *cone,
+										double *u, double *v);
+
 
 /*
  * Ray Tracing Core Functions:
