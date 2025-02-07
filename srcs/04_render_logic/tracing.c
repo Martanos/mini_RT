@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 13:54:46 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/07 15:37:36 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ uint32_t	ray_color(t_ray ray, t_master *master)
 			light = light->next;
 			continue ;
 		}
+		// specular to be added here if shadow is false
+		// diffuse and specular calculated together
+		// need to factor in camera position for specular
 		color = calculate_light_contribution(info.hit, light, info.color);
 		ft_convert_rgb_arr(color, rgb);
 		final[0] += rgb[0];
