@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/07 12:12:59 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/07 13:43:51 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 		return (ft_format_error("Diffuse is out of range [0,1]"));
 	if (len > 2)
 		(*pro)->mat.spec = ft_atod(split[2]);
-	if (!ft_inrange((*pro)->mat.spec, 0, 1))
+	if (!ft_inrange((*pro)->mat.spec, 0, INFINITY))
 		return (ft_format_error("Specular is out of range [0,1]"));
 	if (len > 3)
 		(*pro)->mat.shin = ft_atod(split[3]);
@@ -50,7 +50,7 @@ bool	ft_add_material(t_obj_pro **pro, char *str)
 
 	result = false;
 	len = 0;
-	split = ft_split(str, ',');
+	split = ft_split(str, ':');
 	if (!split)
 		return (false);
 	while (split[len])
@@ -66,13 +66,13 @@ bool	ft_add_material(t_obj_pro **pro, char *str)
 static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 		char **split, int len)
 {
-	if (len > 5)
+	if (len > 4)
 		return (ft_format_error("Extra data in texture"));
 	if (len < 4)
 		return (ft_format_error("Texture data is incomplete"));
 	if (len > 0)
 		(*pro)->txm.type = ft_atoi(split[0]);
-	if ((*pro)->txm.type > 1 || (*pro)->txm.type < 0)
+	if ((*pro)->txm.type > 2 || (*pro)->txm.type < 0)
 		return (ft_format_error("Unknown texture type"));
 	if (len > 1)
 		(*pro)->txm.scale = ft_atod(split[1]);
@@ -98,7 +98,7 @@ bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
 
 	result = false;
 	len = 0;
-	split = ft_split(str, ',');
+	split = ft_split(str, ':');
 	if (!split)
 		return (false);
 	while (split[len])
