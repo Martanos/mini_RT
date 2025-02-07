@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/07 13:35:24 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/07 13:43:51 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	ft_add_material(t_obj_pro **pro, char *str)
 
 	result = false;
 	len = 0;
-	split = ft_split(str, ';');
+	split = ft_split(str, ':');
 	if (!split)
 		return (false);
 	while (split[len])
@@ -98,7 +98,7 @@ bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
 
 	result = false;
 	len = 0;
-	split = ft_split(str, ';');
+	split = ft_split(str, ':');
 	if (!split)
 		return (false);
 	while (split[len])
