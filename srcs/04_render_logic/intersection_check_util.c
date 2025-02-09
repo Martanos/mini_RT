@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/07 12:20:42 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/09 17:16:18 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	check_sphere_intersection(t_ray ray, t_master *master,
 	{
 		calculate_sphere_hit(ray, sphere, &current.hit);
 		get_sphere_uv(current.hit.point, &u, &v);
+		current.properties = sphere.closest_sphere->pro;
 		if (sphere.closest_sphere->pro.txm.img)
 			apply_texture(sphere.closest_sphere->pro.txm, u, v, &current.color);
 		else
@@ -54,6 +55,7 @@ void	check_plane_intersection(t_ray ray, t_master *master,
 	{
 		calculate_plane_hit(ray, plane, &current.hit);
 		get_plane_uv(current.hit.point, plane.closest_plane, &u, &v);
+		current.properties = plane.closest_plane->pro;
 		if (plane.closest_plane->pro.txm.img)
 			apply_texture(plane.closest_plane->pro.txm, u, v, &current.color);
 		else
@@ -75,6 +77,7 @@ void	check_cylinder_intersection(t_ray ray, t_master *master,
 	{
 		calculate_cylinder_hit(ray, cylinder, &current.hit);
 		get_cylinder_uv(current.hit.point, cylinder.closest_cylinder, &u, &v);
+		current.properties = cylinder.closest_cylinder->pro;
 		if (cylinder.closest_cylinder->pro.txm.img)
 			apply_texture(cylinder.closest_cylinder->pro.txm, u, v,
 				&current.color);
@@ -97,6 +100,7 @@ void	check_cone_intersection(t_ray ray, t_master *master,
 	{
 		calculate_cone_hit(ray, cone, &current.hit);
 		get_cone_uv(current.hit.point, cone.closest_cone, &u, &v);
+		current.properties = cone.closest_cone->pro;
 		if (cone.closest_cone->pro.txm.img)
 			apply_texture(cone.closest_cone->pro.txm, u, v, &current.color);
 		else

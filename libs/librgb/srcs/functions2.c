@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:31:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 22:31:47 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/09 17:51:48 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ void	ft_clamp_rgb_values(double *final, uint8_t *rgb_arr)
 	rgb_arr[0] = (uint8_t)fmin(fmax(final[0], 0), 255);
 	rgb_arr[1] = (uint8_t)fmin(fmax(final[1], 0), 255);
 	rgb_arr[2] = (uint8_t)fmin(fmax(final[2], 0), 255);
+}
+
+/*
+** @brief Adds the values of the second RGB array to the first RGB array
+** @param rgb_arr1 First RGB array (will contain the sum)
+** @param rgb_arr2 Second RGB array to add
+*/
+void	ft_add_rgb_arr(uint8_t *rgb_arr1, uint8_t *rgb_arr2)
+{
+	double	final[3];
+
+	if (!rgb_arr1 || !rgb_arr2)
+		return ;
+	final[0] = rgb_arr1[0] + rgb_arr2[0];
+	final[1] = rgb_arr1[1] + rgb_arr2[1];
+	final[2] = rgb_arr1[2] + rgb_arr2[2];
+	ft_clamp_rgb_values(final, rgb_arr1);
 }

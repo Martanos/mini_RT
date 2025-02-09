@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/07 11:58:14 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/09 17:55:19 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_intersection_info
 {
 	t_hit_record					hit;
 	uint32_t						color;
+	t_obj_pro						properties;
 }									t_intersection_info;
 
 // Represents a ray in 3D space used for ray tracing
@@ -168,8 +169,17 @@ void								apply_texture(t_texture texture, double u,
  * structures to determine what's visible at each pixel.
  */
 
-// intersection_checks.c - Intersection testing and management
-void								update_closesintersection(t_intersection_info *closest,
+// intersection_check.c - Main intersection functions
+bool								check_shadow_intersection(t_ray shadow_ray,
+										double light_distance,
+										t_master *master);
+t_intersection_info					find_closest_intersection(t_ray ray,
+										t_master *master);
+t_ray								calculate_shadow_ray(t_vect hit_point,
+										t_vect light_pos, t_vect normal);
+
+// intersection_check_util.c - Intersection utility functions
+void								update_closest_intersection(t_intersection_info *closest,
 										t_intersection_info current);
 void								check_sphere_intersection(t_ray ray,
 										t_master *master,
@@ -207,6 +217,12 @@ void								get_cone_uv(t_vect point, t_cone *cone,
 // tracing.c - Core rendering functions
 uint32_t							background_color(t_vect unit_direction);
 uint32_t							ray_color(t_ray ray, t_master *master);
+uint32_t							calc_specular(t_hit_record hit,
+									t_vect light_pos, t_vect cam_pos,
+									t_light *light, t_material mat);
+uint32_t							calculate_diffuse_lighting(t_hit_record hit,
+									t_light *light, uint32_t obj_color,
+									t_material mat);
 uint32_t							calculations(int x, int y,
 										t_master *master);
 
