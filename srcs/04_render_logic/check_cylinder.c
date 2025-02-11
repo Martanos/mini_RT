@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:18:06 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 14:01:16 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/11 14:49:47 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,9 +211,9 @@ double check_cylinder_collision(t_ray ray, t_cylinder *cylinder)
  */
 t_cylinder_collision find_closest_cylinder(t_ray ray, t_master *master)
 {
-	double t;
-	t_cylinder_collision result;
-	t_cylinder *cylinder;
+	double					t;
+	t_cylinder_collision	result;
+	t_cylinder				*cylinder;
 
 	result.closest_t = INFINITY;
 	result.closest_cylinder = NULL;

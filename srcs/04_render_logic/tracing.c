@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/09 17:54:54 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/11 14:57:40 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ uint32_t	calculate_diffuse_lighting(t_hit_record hit, t_light *light,
 
 	light_dir = ft_vect_norm(ft_vect_sub(light->cord, hit.point));
 	diff = fmax(ft_vect_dot(hit.normal, light_dir), 0.0);
-	intensity = light->ratio * diff * mat.diff;
+	if (mat.diff > 0)
+		intensity = light->ratio * diff * mat.diff;
+	else
+		intensity = light->ratio * diff;
 	ft_convert_rgb_arr(obj_color, rgb);
 	ft_convert_rgb_arr(light->color, light_rgb);
 	final[0] = (uint8_t)(rgb[0] * intensity * (light_rgb[0] / 255.0));
@@ -80,10 +83,13 @@ static void	add_light_contribution(t_light *light, t_intersection_info info,
 	{
 		color = calculate_diffuse_lighting(info.hit, light, info.color,
 			info.properties.mat);
-		spec_color = calc_specular(info.hit, light->cord,
-			master->cam_head.cord, light, info.properties.mat);
-		ft_convert_rgb_arr(color, rgb);
-		ft_convert_rgb_arr(spec_color, spec_rgb);
+		ft_convert_rgb_arr(color, rgb);	
+		if (info.properties.mat.spec > 0 && info.properties.mat.shin > 0)
+		{
+			spec_color = calc_specular(info.hit, light->cord,
+				master->cam_head.cord, light, info.properties.mat);
+			ft_convert_rgb_arr(spec_color, spec_rgb);
+		}
 		ft_add_rgb_arr(rgb, spec_rgb);
 		ft_add_rgb_arr(final, rgb);
 	}
