@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:18:06 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/11 14:49:47 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:12:07 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,8 @@ t_cylinder_collision find_closest_cylinder(t_ray ray, t_master *master)
 		{
 			result.closest_t = t;
 			result.closest_cylinder = cylinder;
+			if (t < EPSILON)
+				break ;
 		}
 		cylinder = cylinder->next;
 	}

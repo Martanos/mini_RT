@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/09 18:33:16 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:12:33 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ t_plane_collision	find_closest_plane(t_ray ray, t_master *master)
 		{
 			result.closest_t = t;
 			result.closest_plane = plane;
+			if (t < EPSILON)
+				break ;
 		}
 		plane = plane->next;
 	}

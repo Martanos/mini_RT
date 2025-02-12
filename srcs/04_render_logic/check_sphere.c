@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:40:56 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/09 18:31:21 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:12:49 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ t_sphere_collision	find_closest_sphere(t_ray ray, t_master *master)
 		{
 			result.closest_t = t;
 			result.closest_sphere = sphere;
+			if (t < EPSILON)
+				break ;
 		}
 		sphere = sphere->next;
 	}

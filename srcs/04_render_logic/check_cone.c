@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:52 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:12:15 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ t_cone_collision	find_closest_cone(t_ray ray, t_master *master)
 		{
 			result.closest_t = t;
 			result.closest_cone = cone;
+			if (t < EPSILON)
+				break ;
 		}
 		cone = cone->next;
 	}
