@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:20:19 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/09 17:12:52 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/12 13:49:54 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	get_specular_factor(t_vect light_dir, t_vect view_dir,
 	return (spec);
 }
 
-uint32_t	calc_specular(t_hit_record hit, t_vect light_pos,
+uint32_t	calc_specular(t_hit_record hit,
 	t_vect cam_pos, t_light *light, t_material mat)
 {
 	t_vect		light_dir;
@@ -43,10 +43,10 @@ uint32_t	calc_specular(t_hit_record hit, t_vect light_pos,
 	uint8_t		light_rgb[3];
 	double		final[3];
 
-	light_dir = ft_vect_norm(ft_vect_sub(light_pos, hit.point));
+	light_dir = ft_vect_norm(ft_vect_sub(light->cord, hit.point));
 	view_dir = ft_vect_norm(ft_vect_sub(cam_pos, hit.point));
 	spec_factor = get_specular_factor(light_dir, view_dir, hit.normal,
-		mat.shin);
+			mat.shin);
 	ft_convert_rgb_arr(light->color, light_rgb);
 	final[0] = light->ratio * mat.spec * spec_factor * (light_rgb[0] / 255.0)
 		* 255;
