@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_data_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:37:37 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 17:37:56 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 	if (len > 2)
 		(*pro)->mat.spec = ft_atod(split[2]);
 	if (!ft_inrange((*pro)->mat.spec, 0, INFINITY))
-		return (ft_format_error("Specular is out of range [0,1]"));
+		return (ft_format_error("Specular is out of range [0,INFINITY]"));
 	if (len > 3)
 		(*pro)->mat.shin = ft_atod(split[3]);
 	if (!ft_inrange((*pro)->mat.shin, 0, 1))
