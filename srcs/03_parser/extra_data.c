@@ -6,13 +6,13 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:10:55 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 21:01:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:40:52 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-bool	ft_extra_data(t_master **master, t_obj_pro **pro, t_p_node **cur)
+bool	ft_extra_data(t_master **master, t_obj_pro *pro, t_p_node **cur)
 {
 	(*cur) = (*cur)->next;
 	if ((*cur) && (*cur)->str[0] == '\n')
@@ -22,13 +22,13 @@ bool	ft_extra_data(t_master **master, t_obj_pro **pro, t_p_node **cur)
 		while (*cur && ft_isspace((*cur)->str[0]) && (*cur)->str[0] != '\n')
 			(*cur) = (*cur)->next;
 		if (*cur && ft_strncmp((*cur)->str, "txm:", 4) == 0
-			&& !ft_add_texture(master, pro, (*cur)->str + 4))
+			&& !ft_add_texture(master, &pro, (*cur)->str + 4))
 			return (false);
 		else if (*cur && ft_strncmp((*cur)->str, "bpm:", 4) == 0
-			&& !ft_add_bump_map(master, pro, (*cur)->str + 4))
+			&& !ft_add_bump_map(master, &pro, (*cur)->str + 4))
 			return (false);
 		else if (*cur && ft_strncmp((*cur)->str, "mat:", 4) == 0
-			&& !ft_add_material(pro, (*cur)->str + 4))
+			&& !ft_add_material(&pro, (*cur)->str + 4))
 			return (false);
 		else if (*cur && ft_strncmp((*cur)->str, "txm:", 4) != 0
 			&& ft_strncmp((*cur)->str, "bpm:", 4) != 0

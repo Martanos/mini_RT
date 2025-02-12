@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:55:42 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:33:21 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	ft_populate_sphere(t_master **master, t_sphere **sphere,
 		return (false);
 	if (!ft_get_rgb(&(*sphere)->pro.txm.pri_color, (*cur)->str))
 		return (false);
-	return (ft_extra_data(master, (t_obj_pro **)&((*sphere)->pro), cur));
+	return (ft_extra_data(master, &((*sphere)->pro), cur));
 }
 
 bool	ft_create_sphere(t_master **master, t_p_node **cur)

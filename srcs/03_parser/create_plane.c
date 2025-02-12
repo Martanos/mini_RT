@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:10:18 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:55:37 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:34:52 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	ft_populate_plane(t_master **master, t_plane **plane,
 		return (false);
 	if (!ft_get_rgb(&(*plane)->pro.txm.pri_color, (*cur)->str))
 		return (false);
-	return (ft_extra_data(master, (t_obj_pro **)&((*plane)->pro), cur));
+	return (ft_extra_data(master, &((*plane)->pro), cur));
 }
 
 // @brief Creates a plane object
