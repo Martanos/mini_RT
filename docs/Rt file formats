@@ -29,5 +29,5 @@ txm:type[0 for solid color, 1 for checkered, 2 for custom]:scale[0,1]:secondary_
 bpm:custom_texture_data[path to xpm file]
 
 ## Material
-mat:ambient[0,1]:diffuse[0,1]:specular[0,INFINITY]:shininess[0,1]:reflection[0,1]
+mat:ambient[0,1]:diffuse[0,1]:specular[0,1]:shininess[0,200]:reflection[0,1]
 
