@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:28:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 19:52:02 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:34:46 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	ft_populate_cylinder(t_master **master, t_cylinder **cylinder,
 		return (false);
 	if (!ft_get_rgb(&(*cylinder)->pro.txm.pri_color, (*cur)->str))
 		return (false);
-	return (ft_extra_data(master, (t_obj_pro **)&((*cylinder)->pro), cur));
+	return (ft_extra_data(master, &((*cylinder)->pro), cur));
 }
 
 bool	ft_create_cylinder(t_master **master, t_p_node **cur)

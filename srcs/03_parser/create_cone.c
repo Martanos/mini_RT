@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:49:09 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:55:15 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:34:39 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	ft_populate_cone(t_master **master, t_cone **cone, t_p_node **cur)
 		return (false);
 	if (!ft_get_rgb(&(*cone)->pro.txm.pri_color, (*cur)->str))
 		return (false);
-	return (ft_extra_data(master, (t_obj_pro **)&((*cone)->pro), cur));
+	return (ft_extra_data(master, &((*cone)->pro), cur));
 }
 
 // @brief Creates a plane object

@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/07 13:43:51 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:37:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 {
+	printf("pro pointer: %p\n", pro);
+	printf("*pro pointer: %p\n", *pro);
+	if (split)
+	{
+		printf("split pointer: %p\n", split);
+		if (split[0])
+		{
+			printf("first split content: %s\n", split[0]);
+		}
+	}
 	if (len > 5)
 		return (ft_format_error("Extra data in material"));
 	if (len < 4)
@@ -44,22 +54,22 @@ static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 bool	ft_add_material(t_obj_pro **pro, char *str)
 {
 	char	**split;
-	char	**original;
-	bool	result;
 	int		len;
+	bool	result;
+	int		i;
 
 	result = false;
 	len = 0;
+	i = 0;
 	split = ft_split(str, ':');
 	if (!split)
 		return (false);
 	while (split[len])
 		len++;
 	result = ft_populate_material(pro, split, len);
-	original = split;
-	while (*split)
-		free(*split++);
-	free(original);
+	while (split[i])
+		free(split[i++]);
+	free(split);
 	return (result);
 }
 
@@ -79,7 +89,7 @@ static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 	if (!ft_inrange((*pro)->txm.scale, 0, 1))
 		return (ft_format_error("Texture scale is out of range [0,1]"));
 	if (len > 2)
-		if (!ft_get_rgb(&(*pro)->txm.sec_color, split[3]))
+		if (!ft_get_rgb(&(*pro)->txm.sec_color, split[2]))
 			return (false);
 	if (len > 3)
 		(*pro)->txm.img = mlx_xpm_file_to_image((*master)->mlx_ptr, split[3],

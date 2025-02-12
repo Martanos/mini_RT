@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 20:21:11 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:34:03 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool					ft_create_cylinder(t_master **master, t_p_node **cur);
 bool					ft_create_cone(t_master **master, t_p_node **cur);
 
 // Property Creation
-bool					ft_extra_data(t_master **master, t_obj_pro **pro,
+bool					ft_extra_data(t_master **master, t_obj_pro *pro,
 							t_p_node **cur);
 bool					ft_add_texture(t_master **master, t_obj_pro **pro,
 							char *str);
