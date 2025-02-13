@@ -6,7 +6,7 @@
 #    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/13 14:02:15 by seayeo           ###   ########.fr        #
+#    Updated: 2025/02/13 17:53:43 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC_UTILITIES	= fatal.c exit.c misc.c memory_management.c \
 SRC_RENDER		= check_cone.c check_cylinder.c check_plane.c check_sphere.c \
 					intersection_check.c intersection_check_util.c ray_utils.c \
 					renderplane.c tracing.c render_main.c texture_mapping.c \
-					xpm_utils.c specular.c reflections.c
+					xpm_utils.c specular.c reflections.c smaa.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_lexer/, $(SRC_LEXER)) \
 					$(addprefix $(SRC_DIR)/03_parser/, $(SRC_PARSING)) \

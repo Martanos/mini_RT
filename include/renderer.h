@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/13 14:03:42 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:53:36 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,11 @@ uint32_t							calculations(int x, int y,
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);
-
+void								apply_smaa(t_master *master);
 void								ft_render_scene(t_master *master);
+void								apply_post_aa(t_master *master);
+uint32_t							get_pixel(t_master *master, int x, int y);
+void								put_pixel(t_master *master, int x, int y,
+										uint32_t color);
 
 #endif

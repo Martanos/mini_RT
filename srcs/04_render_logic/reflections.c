@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:51:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 15:11:38 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 15:30:58 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,4 @@ uint32_t	calculate_reflection(t_intersection_info info, t_ray ray,
 			+ refl_rgb[2] * info.properties.mat.refl);
 	return (ft_create_rgb(surface_rgb[0], surface_rgb[1], surface_rgb[2]));
 }
+

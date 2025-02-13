@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   misc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:59:59 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 19:54:29 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/13 15:48:27 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int	key_hook(int keycode, void *param)
 	{
 		ft_free_master(master);
 		exit(0);
+	}
+	else if (keycode == 97)
+	{
+		master->aa_enabled = !master->aa_enabled;
+		printf("Anti-aliasing: %s\n", master->aa_enabled ? "ON" : "OFF");
+		ft_render_scene(master);
 	}
 	return (0);
 }
