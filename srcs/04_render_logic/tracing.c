@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/12 14:12:26 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:01:30 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ static void	add_light_contribution(t_light *light, t_intersection_info info,
 	}
 }
 
-uint32_t	ray_color(t_ray ray, t_master *master)
+uint32_t	ray_color(t_ray ray, t_master *master, int depth)
 {
 	t_intersection_info	info;
 	t_light				*light;
 	uint8_t				final[3];
 	uint32_t			color;
+	uint32_t			reflected_color;
 
 	info = find_closest_intersection(ray, master);
 	if (info.hit.t == 0)
@@ -109,6 +110,11 @@ uint32_t	ray_color(t_ray ray, t_master *master)
 	{
 		add_light_contribution(light, info, master, final);
 		light = light->next;
+	}
+	if (info.properties.mat.refl > 0.0 && depth > 0)
+	{
+		reflected_color = calculate_reflection(info, ray, master, depth - 1);
+		ft_convert_rgb_arr(reflected_color, final);
 	}
 	return (ft_create_rgb(final[0], final[1], final[2]));
 }

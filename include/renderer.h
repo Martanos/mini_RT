@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 13:49:11 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:03:42 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,6 @@ void								check_cone_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
 
-
 // texture_mapping.c - Texture mapping functions
 void								get_sphere_uv(t_vect point, double *u,
 										double *v);
@@ -206,7 +205,6 @@ void								get_cylinder_uv(t_vect point,
 void								get_cone_uv(t_vect point, t_cone *cone,
 										double *u, double *v);
 
-
 /*
  * Ray Tracing Core Functions:
  * These functions handle the main ray tracing logic,
@@ -216,13 +214,18 @@ void								get_cone_uv(t_vect point, t_cone *cone,
 
 // tracing.c - Core rendering functions
 uint32_t							background_color(t_vect unit_direction);
-uint32_t							ray_color(t_ray ray, t_master *master);
-uint32_t							calc_specular(t_hit_record hit, 
-									t_vect cam_pos, t_light *light,
-									t_material mat);
+uint32_t							ray_color(t_ray ray, t_master *master,
+										int depth);
+t_vect								calc_reflected_ray(t_vect incident,
+										t_vect normal);
+uint32_t							calc_specular(t_hit_record hit,
+										t_vect cam_pos, t_light *light,
+										t_material mat);
+uint32_t							calculate_reflection(t_intersection_info info,
+										t_ray ray, t_master *master, int depth);
 uint32_t							calculate_diffuse_lighting(t_hit_record hit,
-									t_light *light, uint32_t obj_color,
-									t_material mat);
+										t_light *light, uint32_t obj_color,
+										t_material mat);
 uint32_t							calculations(int x, int y,
 										t_master *master);
 

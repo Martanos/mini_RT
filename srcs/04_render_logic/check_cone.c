@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/12 15:12:15 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 13:45:11 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 {
 	t_vect	oc;
 	double	radius;
-	double	cos_angle;
+	double	tan_angle;
+	double	tan_angle_squared;
 	t_vect	normalized_normal;
 	double	dot_dir_axis;
 	double	dot_oc_axis;
@@ -63,14 +64,15 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 	oc = ft_vect_sub(ray.origin, cone->cord);
 	normalized_normal = ft_vect_norm(cone->norm);
 	radius = cone->diameter / 2.0;
-	cos_angle = cos(atan(radius / cone->height));
+	tan_angle = radius / cone->height;
+	tan_angle_squared = tan_angle * tan_angle;
 	dot_dir_axis = ft_vect_dot(ray.direction, normalized_normal);
 	dot_oc_axis = ft_vect_dot(oc, normalized_normal);
-	a = ft_vect_dot(ray.direction, ray.direction) - (1.0 + cos_angle * cos_angle)
+	a = ft_vect_dot(ray.direction, ray.direction) - (1.0 + tan_angle_squared)
 		* dot_dir_axis * dot_dir_axis;
-	b = 2.0 * (ft_vect_dot(ray.direction, oc) - (1.0 + cos_angle * cos_angle)
+	b = 2.0 * (ft_vect_dot(ray.direction, oc) - (1.0 + tan_angle_squared)
 			* dot_dir_axis * dot_oc_axis);
-	c = ft_vect_dot(oc, oc) - (1.0 + cos_angle * cos_angle) * dot_oc_axis
+	c = ft_vect_dot(oc, oc) - (1.0 + tan_angle_squared) * dot_oc_axis
 		* dot_oc_axis;
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
@@ -146,6 +148,15 @@ double	check_cone_collision(t_ray ray, t_cone *cone)
  * @param ray The ray that intersected the cone
  * @param collision Structure containing intersection information
  * @param rec Pointer to hit record structure to store intersection details
+ * 
+ * This function:
+ * 1. Calculates exact intersection point using ray equation
+ * 2. Determines if hit point is on base or conical surface
+ * 3. For base hits: Uses inverted cone axis as normal
+ * 4. For surface hits: Computes normal using:
+ *    - Radial component (perpendicular to axis)
+ *    - Axial component (along cone axis)
+ *    - Combines them based on cone angle for correct surface normal
  */
 void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 		t_hit_record *rec)
@@ -156,7 +167,6 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 	double	height;
 	t_vect	axis_point;
 	t_vect	radial;
-	double	cos_angle;
 
 	rec->t = collision.closest_t;
 	rec->point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction,
@@ -176,10 +186,11 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 		axis_point = ft_vect_add(collision.closest_cone->cord,
 				ft_vect_mul_all(normalized_normal, height));
 		radial = ft_vect_norm(ft_vect_sub(rec->point, axis_point));
-		cos_angle = cos(atan(collision.closest_cone->diameter / (2.0
-						* collision.closest_cone->height)));
-		rec->normal = ft_vect_norm(ft_vect_add(ft_vect_mul_all(radial, cos_angle),
-					ft_vect_mul_all(normalized_normal, sin(acos(cos_angle)))));
+		double tan_angle = (collision.closest_cone->diameter / 2.0) 
+			/ collision.closest_cone->height;
+		double angle = atan(tan_angle);
+		rec->normal = ft_vect_norm(ft_vect_add(ft_vect_mul_all(radial, cos(angle)),
+					ft_vect_mul_all(normalized_normal, sin(angle))));
 	}
 }
 
