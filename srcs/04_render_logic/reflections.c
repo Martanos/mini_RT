@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:51:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 14:15:55 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 15:11:38 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 	* @brief Calculates the reflected color for surfaces with a reflection coefficient
  *
+ * note: offsetting the origin of the reflected ray by a small amount to prevent
+ * self-intersection
  * This function:
 
 	* 1. Checks the current recursion depth and the material's reflection coefficient.
@@ -47,7 +49,8 @@ uint32_t	calculate_reflection(t_intersection_info info, t_ray ray,
 		return (info.color);
 	reflected_dir = calc_reflected_ray(ft_vect_norm(ray.direction),
 			info.hit.normal);
-	reflected_ray.origin = info.hit.point;
+	reflected_ray.origin = ft_vect_add(info.hit.point,
+			ft_vect_mul_all(info.hit.normal, 0.001));
 	reflected_ray.direction = reflected_dir;
 	reflected_color = ray_color(reflected_ray, master, depth);
 	ft_convert_rgb_arr(reflected_color, refl_rgb);
