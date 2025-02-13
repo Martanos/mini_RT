@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_data_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:37:37 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:13:23 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 
 static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 {
-	printf("pro pointer: %p\n", pro);
-	printf("*pro pointer: %p\n", *pro);
-	if (split)
-	{
-		printf("split pointer: %p\n", split);
-		if (split[0])
-		{
-			printf("first split content: %s\n", split[0]);
-		}
-	}
 	if (len > 5)
 		return (ft_format_error("Extra data in material"));
 	if (len < 4)
@@ -38,12 +28,12 @@ static bool	ft_populate_material(t_obj_pro **pro, char **split, int len)
 		return (ft_format_error("Diffuse is out of range [0,1]"));
 	if (len > 2)
 		(*pro)->mat.spec = ft_atod(split[2]);
-	if (!ft_inrange((*pro)->mat.spec, 0, INFINITY))
-		return (ft_format_error("Specular is out of range [0,1]"));
+	if (!ft_inrange((*pro)->mat.spec, 0, 1))
+		return (ft_format_error("Specular is out of range [0,INFINITY]"));
 	if (len > 3)
 		(*pro)->mat.shin = ft_atod(split[3]);
-	if (!ft_inrange((*pro)->mat.shin, 0, 1))
-		return (ft_format_error("Shininess is out of range [0,1]"));
+	if (!ft_inrange((*pro)->mat.shin, 0, 200))
+		return (ft_format_error("Shininess is out of range [1,200]"));
 	if (len > 4)
 		(*pro)->mat.refl = ft_atod(split[4]);
 	if (!ft_inrange((*pro)->mat.refl, 0, 1))

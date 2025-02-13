@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 15:47:49 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/12 17:35:52 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static void	ft_print_texture(t_texture *texture)
 	printf(GREEN "Texture secondary color: %d %d %d\n" RESET,
 		ft_get_r(texture->sec_color), ft_get_g(texture->sec_color),
 		ft_get_b(texture->sec_color));
+	printf(GREEN "Texture image: %p\n" RESET, texture->img);
+	printf(GREEN "Texture width: %d\n" RESET, texture->width);
+	printf(GREEN "Texture height: %d\n" RESET, texture->height);
 }
 
 static void	ft_print_material(t_material *material)
