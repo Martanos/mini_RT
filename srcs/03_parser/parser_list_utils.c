@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 12:00:00 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 12:42:53 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_p_node	*ft_create_p_node(char *str)
 	node->str = ft_strdup(str);
 	if (!node->str)
 		return (ft_error("Failed to duplicate string"), NULL);
-	node->len = ft_strlen(str);
 	return (node);
 }
 

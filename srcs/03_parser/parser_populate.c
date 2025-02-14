@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:30:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 17:21:09 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 13:34:20 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_master	*ft_populate(t_p_node *cur)
 		return (ft_free_master(master), NULL);
 	while (cur)
 	{
+		while (cur && cur->str && ft_isspace(cur->str[0]))
+			cur = cur->next;
 		if (!ft_identify(&master, &cur))
 			return (ft_free_master(master), NULL);
 		while (cur && cur->str && ft_isspace(cur->str[0]))
