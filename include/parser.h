@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 13:21:56 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:13:49 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,5 @@ bool					ft_is_valid_vector(t_vect vector, double min,
 							double max, char *str);
 bool					ft_next(t_p_node **cur, char *str);
 bool					ft_inrange(double value, double min, double max);
-
-// PARSER ERROR UTILS
-bool					ft_format_error(char *message);
-void					ft_warning(char *message);
 
 #endif

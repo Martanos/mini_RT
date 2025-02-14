@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:33:21 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static bool	ft_populate_sphere(t_master **master, t_sphere **sphere,
 		return (false);
 	(*sphere)->diameter = ft_atod((*cur)->str);
 	if (!ft_inrange((*sphere)->diameter, 0, INFINITY))
-		return (ft_format_error("Sphere diameter is not a positive number"));
+		return (ft_error("Sphere diameter is not a positive number"));
 	if (!ft_next(cur, "Sphere has no color"))
 		return (false);
 	if (!ft_get_rgb(&(*sphere)->pro.txm.pri_color, (*cur)->str))

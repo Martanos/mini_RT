@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:45:49 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 19:52:09 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ static bool	ft_populate_light(t_light **light, t_p_node **cur)
 		return (false);
 	(*light)->ratio = ft_atod((*cur)->str);
 	if (!ft_inrange((*light)->ratio, 0, 1))
-		return (ft_format_error("Light ratio is out of range [0,1]"));
+		return (ft_error("Light ratio is out of range [0,1]"));
 	if (!ft_next(cur, "Light has no color"))
 		return (false);
 	if (!ft_get_rgb(&(*light)->color, (*cur)->str))
 		return (false);
 	(*cur) = (*cur)->next;
 	if ((*cur) && (*cur)->str != NULL && (*cur)->str[0] != '\n')
-		return (ft_format_error("Light has extra data"));
+		return (ft_error("Light has extra data"));
 	return (true);
 }
 

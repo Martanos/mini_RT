@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   misc.c                                             :+:      :+:    :+:   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:59:59 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/06 19:54:29 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:10:22 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-
-void	error_exit(char *error_message)
-{
-	printf("Error\n%s\n", error_message);
-	exit(1);
-}
 
 void	my_pixel_put(t_img *img, int x, int y, int color)
 {

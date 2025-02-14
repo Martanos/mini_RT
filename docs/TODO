@@ -1,8 +1,6 @@
 TODO:
-- Add new files to MAKEFILE
-- Clean up helper files
-- Move MLX creation and free logic to master
-- Consolidate vector functions into vector library
+- File guards for opening xpm images
+- Remove diagnostic messages before submission
 
 PERPETUAL TODO:
 - Debugging

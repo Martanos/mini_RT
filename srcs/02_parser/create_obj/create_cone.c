@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:49:09 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:34:39 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static bool	ft_populate_cone(t_master **master, t_cone **cone, t_p_node **cur)
 		return (false);
 	(*cone)->height = ft_atod((*cur)->str);
 	if ((*cone)->height <= 0)
-		return (ft_format_error("Cone height is not a positive integer"));
+		return (ft_error("Cone height is not a positive integer"));
 	if (!ft_next(cur, "Cone has no diameter"))
 		return (false);
 	(*cone)->diameter = ft_atod((*cur)->str);
 	if ((*cone)->diameter <= 0)
-		return (ft_format_error("Cone diameter is not a positive integer"));
+		return (ft_error("Cone diameter is not a positive integer"));
 	if (!ft_next(cur, "Cone has no color"))
 		return (false);
 	if (!ft_get_rgb(&(*cone)->pro.txm.pri_color, (*cur)->str))

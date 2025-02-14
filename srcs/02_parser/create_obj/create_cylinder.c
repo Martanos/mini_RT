@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:28:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:34:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static bool	ft_populate_cylinder(t_master **master, t_cylinder **cylinder,
 		return (false);
 	(*cylinder)->diameter = ft_atod((*cur)->str);
 	if (!ft_inrange((*cylinder)->diameter, 0, INFINITY))
-		return (ft_format_error("Cylinder diameter is not a valid double"));
+		return (ft_error("Cylinder diameter is not a valid double"));
 	if (!ft_next(cur, "Cylinder has no height"))
 		return (false);
 	(*cylinder)->height = ft_atod((*cur)->str);
 	if (!ft_inrange((*cylinder)->height, 0, INFINITY))
-		return (ft_format_error("Cylinder height is not a valid double"));
+		return (ft_error("Cylinder height is not a valid double"));
 	if (!ft_next(cur, "Cylinder has no color"))
 		return (false);
 	if (!ft_get_rgb(&(*cylinder)->pro.txm.pri_color, (*cur)->str))

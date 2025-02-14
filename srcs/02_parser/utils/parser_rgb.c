@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:37:53 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ static int	ft_atorgb(char *str)
 	while (*str && (*str == '+' || *str == '-'))
 	{
 		if (*str == '-')
-			return (ft_format_error("Negative RGB values not allowed"), 512);
+			return (ft_error("Negative RGB values not allowed"), 512);
 		str++;
 	}
 	while (*str && (*str != ',' || !ft_isspace(*str)))
 	{
 		if (!ft_isdigit(*str))
-			return (ft_format_error("Non numeric RGB value"), 512);
+			return (ft_error("Non numeric RGB value"), 512);
 		rgb = rgb * 10 + *str - '0';
 		str++;
 	}
 	if (!ft_inrange(rgb, 0, 255))
-		return (ft_format_error("RGB value out of range [0, 255]"), 512);
+		return (ft_error("RGB value out of range [0, 255]"), 512);
 	return (rgb);
 }
 
@@ -45,13 +45,13 @@ bool	ft_get_rgb(uint32_t *rgb, char *str)
 
 	split = ft_split(str, ',');
 	if (!split)
-		return (ft_format_error("Empty RGB value found"), false);
+		return (ft_error("Empty RGB value found"), false);
 	original = split;
 	if (!split[0] || !split[1] || !split[2] || split[3])
 	{
 		while (*split)
 			free(*split++);
-		return (free(original), ft_format_error("Invalid RGB format"), false);
+		return (free(original), ft_error("Invalid RGB format"), false);
 	}
 	r = ft_atorgb(split[0]);
 	g = ft_atorgb(split[1]);

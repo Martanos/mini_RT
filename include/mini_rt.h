@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 11:53:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:14:12 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ void	ft_free_img(t_master *master);
 void	ft_free_node(void *node, t_obj_type type);
 void	ft_free_list(void *head, t_obj_type type);
 
-// UTILS
-void	ft_fatal(char *msg);
+// Error and warning utils
 void	ft_exit(t_master *master, char *error_message);
 bool	ft_error(char *msg);
-void	error_exit(char *error_message);
+void	ft_warning(char *msg);
 
 #endif
