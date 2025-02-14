@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 16:34:03 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 11:33:45 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 # define PARSER_H
 
 # include "mini_rt.h"
+# define BUFFER_SIZE 1048576 // 1MB
 
 typedef struct s_f_node	t_f_node;
 typedef struct s_p_node	t_p_node;
-
-/*
-** @brief File node structure
-** @param val character value
-** @param next pointer to the next file node
-*/
-typedef struct s_f_node
-{
-	char				val;
-	t_f_node			*next;
-}						t_f_node;
 
 /*
 ** @brief Property node structure
@@ -37,7 +27,9 @@ typedef struct s_f_node
 typedef struct s_p_node
 {
 	char				*str;
+	size_t				len;
 	t_p_node			*next;
+	t_p_node			*prev;
 }						t_p_node;
 
 // PARSER
@@ -57,7 +49,7 @@ t_p_node				*ft_reconstruct_strings(t_f_node *head);
 
 // PARSER NODE UTILS
 t_p_node				*ft_create_p_node(char *str);
-void					ft_add_p_node(t_p_node **head, t_p_node *new_node);
+bool					ft_add_p_node(t_p_node **head, t_p_node *new_node);
 void					ft_free_p_list(t_p_node *head);
 
 // Object Creation

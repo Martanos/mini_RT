@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 20:43:35 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 11:53:33 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define M_PI 3.14159265358979323846
 # define DOUBLE_MAX 9007199254740991.0
 # define DOUBLE_MIN -9007199254740991.0
-# define BUFFER_SIZE 4096
 # define WHITE "\033[37m"       // Full white
 # define BLACK "\033[30m"       // Full black
 # define RED "\033[31m"         // Bright red
@@ -69,6 +68,7 @@ void	ft_free_list(void *head, t_obj_type type);
 // UTILS
 void	ft_fatal(char *msg);
 void	ft_exit(t_master *master, char *error_message);
+bool	ft_error(char *msg);
 void	error_exit(char *error_message);
 
 #endif
