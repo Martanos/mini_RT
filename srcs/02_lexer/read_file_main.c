@@ -6,24 +6,11 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:24:24 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 13:34:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 13:40:47 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-
-static void	ft_print_p_list(t_p_node *str)
-{
-	t_p_node	*current;
-
-	current = str;
-	printf(YELLOW "--- Data Read from file ---\n" RESET);
-	while (current)
-	{
-		printf(GREEN "str:[%s]\n" RESET, current->str);
-		current = current->next;
-	}
-}
+#include "mini_rt.h"
 
 /*
 ** @brief Verifies the file path
@@ -126,6 +113,5 @@ t_p_node	*ft_read_file(char *file_path)
 		return (NULL);
 	close(fd);
 	ft_clean_data(&str);
-	ft_print_p_list(str);
 	return (str);
 }

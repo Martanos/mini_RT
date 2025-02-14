@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 13:23:39 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:22 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void	ft_print_p_list(t_p_node *head)
 {
-	printf("-----String List-----\n");
+	printf(YELLOW "-----List to be parsed-----\n" RESET);
 	while (head)
 	{
 		if (!head)
-			printf("head: [NULL]\n");
+			printf(RED "head: [NULL]\n" RESET);
 		else if (!head->str)
-			printf("str: [NULL]\n");
+			printf(RED "str: [NULL]\n" RESET);
 		else
-			printf("str: [%s]\n", head->str);
+			printf(GREEN "str: [%s]\n" RESET, head->str);
 		head = head->next;
 	}
 }
