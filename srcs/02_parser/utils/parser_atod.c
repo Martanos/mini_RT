@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 05:30:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 19:23:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	ft_handle_integer(char **str)
 	{
 		if (!ft_isdigit(**str))
 		{
-			ft_format_error("Invalid character in integer part");
+			ft_error("Invalid character in integer part");
 			return (NAN);
 		}
 		integer = integer * 10 + (**str - '0');
@@ -57,7 +57,7 @@ static double	ft_handle_decimal(char **str)
 	{
 		if (!ft_isdigit(**str))
 		{
-			ft_format_error("Invalid character in decimal part");
+			ft_error("Invalid character in decimal part");
 			return (NAN);
 		}
 		decimal = decimal * 10 + (**str - '0');

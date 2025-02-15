@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 15:11:41 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/15 17:23:56 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 # define M_PI 3.14159265358979323846
 # define DOUBLE_MAX 9007199254740991.0
 # define DOUBLE_MIN -9007199254740991.0
-# define BUFFER_SIZE 4096
 # define WHITE "\033[37m"       // Full white
 # define BLACK "\033[30m"       // Full black
 # define RED "\033[31m"         // Bright red
@@ -67,9 +66,9 @@ void	ft_free_img(t_master *master);
 void	ft_free_node(void *node, t_obj_type type);
 void	ft_free_list(void *head, t_obj_type type);
 
-// UTILS
-void	ft_fatal(char *msg);
+// Error and warning utils
 void	ft_exit(t_master *master, char *error_message);
-void	error_exit(char *error_message);
+bool	ft_error(char *msg);
+void	ft_warning(char *msg);
 
 #endif

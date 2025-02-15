@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fatal.c                                            :+:      :+:    :+:   */
+/*   handle_warnings.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 11:40:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 17:47:01 by malee            ###   ########.fr       */
+/*   Created: 2025/02/14 14:05:12 by malee             #+#    #+#             */
+/*   Updated: 2025/02/14 14:05:21 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-/*
-** @brief Le nuker
-** @param msg error message
-*/
-void	ft_fatal(char *msg)
+void	ft_warning(char *message)
 {
-	ft_putendl_fd(RED "Error", 2);
-	ft_putendl_fd(msg, 2);
-	ft_putendl_fd("This is a fatal error there may be memory leaks", 2);
-	ft_putstr_fd(RESET, 2);
-	exit(1);
+	ft_putstr_fd(ORANGE, 2);
+	ft_putendl_fd("Warning", 2);
+	ft_putstr_fd(message, 2);
+	ft_putendl_fd(RESET, 2);
 }

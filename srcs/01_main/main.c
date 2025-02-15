@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/02/12 17:35:52 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 13:42:57 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ static void	ft_print_cone(t_cone *cone)
 
 static void	ft_print_master(t_master *master)
 {
-	printf(YELLOW "-----master-----\n" RESET);
+	printf(BLUE "-----master-----\n" RESET);
 	ft_print_amb_light(&master->amb_head);
 	ft_print_camera(&master->cam_head);
 	ft_print_light(master->light_head);

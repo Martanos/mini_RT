@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:14:23 by malee             #+#    #+#             */
-/*   Updated: 2025/02/05 19:49:48 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	ft_create_cam(t_master **master, t_p_node **cur)
 {
 	if ((*master)->cam_head.set)
-		return (ft_format_error("Camera already exists"));
+		return (ft_error("Camera already exists"));
 	else
 		(*master)->cam_head.set = true;
 	if (!ft_next(cur, "Camera has no coordinates"))
@@ -32,10 +32,10 @@ bool	ft_create_cam(t_master **master, t_p_node **cur)
 		return (false);
 	(*master)->cam_head.fov = ft_atod((*cur)->str);
 	if (!ft_inrange((*master)->cam_head.fov, 0, 180))
-		return (ft_format_error("Camera FOV must be between 0 and 180"));
+		return (ft_error("Camera FOV must be between 0 and 180"));
 	(*cur) = (*cur)->next;
 	if ((*cur) && (*cur)->str != NULL && (*cur)->str[0] != '\n')
-		return (ft_format_error("Camera has extra data"));
+		return (ft_error("Camera has extra data"));
 	printf(GREEN "Camera created successfully\n" RESET);
 	return (true);
 }

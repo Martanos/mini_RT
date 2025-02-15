@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_list_utils.c                                :+:      :+:    :+:   */
+/*   p_node_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 20:11:45 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:06:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ t_p_node	*ft_create_p_node(char *str)
 
 	node = (t_p_node *)ft_calloc(1, sizeof(t_p_node));
 	if (!node)
-		ft_fatal("Failed to create parser node");
+		return (ft_error("Failed to create parser node"), NULL);
 	node->str = ft_strdup(str);
+	if (!node->str)
+		return (ft_error("Failed to duplicate string"), NULL);
 	return (node);
 }
 
@@ -36,19 +38,23 @@ t_p_node	*ft_create_p_node(char *str)
 ** @param head pointer to the head of the list
 ** @param new_node pointer to the new parser node
 */
-void	ft_add_p_node(t_p_node **head, t_p_node *new_node)
+bool	ft_add_p_node(t_p_node **head, t_p_node *new_node)
 {
 	t_p_node	*current;
 
+	if (!new_node)
+		return (ft_error("Parser node is NULL"));
 	if (!*head)
 	{
 		*head = new_node;
-		return ;
+		return (true);
 	}
 	current = *head;
 	while (current->next)
 		current = current->next;
 	current->next = new_node;
+	new_node->prev = current;
+	return (true);
 }
 
 /*

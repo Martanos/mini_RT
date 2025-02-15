@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   misc.c                                             :+:      :+:    :+:   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:59:59 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 15:48:27 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/15 17:24:20 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
-
-void	error_exit(char *error_message)
-{
-	printf("Error\n%s\n", error_message);
-	exit(1);
-}
 
 void	my_pixel_put(t_img *img, int x, int y, int color)
 {
