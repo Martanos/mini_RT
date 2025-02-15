@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/07 00:57:07 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:17:37 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ uint32_t	calculations(int x, int y, t_master *master)
 				viewport_hori, viewport_up), viewport_hori,
 				viewport_up, x, y);
 	ray.direction = ft_vect_norm(ft_vect_sub(ray.direction, ray.origin));
-	return (ray_color(ray, master));
+	return (ray_color(ray, master, 5));
 }

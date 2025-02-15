@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/07 13:35:08 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/13 15:33:34 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,7 @@ typedef struct s_master
 	t_plane					*plane_head;
 	t_cylinder				*cylinder_head;
 	t_cone					*cone_head;
+	bool					aa_enabled;
 }							t_master;
 
 #endif
