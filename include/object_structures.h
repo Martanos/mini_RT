@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/13 15:33:34 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/15 21:04:38 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_bump_map
 {
 	bool					enabled;
 	void					*map;
+	int						*data;
 	int						width;
 	int						height;
 }							t_bump_map;
