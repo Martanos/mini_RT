@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:38:37 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 18:04:24 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/16 13:22:20 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ uint32_t	get_pixel(t_master *master, int x, int y)
 	return (*(uint32_t *)pixel);
 }
 
-void luminance(uint8_t *rgb)
+void	luminance(uint8_t *rgb)
 {
-	rgb[0] = (uint8_t)(0.299 * rgb[0]);
-	rgb[1] = (uint8_t)(0.587 * rgb[1]);
-	rgb[2] = (uint8_t)(0.114 * rgb[2]);
+	uint8_t	gray;
+
+	gray = (uint8_t)(0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]);
+	rgb[0] = gray;
+	rgb[1] = gray;
+	rgb[2] = gray;
 }
 
 // use greyscale luminance to grade the map into grayscale
@@ -36,12 +39,12 @@ void luminance(uint8_t *rgb)
 // for all the edges, call for colour smoothing against the surrounding pixels
 void	apply_smaa(t_master *master)
 {
-	int		x;
-	int		y;
+	int x;
+	int y;
 	// double	edge_map[WINDOW_WIDTH][WINDOW_HEIGHT];
 	// double	edge_strength[WINDOW_WIDTH][WINDOW_HEIGHT];
-	uint8_t	temp[3];
-	
+	uint8_t temp[3];
+
 	y = 0;
 	while (y < WINDOW_HEIGHT)
 	{
@@ -50,7 +53,8 @@ void	apply_smaa(t_master *master)
 		{
 			ft_convert_rgb_arr(get_pixel(master, x, y), temp);
 			luminance(temp);
-			my_pixel_put(&master->img, x, y, ft_create_rgb(temp[0], temp[1], temp[2]));
+			my_pixel_put(&master->img, x, y, ft_create_rgb(temp[0], temp[1],
+					temp[2]));
 			x++;
 		}
 		y++;
