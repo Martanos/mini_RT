@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/15 21:12:53 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:53:36 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,6 @@ void								calculate_cone_hit(t_ray ray,
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
 										double v, uint32_t *color);
-void								apply_bump(t_bump_map bump, double u,
-										double v, uint32_t *color);
-uint32_t							apply_both(t_texture texture,
-										t_bump_map bump, double u, double v);
 
 /*
  * Intersection Management:
@@ -203,15 +199,18 @@ void								get_sphere_uv(t_vect point, double *u,
 										double *v);
 void								get_plane_uv(t_vect point, t_plane *plane,
 										double *u, double *v);
+void								get_cylinder_uv(t_vect point,
+										t_cylinder *cylinder, double *u,
+										double *v);
+void								get_cone_uv(t_vect point, t_cone *cone,
+										double *u, double *v);
 
-uint32_t							checkerboard(t_vect point,
-										t_texture texture);
 /*
-	* Ray Tracing Core Functions:
-	* These functions handle the main ray tracing logic,
+ * Ray Tracing Core Functions:
+ * These functions handle the main ray tracing logic,
 	from determining background
-	* colors to calculating final pixel colors based on ray intersections.
-	*/
+ * colors to calculating final pixel colors based on ray intersections.
+ */
 
 // tracing.c - Core rendering functions
 uint32_t							background_color(t_vect unit_direction);
@@ -234,6 +233,7 @@ void								my_pixel_put(t_img *img, int x, int y,
 										int color);
 void								apply_smaa(t_master *master);
 void								ft_render_scene(t_master *master);
+void								apply_post_aa(t_master *master);
 uint32_t							get_pixel(t_master *master, int x, int y);
 void								put_pixel(t_master *master, int x, int y,
 										uint32_t color);
