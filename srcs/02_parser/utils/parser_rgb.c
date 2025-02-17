@@ -6,13 +6,13 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 19:45:34 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 21:04:26 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-static bool	ft_atorgb(char *str, uint32_t *struct_rgb, int bits)
+static int	ft_atorgb(char *str)
 {
 	int	rgb;
 
@@ -20,20 +20,19 @@ static bool	ft_atorgb(char *str, uint32_t *struct_rgb, int bits)
 	while (*str && (*str == '+' || *str == '-'))
 	{
 		if (*str == '-')
-			return (ft_error("Negative RGB values not allowed"), false);
+			return (ft_error("Negative RGB values not allowed"), -1);
 		str++;
 	}
 	while (*str && (*str != ',' || !ft_isspace(*str)))
 	{
 		if (!ft_isdigit(*str))
-			return (ft_error("Non numeric RGB value"), false);
+			return (ft_error("Non numeric RGB value"), -1);
 		rgb = rgb * 10 + *str - '0';
 		str++;
 	}
 	if (!ft_inrange(rgb, 0, 255))
-		return (ft_error("RGB value out of range [0, 255]"), false);
-	*struct_rgb = rgb << bits;
-	return (true);
+		return (ft_error("RGB value out of range [0, 255]"), -1);
+	return (rgb);
 }
 
 static bool	ft_verify_rgb(char *str)
@@ -65,20 +64,16 @@ bool	ft_get_rgb(uint32_t *rgb, char *str)
 	if (!split || !ft_verify_rgb(str))
 		return (ft_error("Empty or invalid RGB value found"), false);
 	original = split;
-	if (split[0] && split[1] && split[2] && split[3])
+	if (split[0] && split[1] && split[2] && ft_atorgb(split[0]) != -1
+		&& ft_atorgb(split[1]) != -1 && ft_atorgb(split[2]) != -1)
 	{
+		*rgb = (ft_atorgb(split[0]) << 16) | (ft_atorgb(split[1]) << 8);
+		*rgb = *rgb | ft_atorgb(split[2]);
 		while (*split)
 			free(*split++);
-		return (free(original), ft_error("Invalid RGB format"), false);
-	}
-	if (!ft_atorgb(split[0], rgb, 16) || !ft_atorgb(split[1], rgb, 8)
-		|| !ft_atorgb(split[2], rgb, 0))
-	{
-		while (*split)
-			free(*split++);
-		return (free(original), false);
+		return (free(original), true);
 	}
 	while (*split)
 		free(*split++);
-	return (free(original), true);
+	return (free(original), false);
 }

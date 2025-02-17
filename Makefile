@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
+#    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/15 17:23:32 by seayeo           ###   ########.fr        #
+#    Updated: 2025/02/17 20:40:25 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,10 @@ SRC_MAIN		= main.c
 SRC_LEXER		= read_file_main.c read_data_utils.c
 SRC_PARSING		= parser_main.c parser_populate.c
 SRC_PARSING_CREATE_OBJ = create_amb.c create_cam.c create_cone.c create_cylinder.c \
-						create_light.c create_plane.c create_sphere.c \
-						extra_data.c extra_data_utils.c
+						create_light.c create_plane.c create_sphere.c
 SRC_PARSING_READ_FILE = read_file_main.c read_data_utils.c
 SRC_PARSING_UTILS	= parser_rgb.c parser_xyz.c parser_atod.c parser_utils.c
+SRC_PARSING_HANDLE_EXTRA_DATA = txm_handler.c bpm_handler.c mat_handler.c extra_data.c
 SRC_UTILITIES	= handle_errors.c handle_warnings.c master_management.c \
 					memory_management.c mlx_utils.c p_node_utils.c
 SRC_RENDER		= check_cone.c check_cylinder.c check_plane.c check_sphere.c \
@@ -63,6 +63,7 @@ SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_parser/read_file/, $(SRC_PARSING_READ_FILE)) \
 					$(addprefix $(SRC_DIR)/02_parser/create_obj/, $(SRC_PARSING_CREATE_OBJ)) \
 					$(addprefix $(SRC_DIR)/02_parser/utils/, $(SRC_PARSING_UTILS)) \
+					$(addprefix $(SRC_DIR)/02_parser/handle_extra_data/, $(SRC_PARSING_HANDLE_EXTRA_DATA)) \
 					$(addprefix $(SRC_DIR)/utilities/, $(SRC_UTILITIES)) \
 					$(addprefix $(SRC_DIR)/04_render_logic/, $(SRC_RENDER))
 
