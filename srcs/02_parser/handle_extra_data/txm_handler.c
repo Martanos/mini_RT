@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:18:36 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 21:13:12 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 22:34:35 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ static bool	ft_load_xpm_texture(t_master **master, t_obj_pro **pro, char *str)
 			&(*pro)->txm.width, &(*pro)->txm.height);
 	if (!(*pro)->txm.img)
 		return (ft_error("Failed to load xpm texture from file"), false);
+	(*pro)->txm.data = (int *)mlx_get_data_addr((*pro)->txm.img,
+			&(*pro)->txm.bpp, &(*pro)->txm.line_len, &(*pro)->txm.endian);
+	if (!(*pro)->txm.data)
+		return (ft_error("Failed to get xpm texture data"), false);
 	return (true);
 }
 

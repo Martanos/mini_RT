@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:19:32 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 20:51:32 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 22:35:10 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ bool	ft_add_bump_map(t_master **master, t_obj_pro **pro, char *str)
 	if (fd == -1)
 		return (ft_error("Failed to access bpm texture file"), false);
 	close(fd);
-	(*pro)->bpm.map = mlx_xpm_file_to_image((*master)->mlx_ptr, str,
+	(*pro)->bpm.img = mlx_xpm_file_to_image((*master)->mlx_ptr, str,
 			&(*pro)->bpm.width, &(*pro)->bpm.height);
-	if (!(*pro)->bpm.map)
+	if (!(*pro)->bpm.img)
 		return (ft_error("Failed to load bpm texture from file"), false);
+	(*pro)->bpm.data = (int *)mlx_get_data_addr((*pro)->bpm.img,
+			&(*pro)->bpm.bpp, &(*pro)->bpm.line_len, &(*pro)->bpm.endian);
+	if (!(*pro)->bpm.data)
+		return (ft_error("Failed to get bpm texture data"), false);
 	return (true);
 }

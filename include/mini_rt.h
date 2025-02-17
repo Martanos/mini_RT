@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/15 17:23:56 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/17 22:36:33 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	ft_free_master(t_master *master);
 void	ft_free_img(t_master *master);
 
 // Memory management UTILS
-void	ft_free_node(void *node, t_obj_type type);
-void	ft_free_list(void *head, t_obj_type type);
+void	ft_free_node(void *node, t_obj_type type, t_master *master);
+void	ft_free_list(void *head, t_obj_type type, t_master *master);
 
 // Error and warning utils
 void	ft_exit(t_master *master, char *error_message);
