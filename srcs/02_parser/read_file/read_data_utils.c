@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 23:47:04 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 13:40:49 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 16:48:34 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static size_t	ft_custom_strlen(char *str)
 	return (i);
 }
 
-static t_p_node	*ft_get_last_node(t_p_node *head)
+static t_p_node	*ft_last_node(t_p_node *head)
 {
 	while (head->next)
 		head = head->next;
 	return (head);
 }
 
-static bool	ft_add_to_existing_node(t_p_node **head, char **buffer)
+static bool	ft_add_to_node(t_p_node **head, char **buffer)
 {
 	char	*str_to_add;
 	char	*temp;
@@ -83,23 +83,26 @@ bool	ft_process_buffer(char *buffer, t_p_node **head)
 {
 	while (*buffer)
 	{
-		if (*buffer && *buffer == '#')
-			while (*buffer && *buffer != '\n')
-				buffer++;
-		else if (*buffer && ft_isspace(*buffer))
+		while (*buffer && *buffer == '#' && *buffer != '\n')
+			buffer++;
+		if (*buffer && *buffer == '\n')
 		{
-			if (*buffer == '\n' && !ft_add_p_node(head, ft_create_p_node("\n")))
+			if (!ft_add_p_node(head, ft_create_p_node("\n")))
 				return (false);
-			else if (!ft_add_p_node(head, ft_create_p_node(" ")))
-				return (false);
-			while (*buffer && ft_isspace(*buffer))
+			while (*buffer && *buffer == '\n')
 				buffer++;
 		}
-		else if (*head && !ft_isspace(ft_get_last_node(*head)->str[0])
-			&& *buffer && !ft_isspace(*buffer) && !ft_add_to_existing_node(head,
-				&buffer))
+		else if (*buffer && ft_isspace(*buffer) && *buffer != '\n')
+		{
+			if (!ft_add_p_node(head, ft_create_p_node(" ")))
+				return (false);
+			while (*buffer && ft_isspace(*buffer) && *buffer != '\n')
+				buffer++;
+		}
+		else if (*head && !ft_isspace(ft_last_node(*head)->str[0]) && *buffer
+			&& !ft_isspace(*buffer) && !ft_add_to_node(head, &buffer))
 			return (false);
-		else if (!ft_add_new_node(head, &buffer))
+		else if (*buffer && !ft_add_new_node(head, &buffer))
 			return (false);
 	}
 	return (true);
