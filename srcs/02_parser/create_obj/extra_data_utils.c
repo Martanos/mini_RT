@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:55:11 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 19:08:25 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
 	if (!ft_inrange((*pro)->txm.scale, 0, 1))
 		return (ft_error("Texture scale is out of range [0,1]"));
 	if (len > 2)
-		if (!ft_get_rgb(&(*pro)->txm.sec_color, split[2]))
+		if (split[2] && !ft_get_rgb(&(*pro)->txm.sec_color, split[2]))
 			return (false);
 	if (len > 3)
 		(*pro)->txm.img = mlx_xpm_file_to_image((*master)->mlx_ptr, split[3],
