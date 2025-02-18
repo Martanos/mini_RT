@@ -6,14 +6,14 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:46:05 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 22:34:04 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 23:03:02 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
 // TODO: Potential issue with freeing the image may need mlx_destroy_image
-void	ft_free_node(void *node, t_obj_type type)
+void	ft_free_node(void *node, t_obj_type type, t_master *master)
 {
 	t_obj_pro	*properties;
 
@@ -31,16 +31,14 @@ void	ft_free_node(void *node, t_obj_type type)
 		else if (type == TYPE_CONE)
 			properties = &((t_cone *)node)->pro;
 	}
-	if (properties)
-	{
-		free(properties->txm.img);
-		if (properties->bpm.map)
-			free(properties->bpm.map);
-	}
+	if (properties && properties->txm.img && properties->txm.data)
+		mlx_destroy_image(master->mlx_ptr, properties->txm.img);
+	if (properties && properties->bpm.img)
+		mlx_destroy_image(master->mlx_ptr, properties->bpm.img);
 	free(node);
 }
 
-void	ft_free_list(void *head, t_obj_type type)
+void	ft_free_list(void *head, t_obj_type type, t_master *master)
 {
 	void	*current;
 	void	*next;
@@ -60,7 +58,7 @@ void	ft_free_list(void *head, t_obj_type type)
 			next = ((t_cylinder *)current)->next;
 		if (type == TYPE_CONE)
 			next = ((t_cone *)current)->next;
-		ft_free_node(current, type);
+		ft_free_node(current, type, master);
 		current = next;
 		next = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 21:30:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 21:09:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static bool	ft_identify(t_master **master, t_p_node **cur)
 	return (ft_error("Invalid identifier"));
 }
 
-// todo: move to parser
 static bool	ft_initmlx(t_master **master)
 {
 	(*master)->mlx_ptr = mlx_init();

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 21:04:26 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,46 +20,60 @@ static int	ft_atorgb(char *str)
 	while (*str && (*str == '+' || *str == '-'))
 	{
 		if (*str == '-')
-			return (ft_error("Negative RGB values not allowed"), 512);
+			return (ft_error("Negative RGB values not allowed"), -1);
 		str++;
 	}
 	while (*str && (*str != ',' || !ft_isspace(*str)))
 	{
 		if (!ft_isdigit(*str))
-			return (ft_error("Non numeric RGB value"), 512);
+			return (ft_error("Non numeric RGB value"), -1);
 		rgb = rgb * 10 + *str - '0';
 		str++;
 	}
 	if (!ft_inrange(rgb, 0, 255))
-		return (ft_error("RGB value out of range [0, 255]"), 512);
+		return (ft_error("RGB value out of range [0, 255]"), -1);
 	return (rgb);
+}
+
+static bool	ft_verify_rgb(char *str)
+{
+	int	count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == ',')
+			count++;
+		else if (*str == '-' || *str == '+')
+			str++;
+		else if (!ft_isdigit(*str))
+			return (false);
+		str++;
+	}
+	if (count != 2)
+		return (false);
+	return (true);
 }
 
 bool	ft_get_rgb(uint32_t *rgb, char *str)
 {
 	char	**split;
-	int		r;
-	int		g;
-	int		b;
 	char	**original;
 
 	split = ft_split(str, ',');
-	if (!split)
-		return (ft_error("Empty RGB value found"), false);
+	if (!split || !ft_verify_rgb(str))
+		return (ft_error("Empty or invalid RGB value found"), false);
 	original = split;
-	if (!split[0] || !split[1] || !split[2] || split[3])
+	if (split[0] && split[1] && split[2] && ft_atorgb(split[0]) != -1
+		&& ft_atorgb(split[1]) != -1 && ft_atorgb(split[2]) != -1)
 	{
+		*rgb = (ft_atorgb(split[0]) << 16) | (ft_atorgb(split[1]) << 8);
+		*rgb = *rgb | ft_atorgb(split[2]);
 		while (*split)
 			free(*split++);
-		return (free(original), ft_error("Invalid RGB format"), false);
+		return (free(original), true);
 	}
-	r = ft_atorgb(split[0]);
-	g = ft_atorgb(split[1]);
-	b = ft_atorgb(split[2]);
 	while (*split)
 		free(*split++);
-	free(original);
-	if (r > 255 || g > 255 || b > 255)
-		return (false);
-	return (*rgb = (r << 16) | (g << 8) | b, true);
+	return (free(original), false);
 }

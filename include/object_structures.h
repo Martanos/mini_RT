@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/13 15:33:34 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/17 23:11:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,12 @@ typedef struct s_texture
 	uint32_t				pri_color;
 	uint32_t				sec_color;
 	void					*img;
-	int						*data;
 	int						width;
 	int						height;
+	int						*data;
+	int						bpp;
+	int						line_len;
+	int						endian;
 }							t_texture;
 
 /*
@@ -94,7 +97,11 @@ typedef struct s_texture
 typedef struct s_bump_map
 {
 	bool					enabled;
-	void					*map;
+	int						*data;
+	int						bpp;
+	int						line_len;
+	int						endian;
+	void					*img;
 	int						width;
 	int						height;
 }							t_bump_map;

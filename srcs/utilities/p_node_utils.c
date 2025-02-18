@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 14:06:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/17 15:54:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_p_node	*ft_create_p_node(char *str)
 {
 	t_p_node	*node;
 
+	if (!str)
+		return (ft_error("String is NULL"), NULL);
 	node = (t_p_node *)ft_calloc(1, sizeof(t_p_node));
 	if (!node)
 		return (ft_error("Failed to create parser node"), NULL);
@@ -51,7 +53,10 @@ bool	ft_add_p_node(t_p_node **head, t_p_node *new_node)
 	}
 	current = *head;
 	while (current->next)
+	{
+		printf("current->str: [%s]\n", current->str);
 		current = current->next;
+	}
 	current->next = new_node;
 	new_node->prev = current;
 	return (true);
