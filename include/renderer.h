@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/16 13:29:08 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:47:21 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ void								calculate_cone_hit(t_ray ray,
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
 										double v, uint32_t *color);
+void								checkerboard(double u, double v,
+										t_texture txm, uint32_t *color);
 
 /*
  * Intersection Management:
