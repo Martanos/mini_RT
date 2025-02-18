@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 22:43:03 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/18 18:57:10 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ t_master				*ft_parser(char *file_path);
 t_p_node				*ft_read_file(char *file_path);
 
 // Read File Utils
+void					ft_skip_comment(char **buffer);
 bool					ft_process_buffer(char *buffer, t_p_node **head);
+
 // PARSER NODE UTILS
 t_p_node				*ft_create_p_node(char *str);
 bool					ft_add_p_node(t_p_node **head, t_p_node *new_node);
@@ -71,5 +73,15 @@ bool					ft_is_valid_vector(t_vect vector, double min,
 							double max, char *str);
 bool					ft_next(t_p_node **cur, char *str);
 bool					ft_inrange(double value, double min, double max);
+
+// Parser Node Utils
+t_p_node				*ft_create_p_node(char *str);
+bool					ft_add_p_node(t_p_node **head, t_p_node *new_node);
+void					ft_free_p_list(t_p_node *head);
+
+// Parser Node Utils
+t_p_node				*ft_last_node(t_p_node *head);
+bool					ft_add_to_node(t_p_node **head, char **buffer);
+bool					ft_add_new_node(t_p_node **head, char **buffer);
 
 #endif
