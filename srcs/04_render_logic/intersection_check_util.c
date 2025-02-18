@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersection_checks.c                              :+:      :+:    :+:   */
+/*   intersection_check_util.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/09 17:16:18 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/16 13:19:40 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,16 @@ void	check_cylinder_intersection(t_ray ray, t_master *master,
 {
 	t_intersection_info		current;
 	t_cylinder_collision	cylinder;
-	double					u;
-	double					v;
+	// double					u;
+	// double					v;
 
 	cylinder = find_closest_cylinder(ray, master);
 	if (cylinder.closest_cylinder)
 	{
 		calculate_cylinder_hit(ray, cylinder, &current.hit);
-		get_cylinder_uv(current.hit.point, cylinder.closest_cylinder, &u, &v);
+		// get_cylinder_uv(current.hit.point, cylinder.closest_cylinder, &u, &v);
 		current.properties = cylinder.closest_cylinder->pro;
-		if (cylinder.closest_cylinder->pro.txm.img)
-			apply_texture(cylinder.closest_cylinder->pro.txm, u, v,
-				&current.color);
-		else
-			current.color = cylinder.closest_cylinder->pro.txm.pri_color;
+		current.color = cylinder.closest_cylinder->pro.txm.pri_color;
 		update_closest_intersection(closest, current);
 	}
 }
@@ -92,19 +88,16 @@ void	check_cone_intersection(t_ray ray, t_master *master,
 {
 	t_intersection_info	current;
 	t_cone_collision	cone;
-	double				u;
-	double				v;
+	// double				u;
+	// double				v;
 
 	cone = find_closest_cone(ray, master);
 	if (cone.closest_cone)
 	{
 		calculate_cone_hit(ray, cone, &current.hit);
-		get_cone_uv(current.hit.point, cone.closest_cone, &u, &v);
+		// get_cone_uv(current.hit.point, cone.closest_cone, &u, &v);
 		current.properties = cone.closest_cone->pro;
-		if (cone.closest_cone->pro.txm.img)
-			apply_texture(cone.closest_cone->pro.txm, u, v, &current.color);
-		else
-			current.color = cone.closest_cone->pro.txm.pri_color;
+		current.color = cone.closest_cone->pro.txm.pri_color;
 		update_closest_intersection(closest, current);
 	}
 }
