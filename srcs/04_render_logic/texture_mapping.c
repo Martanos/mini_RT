@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:48:07 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/18 17:06:06 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/18 17:51:57 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	get_plane_uv(t_vect point, t_plane *plane, double *u, double *v)
 	*v = 0.5 + *v;
 	
 	// Clamp coordinates to [0,1] range to prevent texture repetition
-// 	*u = fmax(0.0, fmin(1.0, *u));
-// 	*v = fmax(0.0, fmin(1.0, *v));
+	// *u = fmax(0.0, fmin(1.0, *u));
+	// *v = fmax(0.0, fmin(1.0, *v));
 }
 
 // void	get_cylinder_uv(t_vect point, t_cylinder *cylinder, double *u,
