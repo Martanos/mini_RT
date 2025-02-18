@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 14:01:30 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:17:14 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ static void	add_light_contribution(t_light *light, t_intersection_info info,
 		{
 			ft_convert_rgb_arr(calc_specular(info.hit, master->cam_head.cord,
 					light, info.properties.mat), spec_rgb);
+			ft_clamp_rgb_values(spec_rgb, spec_rgb);
+			ft_color_mixer(rgb, spec_rgb);
 		}
-		ft_add_rgb_arr(rgb, spec_rgb);
-		ft_add_rgb_arr(final, rgb);
+		ft_color_mixer(final, rgb);
 	}
 }
 

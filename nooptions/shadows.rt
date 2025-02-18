@@ -1,8 +1,7 @@
-#Hello there obiwan kenobi
-A 0.2 				255,255,255 #Hello there obiwan kenobi
+A 0.2 				255,255,255 
 
 C 0,-10,0	0,0,1		18
-#Hello there obiwan kenobi
+
 L -10,10,15 		0.5			255,40,40
 L 10,10,15			0.7			40,255,40
 L 0,10,30			0.6			40,40,255
