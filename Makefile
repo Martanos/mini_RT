@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/19 17:26:58 by malee            ###   ########.fr        #
+#    Updated: 2025/02/19 19:23:34 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,29 +82,30 @@ all:        $(NAME)
 $(NAME):		$(LIBFT) $(LIBVECT) $(LIBRGB) $(MLX) $(OBJS)
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Linking $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBFT_FLAGS) $(LIBVECT) $(LIBVECT_FLAGS) $(LIBRGB) $(LIBRGB_FLAGS) $(MLX) $(LDFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBFT_FLAGS) $(LIBVECT) $(LIBVECT_FLAGS) $(LIBRGB) $(LIBRGB_FLAGS) $(MLX) $(LDFLAGS) -o $@ > /dev/null 2>&1
 	@echo "$(GREEN)$(NAME) has been compiled.$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Compiling $<$(RESET)"
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@ 2>&1 | tee /dev/stderr | sed 's/^/\033[0;31m/'; \
+	if [ $$? -ne 0 ]; then echo "$(RED)Compilation failed for $<$(RESET)"; fi
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling libft...$(RESET)"
-	@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR) > /dev/null 2>&1
 
 $(LIBVECT):
 	@echo "$(YELLOW)Compiling libvect...$(RESET)"
-	@make -C $(LIBVECT_DIR)
+	@make -C $(LIBVECT_DIR) > /dev/null 2>&1
 
 $(LIBRGB):
 	@echo "$(YELLOW)Compiling librgb...$(RESET)"
-	@make -C $(LIBRGB_DIR)
+	@make -C $(LIBRGB_DIR) > /dev/null 2>&1
 
 $(MLX):
 	@echo "$(YELLOW)Compiling MLX...$(RESET)"
-	@make -C $(MLX_DIR)
+	@make -C $(MLX_DIR) > /dev/null 2>&1
 
 .PHONY: clean fclean re
 clean:
@@ -122,7 +123,7 @@ fclean:			clean
 	@make -C $(LIBFT_DIR) fclean
 	@make -C $(LIBVECT_DIR) fclean
 	@make -C $(LIBRGB_DIR) fclean
-	@echo "$(RED)$(NAME) and all object files have been removed.$(RESET)"
+	@echo "$(GREEN)$(NAME) and all object files have been removed.$(RESET)"
 
 re:				fclean all
 

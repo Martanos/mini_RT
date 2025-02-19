@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:24:24 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 15:38:37 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:09:15 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ static t_p_node	*ft_read_data(int fd)
 	while (bytes_read > 0)
 	{
 		if (ft_process_buffer(buffer, &head))
-		{
-			ft_bzero(buffer, BUFFER_SIZE + 1);
 			bytes_read = read(fd, buffer, BUFFER_SIZE);
-		}
 		else
 			bytes_read = -1;
+		ft_bzero(buffer, BUFFER_SIZE + 1);
 	}
 	if (bytes_read == -1)
 	{

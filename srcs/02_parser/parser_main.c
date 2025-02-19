@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 17:30:47 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:59:46 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,12 @@ t_master	*ft_parser(char *file_path)
 	ft_free_p_list(head);
 	if (!master)
 		return (NULL);
+	if (!master->amb_head.set)
+		return (ft_error("No ambient light found"), ft_free_master(master),
+			NULL);
+	if (!master->cam_head.set)
+		return (ft_error("No camera found"), ft_free_master(master), NULL);
+	if (!master->light_head)
+		return (ft_error("No light found"), ft_free_master(master), NULL);
 	return (master);
 }
