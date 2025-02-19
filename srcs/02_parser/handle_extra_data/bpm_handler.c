@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:19:32 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 22:35:10 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:10:51 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	ft_add_bump_map(t_master **master, t_obj_pro **pro, char *str)
 
 	if (!str)
 		return (ft_error("No bpm texture data specified"));
+	(*pro)->bpm.enabled = true;
 	len = ft_strlen(str);
 	if (len < 4 || str[len - 1] != 'm' || str[len - 2] != 'p' || str[len
 		- 3] != 'x' || str[len - 4] != '.')

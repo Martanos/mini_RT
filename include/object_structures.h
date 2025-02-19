@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 13:32:02 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/19 17:08:58 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef enum e_texture_type
 */
 typedef struct s_material
 {
+	bool					enabled;
 	double amb;  // Range: [0.0, 1.0] - How much ambient light is reflected
 	double diff; // Range: [0.0, 1.0] - How much diffuse light is reflected
 	double spec; // Range: [0.0, 1.0] - How much specular light is reflected

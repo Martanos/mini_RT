@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:24:24 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 18:58:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 15:38:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,35 +93,6 @@ static void	ft_clean_data(t_p_node **head)
 		else
 			current = current->next;
 	}
-}
-
-bool	ft_process_buffer(char *buffer, t_p_node **head)
-{
-	while (*buffer)
-	{
-		if (*buffer && *buffer == '#')
-			ft_skip_comment(&buffer);
-		else if (*buffer && *buffer == '\n')
-		{
-			if (!ft_add_p_node(head, ft_create_p_node("\n")))
-				return (false);
-			while (*buffer && *buffer == '\n')
-				buffer++;
-		}
-		else if (*buffer && ft_isspace(*buffer) && *buffer != '\n')
-		{
-			if (!ft_add_p_node(head, ft_create_p_node(" ")))
-				return (false);
-			while (*buffer && ft_isspace(*buffer) && *buffer != '\n')
-				buffer++;
-		}
-		else if (*head && !ft_isspace(ft_last_node(*head)->str[0]) && *buffer
-			&& !ft_isspace(*buffer) && !ft_add_to_node(head, &buffer))
-			return (false);
-		else if (*buffer && !ft_add_new_node(head, &buffer))
-			return (false);
-	}
-	return (true);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 23:47:04 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 18:56:21 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 15:42:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,4 @@ bool	ft_add_new_node(t_p_node **head, char **buffer)
 		return (false);
 	free(new_str);
 	return (true);
-}
-
-void	ft_skip_comment(char **buffer)
-{
-	while (**buffer && **buffer != '\n')
-		(*buffer)++;
 }

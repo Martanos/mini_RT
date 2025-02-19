@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
+#    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/18 15:47:36 by seayeo           ###   ########.fr        #
+#    Updated: 2025/02/19 17:07:03 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC_LEXER		= read_file_main.c read_data_utils.c
 SRC_PARSING		= parser_main.c parser_populate.c
 SRC_PARSING_CREATE_OBJ = create_amb.c create_cam.c create_cone.c create_cylinder.c \
 						create_light.c create_plane.c create_sphere.c
-SRC_PARSING_READ_FILE = read_file_main.c read_data_utils.c
+SRC_PARSING_READ_FILE = read_file_main.c read_data_utils.c process_buffer.c
 SRC_PARSING_UTILS	= parser_rgb.c parser_xyz.c parser_atod.c parser_utils.c
 SRC_PARSING_HANDLE_EXTRA_DATA = txm_handler.c bpm_handler.c mat_handler.c extra_data.c
 SRC_UTILITIES	= handle_errors.c handle_warnings.c master_management.c \
