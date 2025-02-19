@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:59:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 18:57:25 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:41:35 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ bool	ft_add_p_node(t_p_node **head, t_p_node *new_node)
 	}
 	current = *head;
 	while (current->next)
-	{
-		printf("current->str: [%s]\n", current->str);
 		current = current->next;
-	}
 	current->next = new_node;
 	new_node->prev = current;
 	return (true);
@@ -84,7 +81,7 @@ void	ft_free_p_list(t_p_node *head)
 	head = NULL;
 }
 
-t_p_node	*ft_last_node(t_p_node *head)
+t_p_node	*ft_last_p_node(t_p_node *head)
 {
 	while (head->next)
 		head = head->next;

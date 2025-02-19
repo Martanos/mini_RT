@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 18:57:10 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:23:46 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool					ft_add_p_node(t_p_node **head, t_p_node *new_node);
 void					ft_free_p_list(t_p_node *head);
 
 // Parser Node Utils
-t_p_node				*ft_last_node(t_p_node *head);
+t_p_node				*ft_last_p_node(t_p_node *head);
 bool					ft_add_to_node(t_p_node **head, char **buffer);
 bool					ft_add_new_node(t_p_node **head, char **buffer);
 

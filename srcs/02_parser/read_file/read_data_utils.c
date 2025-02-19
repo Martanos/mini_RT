@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 23:47:04 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 15:42:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:48:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_custom_strlen(char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] && !ft_isspace(str[i]))
+	while (str[i] && !ft_isspace(str[i]) && str[i] != '#')
 		i++;
 	return (i);
 }
@@ -35,7 +35,7 @@ bool	ft_add_to_node(t_p_node **head, char **buffer)
 	if (!str_to_add)
 		return (ft_error("Failed to allocate memory"));
 	i = 0;
-	while (**buffer && !ft_isspace(**buffer))
+	while (**buffer && !ft_isspace(**buffer) && **buffer != '#')
 	{
 		str_to_add[i] = **buffer;
 		(*buffer)++;
@@ -60,7 +60,7 @@ bool	ft_add_new_node(t_p_node **head, char **buffer)
 	if (!new_str)
 		return (ft_error("Failed to allocate memory"));
 	i = 0;
-	while (**buffer && !ft_isspace(**buffer))
+	while (**buffer && !ft_isspace(**buffer) && **buffer != '#')
 	{
 		new_str[i] = **buffer;
 		(*buffer)++;
