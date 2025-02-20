@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:31:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 15:15:53 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/20 12:59:50 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,15 @@ void	ft_clamp_rgb_values(uint8_t *final, uint8_t *rgb_arr)
 ** @param rgb_arr1 First RGB array (will contain the sum)
 ** @param rgb_arr2 Second RGB array to add
 */
-void	ft_color_mixer(uint8_t *rgb_arr1, uint8_t *rgb_arr2)
+void	ft_color_mixer(uint8_t *rgb_arr1, uint8_t *rgb_arr2, double ratio)
 {
-	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] + rgb_arr2[0], 255);
-	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] + rgb_arr2[1], 255);
-	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] + rgb_arr2[2], 255);
+	double second_ratio;
+
+	second_ratio = 1 - ratio;
+	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] * ratio + rgb_arr2[0] * (second_ratio),
+			255);
+	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] * ratio + rgb_arr2[1] * (second_ratio),
+			255);
+	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] * ratio + rgb_arr2[2] * (second_ratio),
+			255);
 }

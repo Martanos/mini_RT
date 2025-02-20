@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/18 15:47:21 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:31:09 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ void								calculate_cone_hit(t_ray ray,
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
 										double v, uint32_t *color);
+void								apply_tb(t_obj_pro pro, double u, double v,
+										uint32_t *color);
 void								checkerboard(double u, double v,
 										t_texture txm, uint32_t *color);
 
@@ -200,11 +202,6 @@ void								check_cone_intersection(t_ray ray,
 void								get_sphere_uv(t_vect point, double *u,
 										double *v);
 void								get_plane_uv(t_vect point, t_plane *plane,
-										double *u, double *v);
-void								get_cylinder_uv(t_vect point,
-										t_cylinder *cylinder, double *u,
-										double *v);
-void								get_cone_uv(t_vect point, t_cone *cone,
 										double *u, double *v);
 
 /*

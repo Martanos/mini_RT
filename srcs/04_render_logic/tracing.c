@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/18 15:17:14 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/20 13:52:07 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ uint32_t	background_color(t_vect unit_direction)
 	double	t;
 
 	t = (unit_direction.y + 1.0) * 0.5;
-	rgb[0] = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
-	rgb[1] = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
-	rgb[2] = (uint8_t)((1.0 - t) * 0xFF + t * 0x00);
+	rgb[0] = (uint8_t)((1.0 - t) * 135 + t * 25);
+	rgb[1] = (uint8_t)((1.0 - t) * 206 + t * 25);
+	rgb[2] = (uint8_t)((1.0 - t) * 235 + t * 112);
 	return (ft_create_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
@@ -87,9 +87,9 @@ static void	add_light_contribution(t_light *light, t_intersection_info info,
 			ft_convert_rgb_arr(calc_specular(info.hit, master->cam_head.cord,
 					light, info.properties.mat), spec_rgb);
 			ft_clamp_rgb_values(spec_rgb, spec_rgb);
-			ft_color_mixer(rgb, spec_rgb);
+			ft_color_mixer(rgb, spec_rgb, 0.5);
 		}
-		ft_color_mixer(final, rgb);
+		ft_color_mixer(final, rgb, 0.5);
 	}
 }
 
