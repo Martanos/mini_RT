@@ -6,42 +6,27 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:45:49 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 21:13:16 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:47:54 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-static void	ft_add_light(t_master **master, t_light *light)
-{
-	t_light	*temp;
-
-	if ((*master)->light_head == NULL)
-		(*master)->light_head = light;
-	else
-	{
-		temp = (*master)->light_head;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = light;
-	}
-}
-
-static bool	ft_populate_light(t_light **light, t_p_node **cur)
+static bool	ft_populate_light(t_obj_data **obj, t_p_node **cur)
 {
 	if (!ft_next(cur, "Light has no coordinates"))
 		return (false);
-	(*light)->cord = ft_get_xyz(cur);
-	if (!ft_is_valid_vector((*light)->cord, -INFINITY, INFINITY,
+	(*obj)->cord = ft_get_xyz(cur);
+	if (!ft_is_valid_vector((*obj)->cord, -INFINITY, INFINITY,
 			"Light coordinates are not a valid vector [-INFINITY, INFINITY]")
 		|| !ft_next(cur, "Light has no ratio"))
 		return (false);
-	(*light)->ratio = ft_atod((*cur)->str);
-	if (!ft_inrange((*light)->ratio, 0, 1))
+	(*obj)->props.light.ratio = ft_atod((*cur)->str);
+	if (!ft_inrange((*obj)->props.light.ratio, 0, 1))
 		return (ft_error("Light ratio is out of range [0,1]"));
 	if (!ft_next(cur, "Light has no color"))
 		return (false);
-	if (!ft_get_rgb(&(*light)->color, (*cur)->str))
+	if (!ft_get_rgb(&(*obj)->txm.pri_color, (*cur)->str))
 		return (false);
 	(*cur) = (*cur)->next;
 	if ((*cur) && (*cur)->str != NULL && (*cur)->str[0] != '\n')
@@ -49,16 +34,18 @@ static bool	ft_populate_light(t_light **light, t_p_node **cur)
 	return (true);
 }
 
-bool	ft_create_light(t_master **master, t_p_node **cur)
+bool	ft_create_light(t_scene **scene, t_p_node **cur, t_obj_type type)
 {
-	t_light	*light;
+	t_obj_data	*obj;
 
-	light = (t_light *)ft_calloc(1, sizeof(t_light));
-	if (!light)
+	obj = (t_obj_data *)ft_calloc(1, sizeof(t_obj_data));
+	if (!obj)
 		return (false);
-	if (!ft_populate_light(&light, cur))
-		return (free(light), false);
-	ft_add_light(master, light);
+	obj->type = type;
+	if (!ft_populate_light(obj, cur))
+		return (free(obj), false);
+	ft_add_obj(scene, obj);
 	printf(GREEN "Light created successfully\n" RESET);
+	(*scene)->light_set = true;
 	return (true);
 }

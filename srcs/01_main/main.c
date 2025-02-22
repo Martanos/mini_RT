@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 22:05:50 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:06:39 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int argc, char **argv)
 {
-	t_master	*master;
+	t_scene	*scene;
 
 	if (argc == 2)
 	{
-		master = ft_parser(argv[1]);
-		if (!master)
+		scene = ft_parser(argv[1]);
+		if (!scene)
 			return (1);
-		ft_print_master(master);
-		ft_render_scene(master);
-		ft_free_master(master);
+		ft_render_scene(scene);
+		ft_free_scene(scene);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 17:23:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:45:22 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ typedef struct s_p_node
 }						t_p_node;
 
 // PARSER
-t_master				*ft_parser(char *file_path);
+t_scene					*ft_parser(char *file_path);
 
 // Read File
 t_p_node				*ft_read_file(char *file_path);
 
 // Read File Utils
-void					ft_skip_comment(char **buffer);
 bool					ft_process_buffer(char *buffer, t_p_node **head);
 
 // PARSER NODE UTILS
@@ -47,23 +46,28 @@ bool					ft_add_p_node(t_p_node **head, t_p_node *new_node);
 void					ft_free_p_list(t_p_node *head);
 
 // Object Creation
-t_master				*ft_populate(t_p_node *head);
-bool					ft_create_amb(t_master **master, t_p_node **cur);
-bool					ft_create_cam(t_master **master, t_p_node **cur);
-bool					ft_create_light(t_master **master, t_p_node **cur);
-bool					ft_create_sphere(t_master **master, t_p_node **cur);
-bool					ft_create_plane(t_master **master, t_p_node **cur);
-bool					ft_create_cylinder(t_master **master, t_p_node **cur);
-bool					ft_create_cone(t_master **master, t_p_node **cur);
+t_scene					*ft_populate(t_p_node *head);
+bool					ft_create_amb(t_scene **scene, t_p_node **cur);
+bool					ft_create_cam(t_scene **scene, t_p_node **cur);
+bool					ft_create_light(t_scene **scene, t_p_node **cur,
+							t_obj_type type);
+bool					ft_create_sphere(t_scene **scene, t_p_node **cur,
+							t_obj_type type);
+bool					ft_create_plane(t_scene **scene, t_p_node **cur,
+							t_obj_type type);
+bool					ft_create_cylinder(t_scene **scene, t_p_node **cur,
+							t_obj_type type);
+bool					ft_create_cone(t_scene **scene, t_p_node **cur,
+							t_obj_type type);
 
 // Property Creation
-bool					ft_extra_data(t_master **master, t_obj_pro *pro,
+bool					ft_extra_data(t_scene **scene, t_obj_data **obj,
 							t_p_node **cur);
-bool					ft_add_texture(t_master **master, t_obj_pro **pro,
+bool					ft_add_texture(t_scene **scene, t_obj_data **obj,
 							char *str);
-bool					ft_add_bump_map(t_master **master, t_obj_pro **pro,
+bool					ft_add_bump_map(t_scene **scene, t_obj_data **obj,
 							char *str);
-bool					ft_add_material(t_obj_pro **pro, char *str);
+bool					ft_add_material(t_obj_data **obj, char *str);
 
 // Utils
 t_vect					ft_get_xyz(t_p_node **cur);

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:18:36 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 22:34:35 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:37:31 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** @param str The path to the texture file
 ** @return true if the texture is loaded successfully, false otherwise
 */
-static bool	ft_load_xpm_texture(t_master **master, t_obj_pro **pro, char *str)
+static bool	ft_load_xpm_texture(t_scene **scene, t_obj_data **obj, char *str)
 {
 	ssize_t	len;
 	int		fd;
@@ -35,42 +35,42 @@ static bool	ft_load_xpm_texture(t_master **master, t_obj_pro **pro, char *str)
 	if (fd == -1)
 		return (ft_error("Failed to access xpm texture file"), false);
 	close(fd);
-	(*pro)->txm.img = mlx_xpm_file_to_image((*master)->mlx_ptr, str,
-			&(*pro)->txm.width, &(*pro)->txm.height);
-	if (!(*pro)->txm.img)
+	(*obj)->txm.img = mlx_xpm_file_to_image((*scene)->mlx_ptr, str,
+			&(*obj)->txm.width, &(*obj)->txm.height);
+	if (!(*obj)->txm.img)
 		return (ft_error("Failed to load xpm texture from file"), false);
-	(*pro)->txm.data = (int *)mlx_get_data_addr((*pro)->txm.img,
-			&(*pro)->txm.bpp, &(*pro)->txm.line_len, &(*pro)->txm.endian);
-	if (!(*pro)->txm.data)
+	(*obj)->txm.data = (int *)mlx_get_data_addr((*obj)->txm.img,
+			&(*obj)->txm.bpp, &(*obj)->txm.line_len, &(*obj)->txm.endian);
+	if (!(*obj)->txm.data)
 		return (ft_error("Failed to get xpm texture data"), false);
 	return (true);
 }
 
-static bool	ft_populate_texture(t_master **master, t_obj_pro **pro,
-		char **split, int len)
+static bool	ft_populate_texture(t_scene **scene, t_obj_data **obj, char **split,
+		int len)
 {
 	if (len > 3)
 		return (ft_error("Extra data in texture"));
 	if (len > 0)
-		(*pro)->txm.type = ft_atoi(split[0]);
-	if ((*pro)->txm.type < 0 || (*pro)->txm.type > 2)
+		(*obj)->txm.type = ft_atoi(split[0]);
+	if ((*obj)->txm.type < 0 || (*obj)->txm.type > 2)
 		return (ft_error("Unknown texture type"));
-	if ((*pro)->txm.type == 0 && len > 2)
+	if ((*obj)->txm.type == 0 && len > 2)
 		return (ft_error("Extra data in texture specified as solid color"));
 	if (len > 1)
-		(*pro)->txm.scale = ft_atod(split[1]);
-	if (!ft_inrange((*pro)->txm.scale, 0, 1))
+		(*obj)->txm.scale = ft_atod(split[1]);
+	if (!ft_inrange((*obj)->txm.scale, 0, 1))
 		return (ft_error("Invalid texture scale [0,1]"));
-	if ((*pro)->txm.type == 1 && len > 2 && split[2]
-		&& !ft_get_rgb(&(*pro)->txm.sec_color, split[2]))
+	if ((*obj)->txm.type == 1 && len > 2 && split[2]
+		&& !ft_get_rgb(&(*obj)->txm.sec_color, split[2]))
 		return (false);
-	if ((*pro)->txm.type == 2 && len > 2 && split[2]
-		&& !ft_load_xpm_texture(master, pro, split[2]))
+	if ((*obj)->txm.type == 2 && len > 2 && split[2]
+		&& !ft_load_xpm_texture(scene, obj, split[2]))
 		return (false);
 	return (true);
 }
 
-bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
+bool	ft_add_texture(t_scene **scene, t_obj_data **obj, char *str)
 {
 	char	**split;
 	char	**original;
@@ -84,7 +84,7 @@ bool	ft_add_texture(t_master **master, t_obj_pro **pro, char *str)
 		return (false);
 	while (split[len])
 		len++;
-	result = ft_populate_texture(master, pro, split, len);
+	result = ft_populate_texture(scene, obj, split, len);
 	original = split;
 	while (*split)
 		free(*split++);

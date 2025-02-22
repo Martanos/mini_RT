@@ -6,49 +6,63 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 18:59:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:48:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-static bool	ft_identify(t_master **master, t_p_node **cur)
+void	ft_add_obj(t_scene **scene, t_obj_data **obj)
+{
+	t_obj_data	*temp;
+
+	if ((*scene)->obj_head == NULL)
+		(*scene)->obj_head = obj;
+	else
+	{
+		temp = (*scene)->obj_head;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = obj;
+	}
+}
+
+static bool	ft_identify(t_scene **scene, t_p_node **cur)
 {
 	printf(GREEN "Identifying: %s\n" RESET, (*cur)->str);
 	if (ft_strcmp((*cur)->str, "A") == 0)
-		return (ft_create_amb(master, cur));
+		return (ft_create_amb(scene, cur));
 	else if (ft_strcmp((*cur)->str, "C") == 0)
-		return (ft_create_cam(master, cur));
+		return (ft_create_cam(scene, cur));
 	else if (ft_strcmp((*cur)->str, "L") == 0)
-		return (ft_create_light(master, cur));
+		return (ft_create_obj(scene, cur, LIGHT));
 	else if (ft_strcmp((*cur)->str, "pl") == 0)
-		return (ft_create_plane(master, cur));
+		return (ft_create_obj(scene, cur, PLANE));
 	else if (ft_strcmp((*cur)->str, "cy") == 0)
-		return (ft_create_cylinder(master, cur));
+		return (ft_create_obj(scene, cur, CYLINDER));
 	else if (ft_strcmp((*cur)->str, "sp") == 0)
-		return (ft_create_sphere(master, cur));
+		return (ft_create_obj(scene, cur, SPHERE));
 	else if (ft_strcmp((*cur)->str, "co") == 0)
-		return (ft_create_cone(master, cur));
+		return (ft_create_obj(scene, cur, CONE));
 	return (ft_error("Invalid identifier"));
 }
 
-static bool	ft_initmlx(t_master **master)
+static bool	ft_initmlx(t_scene **scene)
 {
-	(*master)->mlx_ptr = mlx_init();
-	if (!(*master)->mlx_ptr)
+	(*scene)->mlx_ptr = mlx_init();
+	if (!(*scene)->mlx_ptr)
 		return (ft_error("mlx failed to initialize"));
-	(*master)->win_ptr = mlx_new_window((*master)->mlx_ptr, WINDOW_WIDTH,
+	(*scene)->win_ptr = mlx_new_window((*scene)->mlx_ptr, WINDOW_WIDTH,
 			WINDOW_HEIGHT, "miniRT");
-	if (!(*master)->win_ptr)
+	if (!(*scene)->win_ptr)
 		return (ft_error("mlx failed to create window"));
-	(*master)->img.img_ptr = mlx_new_image((*master)->mlx_ptr, WINDOW_WIDTH,
+	(*scene)->img.img_ptr = mlx_new_image((*scene)->mlx_ptr, WINDOW_WIDTH,
 			WINDOW_HEIGHT);
-	if (!(*master)->img.img_ptr)
+	if (!(*scene)->img.img_ptr)
 		return (ft_error("mlx failed to create image"));
-	(*master)->img.pixels_ptr = mlx_get_data_addr((*master)->img.img_ptr,
-			&(*master)->img.bpp, &(*master)->img.line_len,
-			&(*master)->img.endian);
-	if (!(*master)->img.pixels_ptr)
+	(*scene)->img.pixels_ptr = mlx_get_data_addr((*scene)->img.img_ptr,
+			&(*scene)->img.bpp, &(*scene)->img.line_len, &(*scene)->img.endian);
+	if (!(*scene)->img.pixels_ptr)
 		return (ft_error("mlx failed to get image address"));
 	return (true);
 }
@@ -58,25 +72,25 @@ static bool	ft_initmlx(t_master **master)
 ** @param head pointer to the head of the parser node list
 ** @return false if successful, true if error
 */
-t_master	*ft_populate(t_p_node *cur)
+t_scene	*ft_populate(t_p_node *cur)
 {
-	t_master	*master;
+	t_scene	*scene;
 
-	master = (t_master *)ft_calloc(1, sizeof(t_master));
-	if (!master)
+	scene = (t_scene *)ft_calloc(1, sizeof(t_scene));
+	if (!scene)
 		return (NULL);
-	if (!ft_initmlx(&master))
-		return (ft_free_master(master), NULL);
+	if (!ft_initmlx(&scene))
+		return (ft_free_scene(scene), NULL);
 	while (cur)
 	{
 		while (cur && cur->str && ft_isspace(cur->str[0]))
 			cur = cur->next;
-		if (!ft_identify(&master, &cur))
-			return (ft_free_master(master), NULL);
+		if (!ft_identify(&scene, &cur))
+			return (ft_free_scene(scene), NULL);
 		while (cur && cur->str && ft_isspace(cur->str[0]))
 			cur = cur->next;
 	}
-	return (master);
+	return (scene);
 }
 
 static void	ft_print_p_list(t_p_node *head)
@@ -99,25 +113,24 @@ static void	ft_print_p_list(t_p_node *head)
 ** @param file_path path to the file
 ** @return pointer to the master structure
 */
-t_master	*ft_parser(char *file_path)
+t_scene	*ft_parser(char *file_path)
 {
 	t_p_node	*head;
-	t_master	*master;
+	t_scene		*scene;
 
 	head = ft_read_file(file_path);
 	if (!head)
 		return (NULL);
 	ft_print_p_list(head);
-	master = ft_populate(head);
+	scene = ft_populate(head);
 	ft_free_p_list(head);
-	if (!master)
+	if (!scene)
 		return (NULL);
-	if (!master->amb_head.set)
-		return (ft_error("No ambient light found"), ft_free_master(master),
-			NULL);
-	if (!master->cam_head.set)
-		return (ft_error("No camera found"), ft_free_master(master), NULL);
-	if (!master->light_head)
-		return (ft_error("No light found"), ft_free_master(master), NULL);
-	return (master);
+	if (!scene->amb_data.set)
+		return (ft_error("No ambient light found"), ft_free_scene(scene), NULL);
+	if (!scene->cam_data.set)
+		return (ft_error("No camera found"), ft_free_scene(scene), NULL);
+	if (!scene->light_set)
+		return (ft_error("No light found"), ft_free_scene(scene), NULL);
+	return (scene);
 }

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 22:05:21 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:47:24 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,17 @@ typedef struct s_obj_data
 
 typedef struct s_amb
 {
+	bool			set;
 	double			ratio;
 	uint32_t		rgb;
-	bool			set;
 }					t_amb;
 
 typedef struct s_cam
 {
+	bool			set;
 	t_vect			norm;
 	t_vect			cord;
 	double			fov;
-	bool			set;
 }					t_cam;
 
 typedef struct s_scene
@@ -140,9 +140,10 @@ typedef struct s_scene
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			img;
-	t_amb			*amb_data;
-	t_cam			*cam_data;
-	t_obj_data		*obj_data;
+	t_amb			amb_data;
+	t_cam			cam_data;
+	bool			light_set;
+	t_obj_data		*obj_head;
 	bool			aa_enabled;
 }					t_scene;
 
