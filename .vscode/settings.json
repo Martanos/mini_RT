@@ -10,6 +10,7 @@
 		"limits": "c",
 		"math.h": "c",
 		"libvect.h": "c",
-		"object_structures.h": "c"
+		"object_structures.h": "c",
+		"errno.h": "c"
 	}
 }

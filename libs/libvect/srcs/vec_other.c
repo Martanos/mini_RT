@@ -6,14 +6,15 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:30:30 by malee             #+#    #+#             */
-/*   Updated: 2025/02/04 16:27:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/22 21:03:03 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libvect.h"
 
 /*
-** @brief Normalize a vector
+** @brief Normalize a vector to a unit vector returning the original vector if
+** the magnitude is too small to normalize
 ** @param a The vector
 ** @return The normalized vector
 */
@@ -22,7 +23,9 @@ t_vect	ft_vect_norm(t_vect a)
 	double	mag;
 
 	mag = ft_vect_mag(a);
-	return (ft_vect_div_all(a, mag));
+	if (mag > 0.000001)
+		return (ft_vect_div_all(a, mag));
+	return (a);
 }
 
 /*
