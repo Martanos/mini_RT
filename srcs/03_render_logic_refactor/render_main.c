@@ -6,68 +6,74 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:07:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 21:11:27 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/23 01:43:14 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_ambient	*ft_init_ambient(t_master *master)
+void	ft_camera_setup(t_scene **scene)
 {
-	t_ambient	*amb;
+	double	fov_rad;
 
-	amb = (t_ambient *)ft_calloc(1, sizeof(t_ambient));
-	if (!amb)
-		return (NULL);
-	amb->ratio = master->amb_head.ratio;
-	amb->color = master->amb_head.rgb;
-	return (amb);
+	(*scene)->cam_data.dir = ft_vect_norm((*scene)->cam_data.dir);
+	(*scene)->cam_data.up = ft_vect_norm(ft_vect_cross((*scene)->cam_data.dir,
+				ft_vect_create(0, 1, 0)));
+	(*scene)->cam_data.right = ft_vect_norm(ft_vect_cross((*scene)->cam_data.dir,
+				(*scene)->cam_data.up));
+	(*scene)->cam_data.aspect_ratio = (double)WINDOW_WIDTH
+		/ (double)WINDOW_HEIGHT;
+	fov_rad = (*scene)->cam_data.fov * M_PI / 180.0;
+	(*scene)->cam_data.viewport_height = 2.0 * tan(fov_rad / 2.0);
+	(*scene)->cam_data.viewport_width = (*scene)->cam_data.viewport_height
+		* (*scene)->cam_data.aspect_ratio;
 }
 
-t_camera	*ft_init_camera(t_master *master)
+t_ray	ft_get_cam_ray(t_cam *cam, double u, double v)
 {
-	t_vect		world_up;
-	t_camera	*cam;
+	t_ray	ray;
+	t_vect	horizontal;
+	t_vect	vertical;
+	t_vect	direction;
 
-	cam = (t_camera *)ft_calloc(1, sizeof(t_camera));
-	if (!cam)
-		return (NULL);
-	cam->fov = master->cam_head.fov * (M_PI / 180);
-	cam->pos = master->cam_head.cord;
-	cam->dir = ft_vect_norm(master->cam_head.norm);
-	world_up = ft_vect_create(0, 1, 0);
-	cam->right = ft_vect_norm(ft_vect_cross(cam->up, world_up));
-	cam->up = ft_vect_norm(ft_vect_cross(cam->dir, cam->right));
-	return (cam);
+	ray.origin = cam->cord;
+	horizontal = ft_vect_mul_all(cam->right, cam->viewport_width);
+	vertical = ft_vect_mul_all(cam->up, cam->viewport_height);
+	direction = ft_vect_norm(ft_vect_sub(ft_vect_add(ft_vect_add(ft_vect_mul_all(horizontal,
+							u - 0.5), ft_vect_mul_all(vertical, v - 0.5)),
+					cam->dir), ray.origin));
+	ray.direction = direction;
+	ray.t_min = 0.001;
+	ray.t_max = INFINITY;
+	ray.depth = 0;
+	return (ray);
 }
 
-t_scene	*ft_init_scene(t_master *master)
+bool	ft_calculate_pixel(t_scene **scene, int x, int y)
 {
-	t_scene	*scene;
+	t_ray	ray;
 
-	scene = (t_scene *)ft_calloc(1, sizeof(t_scene));
-	if (!scene)
-		return (NULL);
-	scene->master = master;
-	scene->aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
-	scene->amb = ft_init_ambient(master);
-	if (!scene->amb)
-		return (NULL);
-	scene->cam = ft_init_camera(master);
-	if (!scene->cam)
-		return (NULL);
-	scene->obj = ft_init_objects(master);
-	if (!scene->obj)
-		return (NULL);
-	return (scene);
+	ray = ft_get_cam_ray(&(*scene)->cam_data, x, y);
 }
 
-bool	ft_render_main(t_master *master)
+bool	ft_render_main(t_scene **scene)
 {
-	t_scene	*scene;
+	int	x;
+	int	y;
 
-	scene = ft_init_scene(master);
-	if (!scene)
-		return (false);
-	return (true);
+	ft_camera_setup(scene);
+	y = 0;
+	while (y < WINDOW_HEIGHT)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			if (ft_calculate_pixel(scene, x, y))
+			{
+				my_pixel_put(&(*scene)->img, x, y, 0x000000);
+			}
+			x++;
+		}
+		y++;
+	}
 }

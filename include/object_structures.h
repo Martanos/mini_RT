@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 22:47:24 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/23 01:02:26 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,15 @@ typedef struct s_bump_map
 
 typedef enum e_obj_type
 {
-	LIGHT = 0,
-	SPHERE = 1,
-	PLANE = 2,
-	CYLINDER = 3,
-	CONE = 4
+	SPHERE = 0,
+	PLANE = 1,
+	CYLINDER = 2,
+	CONE = 3
 }					t_obj_type;
 
 // Unique properties for each object type
 typedef union u_obj_prop
 {
-	struct
-	{
-		double		ratio;
-	} light;
 	struct
 	{
 		double		diameter;
@@ -130,10 +125,28 @@ typedef struct s_amb
 typedef struct s_cam
 {
 	bool			set;
-	t_vect			norm;
 	t_vect			cord;
+	t_vect			dir;
+	t_vect			up;
+	t_vect			right;
+	double			aspect_ratio;
 	double			fov;
+	double			viewport_height;
+	double			viewport_width;
 }					t_cam;
+
+typedef struct s_light
+{
+	t_vect			cord;
+	double			ratio;
+	uint32_t		rgb;
+	double			radius;
+	double			falloff;
+	bool			is_spot;
+	t_vect			direction;
+	double			angle;
+	t_light			*next;
+}					t_light;
 
 typedef struct s_scene
 {
@@ -142,9 +155,10 @@ typedef struct s_scene
 	t_img			img;
 	t_amb			amb_data;
 	t_cam			cam_data;
-	bool			light_set;
+	t_light			*light_data;
 	t_obj_data		*obj_head;
 	bool			aa_enabled;
+	int				aa_samples;
 }					t_scene;
 
 #endif

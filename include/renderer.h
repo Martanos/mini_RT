@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/20 14:31:09 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/23 00:47:08 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,17 @@ typedef struct s_intersection_info	t_intersection_info;
 // - point: The exact point of intersection in 3D space
 // - normal: Surface normal vector at the intersection point
 // - t: Distance from ray origin to intersection point
-typedef struct s_hit_record
+typedef struct s_hit
 {
+	double							t;
 	t_vect							point;
 	t_vect							normal;
-	double							t;
-}									t_hit_record;
-
-// Combines hit information with color data for the final pixel output
-// - hit: Contains the intersection point, normal, and distance
-// - color: The final calculated color for this intersection
-typedef struct s_intersection_info
-{
-	t_hit_record					hit;
-	uint32_t						color;
-	t_obj_pro						properties;
-}									t_intersection_info;
+	t_vect							tangent;
+	t_vect							bitangent;
+	t_obj_data						*object;
+	double							u;
+	double							v;
+}									t_hit;
 
 // Represents a ray in 3D space used for ray tracing
 // - origin: Starting point of the ray
@@ -61,52 +56,10 @@ typedef struct s_ray
 {
 	t_vect							origin;
 	t_vect							direction;
+	double							t_min;
+	double							t_max;
+	int								depth;
 }									t_ray;
-
-/*
- * Collision Tracking Structures:
- * Each geometric shape has its own collision
- * structure that follows the same pattern.
- * These structures store the closest
- * intersection found for that shape type during
- * ray tracing, allowing us to determine which object is visible at each pixel.
- */
-
-// Tracks the closest sphere intersection
-// - closest_t: Distance to the nearest sphere intersection
-// - closest_sphere: Pointer to the sphere with the nearest intersection
-typedef struct s_sphere_collision
-{
-	double							closest_t;
-	t_sphere						*closest_sphere;
-}									t_sphere_collision;
-
-// Tracks the closest plane intersection
-// - closest_t: Distance to the nearest plane intersection
-// - closest_plane: Pointer to the plane with the nearest intersection
-typedef struct s_plane_collision
-{
-	double							closest_t;
-	t_plane							*closest_plane;
-}									t_plane_collision;
-
-// Tracks the closest cylinder intersection
-// - closest_t: Distance to the nearest cylinder intersection
-// - closest_cylinder: Pointer to the cylinder with the nearest intersection
-typedef struct s_cylinder_collision
-{
-	double							closest_t;
-	t_cylinder						*closest_cylinder;
-}									t_cylinder_collision;
-
-// Tracks the closest cone intersection
-// - closest_t: Distance to the nearest cone intersection
-// - closest_cone: Pointer to the cone with the nearest intersection
-typedef struct s_cone_collision
-{
-	double							closest_t;
-	t_cone							*closest_cone;
-}									t_cone_collision;
 
 /*
  * Shape-Specific Intersection Functions:

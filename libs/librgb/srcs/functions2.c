@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:31:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/20 12:59:50 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/02/23 00:50:05 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,46 @@ void	ft_clamp_rgb_values(uint8_t *final, uint8_t *rgb_arr)
 */
 void	ft_color_mixer(uint8_t *rgb_arr1, uint8_t *rgb_arr2, double ratio)
 {
-	double second_ratio;
+	double	second_ratio;
 
 	second_ratio = 1 - ratio;
-	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] * ratio + rgb_arr2[0] * (second_ratio),
-			255);
-	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] * ratio + rgb_arr2[1] * (second_ratio),
-			255);
-	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] * ratio + rgb_arr2[2] * (second_ratio),
-			255);
+	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] * ratio + rgb_arr2[0]
+			* (second_ratio), 255);
+	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] * ratio + rgb_arr2[1]
+			* (second_ratio), 255);
+	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] * ratio + rgb_arr2[2]
+			* (second_ratio), 255);
+}
+
+/*
+** @brief Converts a uint32_t color to RGB components
+** @param color uint32_t color
+** @param r pointer to double to store red value
+** @param g pointer to double to store green value
+** @param b pointer to double to store blue value
+*/
+void	ft_color_to_rgb(uint32_t color, double *r, double *g, double *b)
+{
+	*r = ((color >> 16) & 0xFF) / 255.0;
+	*g = ((color >> 8) & 0xFF) / 255.0;
+	*b = (color & 0xFF) / 255.0;
+}
+
+/*
+** @brief Converts RGB components to uint32_t color
+** @param r red value
+** @param g green value
+** @param b blue value
+** @return uint32_t color
+*/
+uint32_t	ft_rgb_to_color(double r, double g, double b)
+{
+	int	ir;
+	int	ig;
+	int	ib;
+
+	ir = fmin(fmax(r * 255, 0), 255);
+	ig = fmin(fmax(g * 255, 0), 255);
+	ib = fmin(fmax(b * 255, 0), 255);
+	return ((ir << 16) | (ig << 8) | ib);
 }
