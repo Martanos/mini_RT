@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 19:00:11 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 16:26:46 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,21 @@ typedef enum e_texture_type
 
 /*
 ** @brief Material properties for Phong reflection model
-** @param ambient ambient reflection coefficient
-** @param diffuse diffuse reflection coefficient
-** @param specular specular reflection coefficient
-** @param shininess controls the size of specular highlights
+** @param ambient ambient reflection coefficient 
+** @param diffuse diffuse reflection coefficient Range: [0.0, 1.0]
+** @param specular specular reflection coefficient Range: [0.0, 1.0]
+** @param shininess controls the size of specular highlights  Range: [0.0, ∞)
 ** @param reflection reflection coefficient for mirror-like surfaces
+** Range: [0.0, 1.0]
 */
 typedef struct s_material
 {
 	bool					enabled;
-	double amb;  // Range: [0.0, 1.0] - How much ambient light is reflected
-	double diff; // Range: [0.0, 1.0] - How much diffuse light is reflected
-	double spec; // Range: [0.0, 1.0] - How much specular light is reflected
-	double shin; // Range: [0.0, ∞)   - Typically [1.0, 200.0] is common
-					// Higher values = smaller, sharper highlights
-	double refl; // Range: [0.0, 1.0] - How reflective the surface is
-					// 0.0 = not reflective, 1.0 = perfect mirror
+	double					amb;
+	double					diff;
+	double					spec;
+	double					shin;
+	double					refl;
 }							t_material;
 
 /*

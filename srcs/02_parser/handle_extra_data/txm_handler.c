@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   txm_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:18:36 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 22:34:35 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 16:10:49 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	ft_load_xpm_texture(t_master **master, t_obj_pro **pro, char *str)
 		return (ft_error("No texture data specified"));
 	len = ft_strlen(str);
 	if (len < 4 || str[len - 1] != 'm' || str[len - 2] != 'p' || str[len
-		- 3] != 'x' || str[len - 4] != '.')
+			- 3] != 'x' || str[len - 4] != '.')
 		return (ft_error("Invalid file extension expected: .xpm"), false);
 	fd = open(str, O_RDONLY);
 	if (fd == -1)

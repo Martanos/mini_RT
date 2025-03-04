@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 14:43:59 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/04 16:33:49 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void								calculate_plane_hit(t_ray ray,
 										t_plane_collision collision,
 										t_hit_record *rec);
 
-// check_cylinder_main.c, check_cylinder_side.c, check_cylinder_caps.c, check_cylinder_utils.c
+// check_cylinder_main.c, check_cylinder_side.c, check_cylinder_caps.c,
+// check_cylinder_utils.c
 t_cylinder_collision				find_closest_cylinder(t_ray ray,
 										t_master *master);
 double								check_cylinder_collision(t_ray ray,
@@ -150,7 +151,6 @@ double								check_cylinder_height(t_ray ray, double t,
 										t_cylinder *cylinder);
 t_vect								get_cylinder_normal(t_vect point,
 										t_cylinder *cylinder, double proj);
-
 
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
