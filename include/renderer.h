@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 00:10:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 06:58:35 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ typedef struct s_hit
 	t_vect		tangent;
 	t_vect		bitangent;
 	uint32_t	pixel_color;
-	int			red;
-	int			green;
-	int			blue;
+	int			r_sum;
+	int			g_sum;
+	int			b_sum;
+	int			r_final;
+	int			g_final;
+	int			b_final;
 	t_obj_data	*object;
 	bool		front_face;
 }				t_hit;
@@ -55,6 +58,17 @@ typedef struct s_ray
 	int			depth;
 }				t_ray;
 
+typedef struct s_quadratic
+{
+	double		a;
+	double		b;
+	double		c;
+	double		discriminant;
+	double		t;
+	double		t1;
+	double		t2;
+}				t_quadratic;
+
 // MLX UTILS
 void			ft_pixel_put(t_img *img, int x, int y, int color);
 // 0. Static value setup
@@ -64,5 +78,15 @@ void			ft_setup_sphere(t_obj_data **obj);
 void			ft_setup_plane(t_obj_data **obj);
 void			ft_setup_cylinder(t_obj_data **obj);
 void			ft_setup_cone(t_obj_data **obj);
+// 1. Ray setup
+void			ft_setup_ray(t_scene **scene);
+// 2. hit calcs
+bool			ft_intersect_main(t_scene **scene);
+bool			ft_intersect_sphere(t_scene **scene, t_obj_data *sphere);
+bool			ft_intersect_plane(t_scene **scene, t_obj_data *plane);
+bool			ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder);
+bool			ft_intersect_cone(t_scene **scene, t_obj_data *cone);
+// 3. Z-buffer setup
+void			ft_setup_z_buffer(t_scene **scene);
 
 #endif
