@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:13:57 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 16:11:38 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/04 17:00:48 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,30 +154,6 @@ static void	ft_print_cylinder(t_cylinder *cylinder)
 	}
 }
 
-static void	ft_print_cone(t_cone *cone)
-{
-	int	count;
-
-	count = 1;
-	while (cone)
-	{
-		printf(YELLOW "-----cone %d-----\n" RESET, count);
-		printf(GREEN "Cone position: %f %f %f\n" RESET, cone->cord.x,
-			cone->cord.y, cone->cord.z);
-		printf(GREEN "Cone height: %f\n" RESET, cone->height);
-		printf(GREEN "Cone diameter: %f\n" RESET, cone->diameter);
-		printf(GREEN "Cone normal: %f %f %f\n" RESET, cone->norm.x,
-			cone->norm.y, cone->norm.z);
-		printf(GREEN "Cone RGB: %d %d %d\n" RESET,
-			ft_get_r(cone->pro.txm.pri_color),
-			ft_get_g(cone->pro.txm.pri_color),
-			ft_get_b(cone->pro.txm.pri_color));
-		ft_print_obj_prop(&cone->pro);
-		cone = cone->next;
-		count++;
-	}
-}
-
 static void	ft_print_master(t_master *master)
 {
 	printf(BLUE "-----master-----\n" RESET);
@@ -190,8 +166,6 @@ static void	ft_print_master(t_master *master)
 		ft_print_sphere(master->sphere_head);
 	if (master->cylinder_head)
 		ft_print_cylinder(master->cylinder_head);
-	if (master->cone_head)
-		ft_print_cone(master->cone_head);
 }
 
 int	main(int argc, char **argv)

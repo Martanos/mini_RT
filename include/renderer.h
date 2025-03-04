@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 16:33:49 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 16:54:12 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,6 @@ void								calculate_sphere_hit(t_ray ray,
 										t_hit_record *rec);
 
 // check_plane.c
-double								check_capped_plane_collision(t_ray ray,
-										t_plane plane);
 t_plane_collision					find_closest_plane(t_ray ray,
 										t_master *master);
 double								check_plane_collision(t_ray ray,
@@ -220,8 +218,4 @@ uint32_t							calculations(int x, int y,
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);
 void								ft_render_scene(t_master *master);
-uint32_t							get_pixel(t_master *master, int x, int y);
-void								put_pixel(t_master *master, int x, int y,
-										uint32_t color);
-
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:24:10 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 17:23:46 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 16:59:23 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ bool					ft_create_light(t_master **master, t_p_node **cur);
 bool					ft_create_sphere(t_master **master, t_p_node **cur);
 bool					ft_create_plane(t_master **master, t_p_node **cur);
 bool					ft_create_cylinder(t_master **master, t_p_node **cur);
-bool					ft_create_cone(t_master **master, t_p_node **cur);
 
 // Property Creation
 bool					ft_extra_data(t_master **master, t_obj_pro *pro,

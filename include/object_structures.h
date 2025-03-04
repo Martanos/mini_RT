@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 16:26:46 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/04 17:00:40 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_light		t_light;
 typedef struct s_sphere		t_sphere;
 typedef struct s_plane		t_plane;
 typedef struct s_cylinder	t_cylinder;
-typedef struct s_cone		t_cone;
 typedef struct s_material	t_material;
 typedef struct s_texture	t_texture;
 typedef struct s_bump_map	t_bump_map;
@@ -37,7 +36,6 @@ typedef enum e_obj_type
 	TYPE_SPHERE,
 	TYPE_PLANE,
 	TYPE_CYLINDER,
-	TYPE_CONE
 }							t_obj_type;
 
 typedef enum e_texture_type
@@ -215,25 +213,6 @@ typedef struct s_cylinder
 	t_cylinder				*next;
 }							t_cylinder;
 
-/*
-** @brief Cone structure
-** @param cord cone coordinate vector
-** @param norm cone normal vector
-** @param height cone height
-** @param diameter cone diameter
-** @param pro object properties
-** @param next pointer to the next cone object
-*/
-typedef struct s_cone
-{
-	t_vect					cord;
-	t_vect					norm;
-	double					height;
-	double					diameter;
-	t_obj_pro				pro;
-	t_cone					*next;
-}							t_cone;
-
 // MLX OBJECTS
 
 /*
@@ -275,7 +254,6 @@ typedef struct s_master
 	t_sphere				*sphere_head;
 	t_plane					*plane_head;
 	t_cylinder				*cylinder_head;
-	t_cone					*cone_head;
 	bool					aa_enabled;
 }							t_master;
 

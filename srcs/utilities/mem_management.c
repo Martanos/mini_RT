@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_func.c                                         :+:      :+:    :+:   */
+/*   mem_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 20:13:52 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 17:26:12 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 17:00:57 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	ft_free_node(void *node, t_obj_type type, t_master *master)
 			properties = &((t_plane *)node)->pro;
 		else if (type == TYPE_CYLINDER)
 			properties = &((t_cylinder *)node)->pro;
-		else if (type == TYPE_CONE)
-			properties = &((t_cone *)node)->pro;
 	}
 	if (properties && properties->txm.img && properties->txm.data)
 		mlx_destroy_image(master->mlx_ptr, properties->txm.img);
@@ -55,8 +53,6 @@ void	ft_free_list(void *head, t_obj_type type, t_master *master)
 			next = ((t_plane *)current)->next;
 		if (type == TYPE_CYLINDER)
 			next = ((t_cylinder *)current)->next;
-		if (type == TYPE_CONE)
-			next = ((t_cone *)current)->next;
 		ft_free_node(current, type, master);
 		current = next;
 		next = NULL;
@@ -93,7 +89,6 @@ void	ft_free_master(t_master *master)
 	ft_free_list(master->sphere_head, TYPE_SPHERE, master);
 	ft_free_list(master->plane_head, TYPE_PLANE, master);
 	ft_free_list(master->cylinder_head, TYPE_CYLINDER, master);
-	ft_free_list(master->cone_head, TYPE_CONE, master);
 	ft_free_img(master);
 	free(master);
 }

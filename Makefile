@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sean <sean@student.42.fr>                  +#+  +:+       +#+         #
+#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/03/04 14:42:26 by sean             ###   ########.fr        #
+#    Updated: 2025/03/04 17:00:24 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ LDFLAGS     = $(MLX_FLAGS) -lm
 SRC_MAIN		= main.c
 SRC_LEXER		= read_file_main.c read_data_utils.c
 SRC_PARSING		= parser_main.c
-SRC_PARSING_CREATE_OBJ = create_amb.c create_cam.c create_cone.c create_cylinder.c \
+SRC_PARSING_CREATE_OBJ = create_amb.c create_cam.c create_cylinder.c \
 						create_light.c create_plane.c create_sphere.c
 SRC_PARSING_READ_FILE = read_file_main.c read_data_utils.c process_buffer.c
 SRC_PARSING_UTILS	= parser_rgb.c parser_xyz.c parser_atod.c parser_utils.c
