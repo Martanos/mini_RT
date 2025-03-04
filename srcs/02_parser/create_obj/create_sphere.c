@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 16:24:31 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 22:23:55 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static bool	ft_populate_sphere(t_scene **scene, t_obj_data **obj,
 			"Sphere coordinates are not a valid vector") || !ft_next(cur,
 			"Sphere has no diameter"))
 		return (false);
-	(*obj)->props.sphere.diameter = ft_atod((*cur)->str);
-	if (!ft_inrange((*obj)->props.sphere.diameter, 0, INFINITY))
+	(*obj)->props.t_sphere.diameter = ft_atod((*cur)->str);
+	if (!ft_inrange((*obj)->props.t_sphere.diameter, 0, INFINITY))
 		return (ft_error("Sphere diameter is not a positive number"));
 	if (!ft_next(cur, "Sphere has no color"))
 		return (false);
@@ -46,9 +46,6 @@ bool	ft_create_sphere(t_scene **scene, t_p_node **cur, t_obj_type type)
 	obj->type = type;
 	if (!ft_populate_sphere(scene, &obj, cur))
 		return (free(obj), false);
-	obj->props.sphere.radius = obj->props.sphere.diameter / 2;
-	obj->props.sphere.radius_squared = obj->props.sphere.radius
-		* obj->props.sphere.radius;
 	ft_add_obj(scene, obj);
 	printf(GREEN "Sphere created successfully\n" RESET);
 	return (true);

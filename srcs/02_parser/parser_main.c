@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 15:39:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 23:40:59 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static bool	ft_initmlx(t_scene **scene)
 			&(*scene)->img.bpp, &(*scene)->img.line_len, &(*scene)->img.endian);
 	if (!(*scene)->img.pixels_ptr)
 		return (ft_error("mlx failed to get image address"));
+	mlx_int_anti_resize_win((*scene)->mlx_ptr, (*scene)->win_ptr,
+		DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 	mlx_clear_window((*scene)->mlx_ptr, (*scene)->win_ptr);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 19:12:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 00:11:31 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,22 +115,17 @@ typedef union u_obj_prop
 	} t_cone;
 }					t_obj_prop;
 
-typedef struct s_local_coords
-{
-	t_vect			normal;
-	t_vect			tangent;
-	t_vect			bitangent;
-}					t_local_coords;
-
 typedef struct s_obj_data
 {
 	t_obj_type		type;
 	t_vect			cord;
 	t_vect			dir;
+	t_vect			norm_dir;
+	t_vect			tangent;
+	t_vect			bitangent;
 	t_material		mat;
 	t_texture		txm;
 	t_bump_map		bpm;
-	t_local_coords	local;
 	t_obj_prop		props;
 	double			u;
 	double			v;
@@ -178,8 +173,6 @@ typedef struct s_scene
 	t_obj_data		*obj_head;
 	t_hit			*z_buffer;
 	t_ray			*ray_buffer;
-	bool			aa_enabled;
-	int				aa_samples;
 }					t_scene;
 
 #endif

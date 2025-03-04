@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_prep.c                                         :+:      :+:    :+:   */
+/*   obj_prep_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:29:52 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 15:41:22 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 00:13:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static bool	ft_z_buffer_setup(t_scene **scene)
 	(*scene)->z_buffer = (t_hit *)ft_calloc(1, sizeof(t_hit));
 	if (!(*scene)->z_buffer)
 		return (false);
+	(*scene)->z_buffer[0].t = DOUBLE_MAX;
 	return (true);
 }
 
@@ -44,10 +45,12 @@ static bool	ft_ray_buffer_setup(t_scene **scene)
 	(*scene)->ray_buffer = (t_ray *)ft_calloc(1, sizeof(t_ray));
 	if (!(*scene)->ray_buffer)
 		return (false);
+	(*scene)->ray_buffer[0].t_min = EPSILON;
+	(*scene)->ray_buffer[0].t_max = DOUBLE_MAX;
 	return (true);
 }
 
-bool	ft_object_prep(t_scene **scene)
+bool	ft_obj_prep_main(t_scene **scene)
 {
 	ft_camera_setup(scene);
 	if (!ft_z_buffer_setup(scene))
