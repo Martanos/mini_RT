@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
+#    By: sean <sean@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/02/20 14:44:50 by seayeo           ###   ########.fr        #
+#    Updated: 2025/03/04 14:42:26 by sean             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,11 @@ SRC_PARSING_UTILS	= parser_rgb.c parser_xyz.c parser_atod.c parser_utils.c
 SRC_PARSING_HANDLE_EXTRA_DATA = txm_handler.c bpm_handler.c mat_handler.c extra_data.c
 SRC_UTILITIES	= handle_errors.c handle_warnings.c mem_management.c \
 					 mlx_utils.c p_node_utils.c
-SRC_RENDER		= check_cone.c check_cylinder.c check_plane.c check_sphere.c \
+SRC_RENDER		= check_cylinder_main.c check_cylinder_side.c \
+					check_cylinder_caps.c check_cylinder_utils.c check_plane.c check_sphere.c \
 					intersection_check.c intersection_check_util.c ray_utils.c \
 					renderplane.c tracing.c render_main.c texture_mapping.c \
-					xpm_utils.c specular.c reflections.c smaa.c \
-					checkerboard.c
+					xpm_utils.c specular.c reflections.c checkerboard.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_parser/, $(SRC_PARSING)) \
 					$(addprefix $(SRC_DIR)/02_parser/read_file/, $(SRC_PARSING_READ_FILE)) \

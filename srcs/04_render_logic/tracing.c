@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/20 13:52:07 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:40:03 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ static void	add_light_contribution(t_light *light, t_intersection_info info,
 			ft_convert_rgb_arr(calc_specular(info.hit, master->cam_head.cord,
 					light, info.properties.mat), spec_rgb);
 			ft_clamp_rgb_values(spec_rgb, spec_rgb);
-			ft_color_mixer(rgb, spec_rgb, 0.5);
+			ft_color_add(rgb, spec_rgb);
 		}
-		ft_color_mixer(final, rgb, 0.5);
+		ft_color_add(final, rgb);
 	}
 }
 

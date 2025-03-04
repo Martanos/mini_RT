@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerboard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:24:12 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/18 17:01:33 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 13:53:45 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	checkerboard(double u, double v, t_texture txm, uint32_t *color)
 
 	u_check = ((int)floor(u * txm.scale * 8)) % 2;
 	v_check = ((int)floor(v * txm.scale * 8)) % 2;
-	// printf("u_check: %d, v_check: %d\n", u_check, v_check);
 	if ((u_check && v_check) || (!u_check && !v_check))
 		*color = txm.pri_color;
 	else

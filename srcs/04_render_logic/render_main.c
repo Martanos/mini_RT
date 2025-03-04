@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 17:07:21 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 17:56:30 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 13:44:04 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	start_renderloop(t_master *master)
 		}
 		y++;
 	}
-	if (master->aa_enabled)
-		apply_smaa(master);
 	mlx_put_image_to_window(master->mlx_ptr, master->win_ptr,
 		master->img.img_ptr, 0, 0);
 	mlx_hook(master->win_ptr, 17, 0, close_window, master);

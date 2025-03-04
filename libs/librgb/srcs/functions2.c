@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:31:37 by malee             #+#    #+#             */
-/*   Updated: 2025/02/20 12:59:50 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:15:09 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ void	ft_clamp_rgb_values(uint8_t *final, uint8_t *rgb_arr)
 ** @brief Adds the values of the second RGB array to the first RGB array
 ** @param rgb_arr1 First RGB array (will contain the sum)
 ** @param rgb_arr2 Second RGB array to add
+*/
+void	ft_color_add(uint8_t *rgb_arr1, uint8_t *rgb_arr2)
+{
+	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] + rgb_arr2[0], 255);
+	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] + rgb_arr2[1], 255);
+	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] + rgb_arr2[2], 255);
+}
+
+/*
+** @brief Mixes the values of two RGB arrays based on a ratio
+** @param rgb_arr1 First RGB array (will contain the result)
+** @param rgb_arr2 Second RGB array to mix
+** @param ratio Ratio of the first array in the mix (0.0 to 1.0)
 */
 void	ft_color_mixer(uint8_t *rgb_arr1, uint8_t *rgb_arr2, double ratio)
 {

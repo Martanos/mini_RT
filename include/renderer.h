@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/02/20 14:31:09 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:43:59 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_img				t_img;
 typedef struct s_sphere_collision	t_sphere_collision;
 typedef struct s_plane_collision	t_plane_collision;
 typedef struct s_cylinder_collision	t_cylinder_collision;
-typedef struct s_cone_collision		t_cone_collision;
 typedef struct s_intersection_info	t_intersection_info;
 
 /*
@@ -99,19 +98,10 @@ typedef struct s_cylinder_collision
 	t_cylinder						*closest_cylinder;
 }									t_cylinder_collision;
 
-// Tracks the closest cone intersection
-// - closest_t: Distance to the nearest cone intersection
-// - closest_cone: Pointer to the cone with the nearest intersection
-typedef struct s_cone_collision
-{
-	double							closest_t;
-	t_cone							*closest_cone;
-}									t_cone_collision;
-
 /*
  * Shape-Specific Intersection Functions:
  * Each geometric shape (sphere, plane,
- * cylinder, cone) has three associated functions:
+ * cylinder) has three associated functions:
  * 1. find_closest_*: Finds the closest intersection
  * with any object of that type
  * 2. check_*_collision: Tests for intersection between
@@ -140,7 +130,7 @@ void								calculate_plane_hit(t_ray ray,
 										t_plane_collision collision,
 										t_hit_record *rec);
 
-// check_cylinder.c
+// check_cylinder_main.c, check_cylinder_side.c, check_cylinder_caps.c, check_cylinder_utils.c
 t_cylinder_collision				find_closest_cylinder(t_ray ray,
 										t_master *master);
 double								check_cylinder_collision(t_ray ray,
@@ -148,21 +138,23 @@ double								check_cylinder_collision(t_ray ray,
 void								calculate_cylinder_hit(t_ray ray,
 										t_cylinder_collision collision,
 										t_hit_record *rec);
+// Cylinder side surface functions
+double								check_cylinder_side(t_ray ray,
+										t_cylinder *cylinder);
+// Cylinder cap functions
+double								check_cylinder_caps(t_ray ray,
+										t_cylinder *cylinder);
+// Cylinder utility functions
+t_vect								get_intersection_point(t_ray ray, double t);
+double								check_cylinder_height(t_ray ray, double t,
+										t_cylinder *cylinder);
+t_vect								get_cylinder_normal(t_vect point,
+										t_cylinder *cylinder, double proj);
 
-// check_cone.c
-t_cone_collision					find_closest_cone(t_ray ray,
-										t_master *master);
-double								check_cone_collision(t_ray ray,
-										t_cone *cone);
-void								calculate_cone_hit(t_ray ray,
-										t_cone_collision collision,
-										t_hit_record *rec);
 
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
 										double v, uint32_t *color);
-void								apply_tb(t_obj_pro pro, double u, double v,
-										uint32_t *color);
 void								checkerboard(double u, double v,
 										t_texture txm, uint32_t *color);
 
@@ -192,9 +184,6 @@ void								check_plane_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
 void								check_cylinder_intersection(t_ray ray,
-										t_master *master,
-										t_intersection_info *closest);
-void								check_cone_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
 
@@ -230,9 +219,7 @@ uint32_t							calculations(int x, int y,
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);
-void								apply_smaa(t_master *master);
 void								ft_render_scene(t_master *master);
-void								apply_post_aa(t_master *master);
 uint32_t							get_pixel(t_master *master, int x, int y);
 void								put_pixel(t_master *master, int x, int y,
 										uint32_t color);

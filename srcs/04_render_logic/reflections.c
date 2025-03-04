@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflections.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:51:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/13 15:30:58 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:24:19 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 /**
 
-	* @brief Calculates the reflected color for surfaces with a reflection coefficient
- *
+ * @brief Calculates the reflected color for surfaces with a reflection 
+ * coefficient
  * note: offsetting the origin of the reflected ray by a small amount to prevent
  * self-intersection
  * This function:
-
-	* 1. Checks the current recursion depth and the material's reflection coefficient.
+ * 1. Checks the current recursion depth and the material's reflection coeff.
  * 2. Computes the reflection direction using calc_reflected_ray().
  * 3. Casts a reflection ray and retrieves its color via ray_color().
  * 4. Converts both the surface color and the reflected color to RGB arrays.
-
-	* 5. Blends the two colors based on the reflection coefficient and returns the result.
+ * 5. Blends the two colors based on the reflection coefficient and returns.
  *
-
-	* @param info   Intersection information containing hit details and material properties
+ * @param info   Intersection information containing hit details
+ * and material properties
  * @param ray    The incoming ray that hit the surface
  * @param master The main structure containing scene objects and settings
  * @param depth  The remaining reflection depth
@@ -63,4 +61,3 @@ uint32_t	calculate_reflection(t_intersection_info info, t_ray ray,
 			+ refl_rgb[2] * info.properties.mat.refl);
 	return (ft_create_rgb(surface_rgb[0], surface_rgb[1], surface_rgb[2]));
 }
-

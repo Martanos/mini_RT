@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:37:45 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/09 18:24:25 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:44:27 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ bool	check_shadow_intersection(t_ray shadow_ray, double light_distance,
 	t_sphere_collision		shadow_sphere;
 	t_plane_collision		shadow_plane;
 	t_cylinder_collision	shadow_cylinder;
-	t_cone_collision		shadow_cone;
 
 	shadow_sphere = find_closest_sphere(shadow_ray, master);
 	shadow_plane = find_closest_plane(shadow_ray, master);
 	shadow_cylinder = find_closest_cylinder(shadow_ray, master);
-	shadow_cone = find_closest_cone(shadow_ray, master);
 	if (shadow_sphere.closest_sphere && shadow_sphere.closest_t
 		< light_distance)
 		return (true);
@@ -32,8 +30,6 @@ bool	check_shadow_intersection(t_ray shadow_ray, double light_distance,
 		return (true);
 	if (shadow_cylinder.closest_cylinder
 		&& shadow_cylinder.closest_t < light_distance)
-		return (true);
-	if (shadow_cone.closest_cone && shadow_cone.closest_t < light_distance)
 		return (true);
 	return (false);
 }
@@ -46,7 +42,6 @@ t_intersection_info	find_closest_intersection(t_ray ray, t_master *master)
 	check_sphere_intersection(ray, master, &closest);
 	check_plane_intersection(ray, master, &closest);
 	check_cylinder_intersection(ray, master, &closest);
-	check_cone_intersection(ray, master, &closest);
 	return (closest);
 }
 

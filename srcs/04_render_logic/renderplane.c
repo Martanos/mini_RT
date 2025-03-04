@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/02/18 15:10:31 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:45:49 by sean             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_vect	calculate_viewport_dimensions(t_master *master, double *width)
 {
 	double	aspect_ratio;
 	double	viewport_height;
-  
+
 	aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
 	viewport_height = 2.0 * tan((master->cam_head.fov * M_PI / 180.0) / 2.0);
 	*width = viewport_height * aspect_ratio;
@@ -73,7 +73,7 @@ uint32_t	calculations(int x, int y, t_master *master)
 	ray.origin = master->cam_head.cord;
 	ray.direction = get_pixel_position(get_viewport_upper_left(viewport_right,
 				viewport_hori, viewport_up), viewport_hori,
-				viewport_up, x, y);
+			viewport_up, x, y);
 	ray.direction = ft_vect_norm(ft_vect_sub(ray.direction, ray.origin));
-	return (ray_color(ray, master, 5));
+	return (ray_color(ray, master, 20));
 }
