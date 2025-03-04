@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 06:58:35 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 07:42:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ bool			ft_intersect_main(t_scene **scene);
 bool			ft_intersect_sphere(t_scene **scene, t_obj_data *sphere);
 bool			ft_intersect_plane(t_scene **scene, t_obj_data *plane);
 bool			ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder);
+bool			ft_intersect_cylinder_side(t_ray *ray, t_obj_data *cylinder,
+					t_quadratic *quad, t_hit *hit);
+bool			ft_intersect_cylinder_cap(t_ray *ray, t_obj_data *cylinder,
+					t_hit *hit, bool is_top_cap);
 bool			ft_intersect_cone(t_scene **scene, t_obj_data *cone);
 // 3. Z-buffer setup
 void			ft_setup_z_buffer(t_scene **scene);
