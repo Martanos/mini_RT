@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/28 22:33:20 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 19:12:33 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ typedef struct s_texture
 typedef struct s_material
 {
 	bool			enabled;
-	double amb;  // Range: [0.0, 1.0] - How much ambient light is reflected
-	double diff; // Range: [0.0, 1.0] - How much diffuse light is reflected
-	double spec; // Range: [0.0, 1.0] - How much specular light is reflected
-	double shin; // Range: [0.0, ∞)   - Typically [1.0, 200.0] is common
-					// Higher values = smaller, sharper highlights
-	double refl; // Range: [0.0, 1.0] - How reflective the surface is
-					// 0.0 = not reflective, 1.0 = perfect mirror
+	double			amb;
+	double			diff;
+	double			spec;
+	double			shin;
+	double			refl;
 }					t_material;
 
 typedef struct s_bump_map
@@ -83,25 +81,46 @@ typedef enum e_obj_type
 // Unique properties for each object type
 typedef union u_obj_prop
 {
-	struct
+	struct			s_plane
 	{
 		double		diameter;
-	} plane;
-	struct
+		double		distance_from_origin;
+	} t_plane;
+	struct			s_sphere
 	{
 		double		diameter;
-	} sphere;
-	struct
-	{
-		double		height;
-		double		diameter;
-	} cylinder;
-	struct
+		double		radius;
+		double		radius_squared;
+	} t_sphere;
+	struct			s_cylinder
 	{
 		double		height;
 		double		diameter;
-	} cone;
+		double		radius;
+		double		radius_squared;
+		double		half_height;
+		t_vect		top_cap;
+		t_vect		bottom_cap;
+	} t_cylinder;
+	struct			s_cone
+	{
+		double		height;
+		double		diameter;
+		double		radius;
+		double		radius_squared;
+		double		half_height;
+		double		slope;
+		t_vect		apex;
+		double		cos_apex;
+	} t_cone;
 }					t_obj_prop;
+
+typedef struct s_local_coords
+{
+	t_vect			normal;
+	t_vect			tangent;
+	t_vect			bitangent;
+}					t_local_coords;
 
 typedef struct s_obj_data
 {
@@ -111,6 +130,7 @@ typedef struct s_obj_data
 	t_material		mat;
 	t_texture		txm;
 	t_bump_map		bpm;
+	t_local_coords	local;
 	t_obj_prop		props;
 	double			u;
 	double			v;
@@ -131,8 +151,10 @@ typedef struct s_cam
 	t_vect			dir;
 	t_vect			up;
 	t_vect			right;
-	double			aspect_ratio;
 	double			fov;
+	double			aspect_ratio;
+	int				win_height;
+	int				win_width;
 	double			viewport_height;
 	double			viewport_width;
 }					t_cam;
@@ -142,11 +164,6 @@ typedef struct s_light
 	t_vect			cord;
 	double			ratio;
 	uint32_t		rgb;
-	double			radius;
-	double			falloff;
-	bool			is_spot;
-	t_vect			direction;
-	double			angle;
 	t_light			*next;
 }					t_light;
 
@@ -159,6 +176,8 @@ typedef struct s_scene
 	t_cam			cam_data;
 	t_light			*light_data;
 	t_obj_data		*obj_head;
+	t_hit			*z_buffer;
+	t_ray			*ray_buffer;
 	bool			aa_enabled;
 	int				aa_samples;
 }					t_scene;

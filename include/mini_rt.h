@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/28 22:27:53 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 14:59:30 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@
 # include "../libs/librgb/includes/librgb.h"
 # include "../libs/libvect/includes/libvect.h"
 # include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "object_structures.h"
 # include "parser.h"
 # include "renderer.h"
+# include <X11/XKBlib.h>
+# include <X11/Xlib.h>
+# include <X11/Xutil.h>
+# include <X11/extensions/XShm.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>

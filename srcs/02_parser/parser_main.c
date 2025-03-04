@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 22:48:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/04 15:39:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,19 @@ static bool	ft_initmlx(t_scene **scene)
 	(*scene)->mlx_ptr = mlx_init();
 	if (!(*scene)->mlx_ptr)
 		return (ft_error("mlx failed to initialize"));
-	(*scene)->win_ptr = mlx_new_window((*scene)->mlx_ptr, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "miniRT");
+	(*scene)->win_ptr = mlx_new_window((*scene)->mlx_ptr, DEFAULT_WINDOW_WIDTH,
+			DEFAULT_WINDOW_HEIGHT, "miniRT");
 	if (!(*scene)->win_ptr)
 		return (ft_error("mlx failed to create window"));
-	(*scene)->img.img_ptr = mlx_new_image((*scene)->mlx_ptr, WINDOW_WIDTH,
-			WINDOW_HEIGHT);
+	(*scene)->img.img_ptr = mlx_new_image((*scene)->mlx_ptr,
+			DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 	if (!(*scene)->img.img_ptr)
 		return (ft_error("mlx failed to create image"));
 	(*scene)->img.pixels_ptr = mlx_get_data_addr((*scene)->img.img_ptr,
 			&(*scene)->img.bpp, &(*scene)->img.line_len, &(*scene)->img.endian);
 	if (!(*scene)->img.pixels_ptr)
 		return (ft_error("mlx failed to get image address"));
+	mlx_clear_window((*scene)->mlx_ptr, (*scene)->win_ptr);
 	return (true);
 }
 
@@ -130,7 +131,7 @@ t_scene	*ft_parser(char *file_path)
 		return (ft_error("No ambient light found"), ft_free_scene(scene), NULL);
 	if (!scene->cam_data.set)
 		return (ft_error("No camera found"), ft_free_scene(scene), NULL);
-	if (!scene->light_set)
+	if (!scene->light_data)
 		return (ft_error("No light found"), ft_free_scene(scene), NULL);
 	return (scene);
 }

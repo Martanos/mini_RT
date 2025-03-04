@@ -11,7 +11,10 @@
 		"math.h": "c",
 		"libvect.h": "c",
 		"object_structures.h": "c",
-		"errno.h": "c"
+		"errno.h": "c",
+		"mlx_int.h": "c",
+		"unistd.h": "c",
+		"xshm.h": "c"
 	},
 	"makefile.configureOnOpen": false
 }
