@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/02/23 01:02:26 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/28 22:33:20 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ typedef struct s_obj_data
 	t_texture		txm;
 	t_bump_map		bpm;
 	t_obj_prop		props;
+	double			u;
+	double			v;
 	t_obj_data		*next;
 }					t_obj_data;
 

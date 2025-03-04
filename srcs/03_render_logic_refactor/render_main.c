@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:07:29 by malee             #+#    #+#             */
-/*   Updated: 2025/02/23 01:43:14 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/28 22:36:24 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ bool	ft_render_main(t_scene **scene)
 	int	y;
 
 	ft_camera_setup(scene);
+	ft_prep_objects(scene);
 	y = 0;
 	while (y < WINDOW_HEIGHT)
 	{

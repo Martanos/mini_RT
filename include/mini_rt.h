@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 22:05:10 by malee            ###   ########.fr       */
+/*   Updated: 2025/02/28 22:27:53 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@
 
 // DEFINES
 
-# define EPSILON 1e-6
-# define M_PI 3.14159265358979323846
-# define DOUBLE_MAX 9007199254740991.0
-# define DOUBLE_MIN -9007199254740991.0
 # define WHITE "\033[37m"       // Full white
 # define BLACK "\033[30m"       // Full black
 # define RED "\033[31m"         // Bright red
