@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 06:21:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 06:23:02 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 07:48:18 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static bool	ft_single_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
 
 static bool	ft_multi_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
 {
-	int i;
-	int j;
-	bool hit_anything;
-	t_hit *z_buffer;
+	int		i;
+	int		j;
+	bool	hit_anything;
+	t_hit	*z_buffer;
 
 	z_buffer = (*scene)->z_buffer;
 	i = -1;

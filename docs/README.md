@@ -1,18 +1,6 @@
 Structural overview of the code.
 
-1. Parsing
-    - Parses the scene file and creates the scene struct
-    - Parses the camera data and creates the camera struct
-    - Parses the light data and creates the light struct
-    - Parses the object data and creates the object struct
 
-2. Object prep
-    - Objective for this section is to prepare "static" values ie (Normalized view port dimensions)
-    Flow:
-        ft_object_prep_main()
-            - ft_cam_prep()
-            - ft_light_prep()
-            - ft_obj_prep()
 
 3. Render
 4. Utils
