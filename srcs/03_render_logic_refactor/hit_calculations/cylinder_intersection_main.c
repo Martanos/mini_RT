@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 20:17:30 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 07:42:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:43:23 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,20 @@ bool	ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder)
 	t_hit		temp_hit;
 
 	hit_anything = false;
-	temp_hit = (*scene)->z_buffer[0];
-	if (ft_intersect_cylinder_side((*scene)->ray_buffer, cylinder, &quad,
-			&temp_hit))
+	temp_hit = (*scene)->hit;
+	if (ft_intersect_cylinder_side(&(*scene)->ray, cylinder, &quad, &temp_hit))
 	{
-		(*scene)->z_buffer[0] = temp_hit;
+		(*scene)->hit = temp_hit;
 		hit_anything = true;
 	}
-	if (ft_intersect_cylinder_cap((*scene)->ray_buffer, cylinder, &temp_hit,
-			true))
+	if (ft_intersect_cylinder_cap(&(*scene)->ray, cylinder, &temp_hit, true))
 	{
-		(*scene)->z_buffer[0] = temp_hit;
+		(*scene)->hit = temp_hit;
 		hit_anything = true;
 	}
-	if (ft_intersect_cylinder_cap((*scene)->ray_buffer, cylinder, &temp_hit,
-			false))
+	if (ft_intersect_cylinder_cap(&(*scene)->ray, cylinder, &temp_hit, false))
 	{
-		(*scene)->z_buffer[0] = temp_hit;
+		(*scene)->hit = temp_hit;
 		hit_anything = true;
 	}
 	return (hit_anything);

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 09:50:25 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 11:19:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,15 @@ bool			ft_intersect_cone_base(t_ray *ray, t_obj_data *cone,
 					t_hit *hit);
 // 3. Colour calcs
 void			ft_get_base_colour(t_hit **hit);
-void			ft_apply_bump_mapping(t_hit *hit);
-// 4. Z-buffer setup
-void			ft_setup_z_buffer(t_scene **scene);
+// 4. Normal calcs
+void			ft_apply_bump_mapping(t_hit **hit);
+void			ft_calculate_surface_normal(t_hit **hit);
+// 5. Lighting calcs
+void			ft_apply_lighting(t_scene **scene, t_ray *ray, t_hit *hit,
+					t_vect *color);
+void			ft_calculate_lighting(t_scene **scene, t_ray *ray, t_hit *hit);
+bool			ft_is_in_shadow(t_scene **scene, t_light *light);
+t_vect			ft_calculate_specular(t_ray *ray, t_hit *hit, t_light *light,
+					t_vect light_dir);
 
 #endif

@@ -29,13 +29,22 @@ Structural overview of the code.
    - Apply checkerboard pattern if specified
    - Sample bump/normal maps if present
 
-6. Normal Calculation
+6. Texture Application
+   - Map 3D intersection point to 2D texture coordinates
+   - For checkerboard:
+     - Scale and offset coordinates
+     - Determine pattern color based on position
+   - For image textures:
+     - Sample texture at mapped coordinates
+     - Apply texture filtering if needed
+
+7. Normal Calculation
    - Get geometric normal at intersection point
    - If bump map exists, perturb normal using height differences
    - If normal map exists, transform sampled normal to world space
    - Normalize final normal vector
 
-7. Lighting Calculation (Phong Model)
+8. Lighting Calculation (Phong Model)
    - For each light source:
      - Calculate light direction vector
      - Check for shadows (cast shadow ray)
@@ -44,19 +53,10 @@ Structural overview of the code.
      - Apply light attenuation based on distance
      - Accumulate light contributions
 
-8. Specular Reflection
+9. Specular Reflection
    - Calculate reflection direction using incident ray and surface normal
    - Cast reflection ray recursively (with depth limit)
    - Blend reflection color with local color based on material reflectivity
-
-9. Texture Application
-   - Map 3D intersection point to 2D texture coordinates
-   - For checkerboard:
-     - Scale and offset coordinates
-     - Determine pattern color based on position
-   - For image textures:
-     - Sample texture at mapped coordinates
-     - Apply texture filtering if needed
 
 10. Final Color Composition
     - Combine all lighting components

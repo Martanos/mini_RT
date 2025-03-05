@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:25:47 by malee             #+#    #+#             */
-/*   Updated: 2025/02/06 22:30:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:12:16 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBVECT_H
 
 # include <math.h>
+# include <stdint.h>
 
 typedef struct s_vect	t_vect;
 
@@ -50,5 +51,5 @@ double					ft_vect_mag(t_vect a);
 
 // STRUCT FUNCTIONS
 t_vect					ft_vect_create(double x, double y, double z);
-
+t_vect					ft_rgb_to_vect(uint32_t rgb);
 #endif

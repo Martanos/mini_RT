@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 20:17:34 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 06:58:37 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:42:47 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,22 @@ bool	ft_intersect_plane(t_scene **scene, t_obj_data *plane)
 	double	t;
 
 	normal = plane->norm_dir;
-	denom = ft_vect_dot(normal, (*scene)->ray_buffer->direction);
+	denom = ft_vect_dot(normal, (*scene)->ray.direction);
 	if (fabs(denom) < EPSILON)
 		return (false);
-	oc = ft_vect_sub(plane->cord, (*scene)->ray_buffer->origin);
+	oc = ft_vect_sub(plane->cord, (*scene)->ray.origin);
 	t = ft_vect_dot(oc, normal) / denom;
-	if (t < (*scene)->ray_buffer->t_min || t > (*scene)->ray_buffer->t_max
-		|| t >= (*scene)->z_buffer->t)
+	if (t < (*scene)->ray.t_min || t > (*scene)->ray.t_max
+		|| t >= (*scene)->hit.t)
 		return (false);
-	(*scene)->z_buffer->t = t;
-	(*scene)->z_buffer->point = ft_vect_add((*scene)->ray_buffer->origin,
-			ft_vect_mul_all((*scene)->ray_buffer->direction, t));
-	(*scene)->z_buffer->normal = normal;
-	(*scene)->z_buffer->object = plane;
-	(*scene)->z_buffer->front_face = ft_vect_dot((*scene)->ray_buffer->direction,
-			normal) < 0;
-	if (!(*scene)->z_buffer->front_face)
-		(*scene)->z_buffer->normal = ft_vect_mul_all(normal, -1);
-	ft_calculate_plane_uv((*scene)->z_buffer);
+	(*scene)->hit.t = t;
+	(*scene)->hit.point = ft_vect_add((*scene)->ray.origin,
+			ft_vect_mul_all((*scene)->ray.direction, t));
+	(*scene)->hit.normal = normal;
+	(*scene)->hit.object = plane;
+	(*scene)->hit.front_face = ft_vect_dot((*scene)->ray.direction, normal) < 0;
+	if (!(*scene)->hit.front_face)
+		(*scene)->hit.normal = ft_vect_mul_all(normal, -1);
+	ft_calculate_plane_uv(&(*scene)->hit);
 	return (true);
 }

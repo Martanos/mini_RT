@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 00:11:31 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:41:12 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,10 @@ typedef struct s_scene
 	t_cam			cam_data;
 	t_light			*light_data;
 	t_obj_data		*obj_head;
-	t_hit			*z_buffer;
-	t_ray			*ray_buffer;
+	t_hit			hit;
+	t_ray			ray;
+	t_ray			shadow_ray;
+	t_hit			shadow_hit;
 }					t_scene;
 
 #endif

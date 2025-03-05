@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 06:21:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 07:48:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:39:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	ft_single_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
 	(*scene)->ray_buffer[0].u_offset = 0.5;
 	(*scene)->ray_buffer[0].v_offset = 0.5;
 	ft_generate_primary_ray(scene, x, y);
-	if (ft_find_closest_intersection(scene))
+	if (ft_intersect_main(scene))
 	{
 		(*scene)->z_buffer[0].pixel_color = ft_compute_pixel_color(scene,
 				&(*scene)->ray_buffer[0], &(*scene)->z_buffer[0]);
@@ -66,7 +66,7 @@ static bool	ft_multi_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
 			(*scene)->ray_buffer->u_offset = (i + ft_random_double()) / AA;
 			(*scene)->ray_buffer->v_offset = (j + ft_random_double()) / AA;
 			ft_generate_primary_ray(scene, x, y);
-			if (ft_find_closest_intersection(scene))
+			if (ft_intersect_main(scene))
 			{
 				hit_anything = true;
 				ft_compute_pixel_color(scene);

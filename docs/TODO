@@ -1,11 +1,4 @@
 TODO:
-
-5. Normal Calculation
-   - Get geometric normal at intersection point
-   - If bump map exists, perturb normal using height differences
-   - If normal map exists, transform sampled normal to world space
-   - Normalize final normal vector
-
 6. Lighting Calculation (Phong Model)
    - For each light source:
      - Calculate light direction vector

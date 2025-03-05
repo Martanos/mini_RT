@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 20:16:39 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 08:01:36 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 10:43:35 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ bool	ft_intersect_cone(t_scene **scene, t_obj_data *cone)
 	t_hit		temp_hit;
 
 	hit_anything = false;
-	temp_hit = (*scene)->z_buffer[0];
-	if (ft_intersect_cone_side((*scene)->ray_buffer, cone, &quad, &temp_hit))
+	temp_hit = (*scene)->hit;
+	if (ft_intersect_cone_side(&(*scene)->ray, cone, &quad, &temp_hit))
 	{
-		(*scene)->z_buffer[0] = temp_hit;
+		(*scene)->hit = temp_hit;
 		hit_anything = true;
 	}
-	if (ft_intersect_cone_base((*scene)->ray_buffer, cone, &temp_hit))
+	if (ft_intersect_cone_base(&(*scene)->ray, cone, &temp_hit))
 	{
-		(*scene)->z_buffer[0] = temp_hit;
+		(*scene)->hit = temp_hit;
 		hit_anything = true;
 	}
 	return (hit_anything);
