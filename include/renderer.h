@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 11:19:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 11:46:36 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ typedef struct s_hit
 	t_vect		normal;
 	t_vect		tangent;
 	t_vect		bitangent;
-	uint32_t	pixel_color;
-	uint32_t	final_color;
-	int			r_sum;
-	int			g_sum;
-	int			b_sum;
+	t_vect		pixel_color;
 	t_obj_data	*object;
 	bool		front_face;
 }				t_hit;

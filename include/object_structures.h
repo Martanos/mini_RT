@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:41:12 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 11:33:56 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,9 @@ typedef struct s_scene
 	t_ray			ray;
 	t_ray			shadow_ray;
 	t_hit			shadow_hit;
+	t_ray			reflect_ray;
+	t_hit			reflect_hit;
+	t_vect			reflect_color;
 }					t_scene;
 
 #endif

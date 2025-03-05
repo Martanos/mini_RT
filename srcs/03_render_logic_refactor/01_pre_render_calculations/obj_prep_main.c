@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 12:29:52 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:44:08 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 12:02:35 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ static void	ft_camera_setup(t_scene **scene)
 bool	ft_obj_prep_main(t_scene **scene)
 {
 	ft_camera_setup(scene);
+	ft_setup_obj_calcs(scene);
 	return (true);
 }

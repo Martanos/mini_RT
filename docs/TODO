@@ -1,18 +1,4 @@
 TODO:
-6. Lighting Calculation (Phong Model)
-   - For each light source:
-     - Calculate light direction vector
-     - Check for shadows (cast shadow ray)
-     - Calculate diffuse component (Lambert's law)
-     - Calculate specular component (Phong reflection)
-     - Apply light attenuation based on distance
-     - Accumulate light contributions
-
-7. Specular Reflection
-   - Calculate reflection direction using incident ray and surface normal
-   - Cast reflection ray recursively (with depth limit)
-   - Blend reflection color with local color based on material reflectivity
-
 8. Texture Application
    - Map 3D intersection point to 2D texture coordinates
    - For checkerboard:
@@ -21,6 +7,11 @@ TODO:
    - For image textures:
      - Sample texture at mapped coordinates
      - Apply texture filtering if needed
+
+7. Specular Reflection
+   - Calculate reflection direction using incident ray and surface normal
+   - Cast reflection ray recursively (with depth limit)
+   - Blend reflection color with local color based on material reflectivity
 
 9. Final Color Composition
    - Combine all lighting components

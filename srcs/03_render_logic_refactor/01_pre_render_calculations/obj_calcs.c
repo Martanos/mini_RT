@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_calcs_main.c                                   :+:      :+:    :+:   */
+/*   obj_calcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 22:05:02 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:44:17 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 12:03:00 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-static	ft_init_local_cords(t_obj_data **obj)
+static void	ft_init_local_cords(t_obj_data **obj)
 {
 	t_vect	temp;
 
