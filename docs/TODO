@@ -4,6 +4,7 @@ TODO:
    - Get texture coordinates at intersection point
    - Apply checkerboard pattern if specified
    - Sample bump/normal maps if present
+   NOTES: SOLID CHECKERBOARD PATTERN AND TEXTURES ARE MUTUALLY EXCLUSIVE
 
 5. Normal Calculation
    - Get geometric normal at intersection point

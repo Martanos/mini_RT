@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 08:00:09 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 09:50:25 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ typedef struct s_hit
 	t_vect		tangent;
 	t_vect		bitangent;
 	uint32_t	pixel_color;
+	uint32_t	final_color;
 	int			r_sum;
 	int			g_sum;
 	int			b_sum;
-	int			r_final;
-	int			g_final;
-	int			b_final;
 	t_obj_data	*object;
 	bool		front_face;
 }				t_hit;
@@ -94,7 +92,10 @@ bool			ft_intersect_cone_side(t_ray *ray, t_obj_data *cone,
 					t_quadratic *quad, t_hit *hit);
 bool			ft_intersect_cone_base(t_ray *ray, t_obj_data *cone,
 					t_hit *hit);
-// 3. Z-buffer setup
+// 3. Colour calcs
+void			ft_get_base_colour(t_hit **hit);
+void			ft_apply_bump_mapping(t_hit *hit);
+// 4. Z-buffer setup
 void			ft_setup_z_buffer(t_scene **scene);
 
 #endif

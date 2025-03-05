@@ -73,3 +73,8 @@ Important notes:
 - Max recursion depth is hard set to 30.
 - Initial window size is 800x600 but can adapt to window changes. Just keep in mind that the aspect ratio is not maintained and normals are not adjusted.
 - All lights are spotlights and direction is currently just straight up.
+
+Improvements:
+- proper z_buffer logic
+- proper transformations for bump maps and textures
+
