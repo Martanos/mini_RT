@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 06:21:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:39:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 21:19:32 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,40 @@ static double	ft_random_double(void)
 	return (double)rand() / (RAND_MAX + 1.0);
 }
 
-static void	ft_generate_primary_ray(t_scene **scene, int x, int y)
+static void	ft_populate_ray(t_scene **scene, t_z_buffer **z_buffer)
 {
-	t_ray	*ray;
-
-	ray = (*scene)->ray_buffer;
-	ray->u = (x + ray->u_offset) / ((*scene)->cam_data.win_width - 1);
-	ray->v = (((*scene)->cam_data.win_height - 1 - y) + ray->v_offset)
+	(*z_buffer)->ray.u = ((*z_buffer)->hit.img_x + (*z_buffer)->ray.u_offset)
+		/ ((*scene)->cam_data.win_width - 1);
+	(*z_buffer)->ray.v = (((*scene)->cam_data.win_height - 1
+				- (*z_buffer)->hit.img_y) + (*z_buffer)->ray.v_offset)
 		/ ((*scene)->cam_data.win_height - 1);
-	ray->u = (2.0 * ray->u - 1.0) * ((*scene)->cam_data.viewport_width / 2.0);
-	ray->v = (2.0 * ray->v - 1.0) * ((*scene)->cam_data.viewport_height / 2.0);
-	ray->origin = (*scene)->cam_data.cord;
-	ray->direction = ft_vect_add((*scene)->cam_data.dir,
-			ft_vect_add(ft_vect_mul_all((*scene)->cam_data.right, ray->u),
-				ft_vect_mul_all((*scene)->cam_data.up, ray->v)));
-	ray->direction = ft_vect_norm(ray->direction);
+	(*z_buffer)->ray.u = (2.0 * (*z_buffer)->ray.u - 1.0)
+		* ((*scene)->cam_data.viewport_width / 2.0);
+	(*z_buffer)->ray.v = (2.0 * (*z_buffer)->ray.v - 1.0)
+		* ((*scene)->cam_data.viewport_height / 2.0);
+	(*z_buffer)->ray.origin = (*scene)->cam_data.cord;
+	(*z_buffer)->ray.direction = ft_vect_add((*scene)->cam_data.dir,
+			ft_vect_add(ft_vect_mul_all((*scene)->cam_data.right,
+					(*z_buffer)->ray.u), ft_vect_mul_all((*scene)->cam_data.up,
+					(*z_buffer)->ray.v)));
+	(*z_buffer)->ray.direction = ft_vect_norm((*z_buffer)->ray.direction);
 }
 
-static bool	ft_single_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
+bool	ft_single_ray(t_scene **scene, t_z_buffer **z_buffer)
 {
-	(*scene)->ray_buffer[0].u_offset = 0.5;
-	(*scene)->ray_buffer[0].v_offset = 0.5;
-	ft_generate_primary_ray(scene, x, y);
+	(*z_buffer)->ray.u_offset = 0.5;
+	(*z_buffer)->ray.v_offset = 0.5;
+	ft_populate_ray(scene, z_buffer);
 	if (ft_intersect_main(scene))
 	{
-		(*scene)->z_buffer[0].pixel_color = ft_compute_pixel_color(scene,
-				&(*scene)->ray_buffer[0], &(*scene)->z_buffer[0]);
+		(*z_buffer)->hit.pixel_color = ft_compute_pixel_color(scene,
+				&(*z_buffer)->ray, &(*z_buffer)->hit);
 		return (true);
 	}
 	return (false);
 }
 
-static bool	ft_multi_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
+bool	ft_multi_ray(t_scene **scene, int x, int y, uint32_t *pixel_color)
 {
 	int		i;
 	int		j;

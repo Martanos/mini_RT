@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 11:46:36 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 21:11:26 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ typedef struct s_hit
 	double		t;
 	double		u;
 	double		v;
+	int			img_x;
+	int			img_y;
 	t_vect		point;
 	t_vect		normal;
 	t_vect		tangent;
 	t_vect		bitangent;
 	t_vect		pixel_color;
+	uint32_t	final_color;
 	t_obj_data	*object;
 	bool		front_face;
 }				t_hit;
@@ -51,6 +54,17 @@ typedef struct s_ray
 	double		t_max;
 	int			depth;
 }				t_ray;
+
+typedef struct s_z_buffer
+{
+	t_hit		hit;
+	t_ray		ray;
+	t_hit		shadow_hit;
+	t_ray		shadow_ray;
+	t_hit		reflect_hit;
+	t_ray		reflect_ray;
+	t_vect		reflect_color;
+}				t_z_buffer;
 
 typedef struct s_quadratic
 {

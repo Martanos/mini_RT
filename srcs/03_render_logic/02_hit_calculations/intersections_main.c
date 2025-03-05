@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 22:57:57 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 08:09:36 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 21:19:01 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	ft_intersect_object(t_scene **scene, t_obj_data *obj)
 	return (false);
 }
 
-bool	ft_intersect_main(t_scene **scene)
+bool	ft_closest_hit(t_scene **scene, t_z_buffer **z_buffer)
 {
 	bool hit;
 	t_obj_data *current;
