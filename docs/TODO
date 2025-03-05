@@ -1,20 +1,4 @@
 TODO:
-1. Static values
-   - Camera
-   - Objects
-   - Materials
-   - Textures
-   - Bump maps
-
-2. Primary Ray Generation
-   - Calculate camera ray direction for each pixel
-   - Apply camera transformation matrix
-
-3. Intersection Testing
-   - Test ray against all objects in scene
-   - Find closest intersection point
-   - Store intersection information (point, normal, material)
-
 4. Material Property Gathering
    - Get base material color
    - Get texture coordinates at intersection point
