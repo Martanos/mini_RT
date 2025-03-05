@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:47:01 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 07:59:53 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 08:01:29 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  * Calculate cone base center and normal vector
  */
-void	ft_cone_base_properties(t_obj_data *cone, t_vect *base_center,
+static void	ft_cone_base_properties(t_obj_data *cone, t_vect *base_center,
 		t_vect *base_normal)
 {
 	t_vect	axis;
@@ -32,7 +32,7 @@ void	ft_cone_base_properties(t_obj_data *cone, t_vect *base_center,
  * Calculate the intersection distance (t) with the base plane
  * Returns false if no valid intersection
  */
-bool	ft_base_plane_intersection(t_ray *ray, t_vect base_center,
+static bool	ft_base_plane_intersection(t_ray *ray, t_vect base_center,
 		t_vect base_normal, double *t)
 {
 	double	denom;
@@ -51,7 +51,7 @@ bool	ft_base_plane_intersection(t_ray *ray, t_vect base_center,
 /*
  * Check if the intersection point is within the base radius
  */
-bool	ft_is_within_base(t_vect intersection, t_vect base_center,
+static bool	ft_is_within_base(t_vect intersection, t_vect base_center,
 		t_vect base_normal, double radius)
 {
 	t_vect	vec_to_center;

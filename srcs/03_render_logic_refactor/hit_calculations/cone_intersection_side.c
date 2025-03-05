@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:45:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 07:56:37 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/05 08:01:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  * Check if intersection point is within the cone's height
  */
-bool	ft_is_within_cone_height(t_vect point, t_obj_data *cone,
+static bool	ft_is_within_cone_height(t_vect point, t_obj_data *cone,
 		double *height_proj)
 {
 	t_vect	axis;
@@ -29,7 +29,8 @@ bool	ft_is_within_cone_height(t_vect point, t_obj_data *cone,
 /*
  * Calculate UV coordinates on the cone for texture mapping
  */
-void	ft_calculate_cone_uv(t_hit *hit, t_obj_data *cone, double height_proj)
+static void	ft_calculate_cone_uv(t_hit *hit, t_obj_data *cone,
+		double height_proj)
 {
 	t_vect	axis_point;
 	t_vect	ref;
@@ -60,7 +61,7 @@ void	ft_calculate_cone_uv(t_hit *hit, t_obj_data *cone, double height_proj)
  * Set up the quadratic equation coefficients for cone side intersection
  * Returns false if there's no possible intersection
  */
-bool	ft_cone_side_setup_quadratic(t_ray *ray, t_obj_data *cone,
+static bool	ft_cone_side_setup_quadratic(t_ray *ray, t_obj_data *cone,
 		t_quadratic *quad)
 {
 	t_vect	axis;
@@ -91,7 +92,7 @@ bool	ft_cone_side_setup_quadratic(t_ray *ray, t_obj_data *cone,
 /*
  * Calculate the normal vector at the hit point on cone side
  */
-t_vect	ft_cone_side_normal(t_vect hit_point, t_obj_data *cone,
+static t_vect	ft_cone_side_normal(t_vect hit_point, t_obj_data *cone,
 		double height_proj)
 {
 	t_vect	axis;
