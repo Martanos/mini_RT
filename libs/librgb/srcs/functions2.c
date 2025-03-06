@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:31:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:16:59 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 17:07:54 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,4 @@ void	ft_color_to_rgb(uint32_t color, double *r, double *g, double *b)
 	*r = ((color >> 16) & 0xFF) / 255.0;
 	*g = ((color >> 8) & 0xFF) / 255.0;
 	*b = (color & 0xFF) / 255.0;
-}
-
-/*
-** @brief Converts RGB components to uint32_t color
-** @param r red value
-** @param g green value
-** @param b blue value
-** @return uint32_t color
-*/
-uint32_t	ft_rgb_to_color(double r, double g, double b)
-{
-	int	ir;
-	int	ig;
-	int	ib;
-
-	ir = fmin(fmax(r * 255, 0), 255);
-	ig = fmin(fmax(g * 255, 0), 255);
-	ib = fmin(fmax(b * 255, 0), 255);
-	return ((ir << 16) | (ig << 8) | ib);
 }
