@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 23:40:59 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:46:59 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	ft_add_obj(t_scene **scene, t_obj_data **obj)
 	t_obj_data	*temp;
 
 	if ((*scene)->obj_head == NULL)
-		(*scene)->obj_head = obj;
+		(*scene)->obj_head = *obj;
 	else
 	{
 		temp = (*scene)->obj_head;
 		while (temp->next != NULL)
 			temp = temp->next;
-		temp->next = obj;
+		temp->next = *obj;
 	}
 }
 

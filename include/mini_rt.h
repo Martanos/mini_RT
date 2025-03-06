@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 14:11:43 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:57:56 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libs/librgb/includes/librgb.h"
 # include "../libs/libvect/includes/libvect.h"
 # include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+// # include "../minilibx-linux/mlx_int.h"
 # include "object_structures.h"
 # include "parser.h"
 # include "renderer.h"

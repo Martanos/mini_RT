@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cam.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:14:23 by malee             #+#    #+#             */
-/*   Updated: 2025/02/22 22:13:34 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:47:02 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ bool	ft_create_cam(t_scene **scene, t_p_node **cur)
 			"Camera coordinates are out of range [-INFINITY, INFINITY]")
 		|| !ft_next(cur, "Camera has no normal"))
 		return (false);
-	(*scene)->cam_data.norm = ft_get_xyz(cur);
-	if (!ft_is_valid_vector((*scene)->cam_data.norm, -1, 1,
+	(*scene)->cam_data.dir = ft_get_xyz(cur);
+	if (!ft_is_valid_vector((*scene)->cam_data.dir, -1, 1,
 			"Camera normal is out of range [-1, 1]") || !ft_next(cur,
 			"Camera has no FOV"))
 		return (false);

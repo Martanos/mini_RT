@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 14:19:36 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:37:18 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_quadratic
 	double		t2;
 }				t_quadratic;
 
+void			ft_render_main(t_scene **scene);
 // MLX UTILS
 void			ft_pixel_put(t_img *img, int x, int y, int color);
 // 0. Static value setup

@@ -6,14 +6,14 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:08:11 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/06 14:19:03 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:54:29 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/mini_rt.h"
 
 // Mouse release event handler
-static int	mouse_release(int button, int x, int y, void *param)
+static int	mouse_release(int button, void *param)
 {
 	t_scene	*scene;
 
@@ -63,8 +63,6 @@ static int	mouse_move(int x, int y, void *param)
 			scene->cam_data.win_width = MIN_WIDTH;
 		if (scene->cam_data.win_height < MIN_HEIGHT)
 			scene->cam_data.win_height = MIN_HEIGHT;
-		mlx_resize_window(scene->mlx_ptr, scene->win_ptr,
-			scene->cam_data.win_width, scene->cam_data.win_height);
 		scene->mouse_data.start_x = x;
 		scene->mouse_data.start_y = y;
 	}
