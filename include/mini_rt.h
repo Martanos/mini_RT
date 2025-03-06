@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 11:03:44 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 13:34:17 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,17 @@
 int		close_window(void *param);
 int		key_hook(int keycode, void *param);
 
-// Master management UTILS
-void	ft_free_master(t_master *master);
-void	ft_free_img(t_master *master);
+// Scene management UTILS
+void	ft_free_scene(t_scene *scene);
+void	ft_free_img(t_scene *scene);
 
 // Memory management UTILS
-void	ft_free_node(void *node, t_obj_type type, t_master *master);
-void	ft_free_list(void *head, t_obj_type type, t_master *master);
+void	ft_free_node(t_obj_data *node, t_scene *scene);
+void	ft_free_obj_list(t_obj_data *head, t_scene *scene);
+void	ft_free_light_list(t_light *head);
 
 // Error and warning utils
-void	ft_exit(t_master *master, char *error_message);
+void	ft_exit(t_scene *scene, char *error_message);
 bool	ft_error(char *msg);
 void	ft_warning(char *msg);
 

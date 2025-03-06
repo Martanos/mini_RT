@@ -1,99 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_func.c                                         :+:      :+:    :+:   */
+/*   mem_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 20:13:52 by malee             #+#    #+#             */
-/*   Updated: 2025/02/19 17:26:12 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 13:33:08 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	ft_free_node(void *node, t_obj_type type, t_master *master)
+void	ft_free_node(t_obj_data *node, t_scene *scene)
 {
-	t_obj_pro	*properties;
-
 	if (!node)
 		return ;
-	properties = NULL;
-	if (type != TYPE_LIGHT)
-	{
-		if (type == TYPE_SPHERE)
-			properties = &((t_sphere *)node)->pro;
-		else if (type == TYPE_PLANE)
-			properties = &((t_plane *)node)->pro;
-		else if (type == TYPE_CYLINDER)
-			properties = &((t_cylinder *)node)->pro;
-		else if (type == TYPE_CONE)
-			properties = &((t_cone *)node)->pro;
-	}
-	if (properties && properties->txm.img && properties->txm.data)
-		mlx_destroy_image(master->mlx_ptr, properties->txm.img);
-	if (properties && properties->bpm.img)
-		mlx_destroy_image(master->mlx_ptr, properties->bpm.img);
+	if (node->txm.img && node->txm.data)
+		mlx_destroy_image(scene->mlx_ptr, node->txm.img);
+	if (node->bpm.img)
+		mlx_destroy_image(scene->mlx_ptr, node->bpm.img);
 	free(node);
 }
 
-void	ft_free_list(void *head, t_obj_type type, t_master *master)
+void	ft_free_obj_list(t_obj_data *head, t_scene *scene)
 {
-	void	*current;
-	void	*next;
+	t_obj_data	*current;
+	t_obj_data	*next;
 
 	if (!head)
 		return ;
 	current = head;
 	while (current)
 	{
-		if (type == TYPE_LIGHT)
-			next = ((t_light *)current)->next;
-		if (type == TYPE_SPHERE)
-			next = ((t_sphere *)current)->next;
-		if (type == TYPE_PLANE)
-			next = ((t_plane *)current)->next;
-		if (type == TYPE_CYLINDER)
-			next = ((t_cylinder *)current)->next;
-		if (type == TYPE_CONE)
-			next = ((t_cone *)current)->next;
-		ft_free_node(current, type, master);
+		next = current->next;
+		ft_free_node(current, scene);
 		current = next;
 		next = NULL;
 	}
 }
 
-void	ft_free_img(t_master *master)
+void	ft_free_light_list(t_light *head)
 {
-	if (!master)
+	t_light	*current;
+	t_light	*next;
+
+	if (!head)
 		return ;
-	if (master->mlx_ptr && master->win_ptr)
+	current = head;
+	while (current)
 	{
-		mlx_destroy_window(master->mlx_ptr, master->win_ptr);
-		master->win_ptr = NULL;
-	}
-	if (master->mlx_ptr && master->img.img_ptr)
-	{
-		mlx_destroy_image(master->mlx_ptr, master->img.img_ptr);
-		master->img.img_ptr = NULL;
-	}
-	if (master->mlx_ptr)
-	{
-		mlx_destroy_display(master->mlx_ptr);
-		free(master->mlx_ptr);
-		master->mlx_ptr = NULL;
+		next = current->next;
+		free(current);
+		current = next;
+		next = NULL;
 	}
 }
 
-void	ft_free_master(t_master *master)
+void	ft_free_img(t_scene *scene)
 {
-	if (!master)
+	if (!scene)
 		return ;
-	ft_free_list(master->light_head, TYPE_LIGHT, master);
-	ft_free_list(master->sphere_head, TYPE_SPHERE, master);
-	ft_free_list(master->plane_head, TYPE_PLANE, master);
-	ft_free_list(master->cylinder_head, TYPE_CYLINDER, master);
-	ft_free_list(master->cone_head, TYPE_CONE, master);
-	ft_free_img(master);
-	free(master);
+	if (scene->mlx_ptr && scene->win_ptr)
+	{
+		mlx_destroy_window(scene->mlx_ptr, scene->win_ptr);
+		scene->win_ptr = NULL;
+	}
+	if (scene->mlx_ptr && scene->img.img_ptr)
+	{
+		mlx_destroy_image(scene->mlx_ptr, scene->img.img_ptr);
+		scene->img.img_ptr = NULL;
+	}
+	if (scene->mlx_ptr)
+	{
+		mlx_destroy_display(scene->mlx_ptr);
+		free(scene->mlx_ptr);
+		scene->mlx_ptr = NULL;
+	}
+}
+
+void	ft_free_scene(t_scene *scene)
+{
+	if (!scene)
+		return ;
+	ft_free_light_list(scene->light_data);
+	ft_free_obj_list(scene->obj_head, scene);
+	ft_free_img(scene);
+	free(scene);
 }
