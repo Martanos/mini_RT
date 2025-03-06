@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 21:11:26 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 12:06:10 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 # define U_DEFAULT 0.0
 # define V_DEFAULT 0.0
 
+typedef struct s_rgb
+{
+	int			r;
+	int			g;
+	int			b;
+}				t_rgb;
+
 typedef struct s_hit
 {
 	double		t;
@@ -36,8 +43,9 @@ typedef struct s_hit
 	t_vect		normal;
 	t_vect		tangent;
 	t_vect		bitangent;
-	t_vect		pixel_color;
-	uint32_t	final_color;
+	t_rgb		color_vect;
+	t_rgb		final_color_vect;
+	uint32_t	pixel_color;
 	t_obj_data	*object;
 	bool		front_face;
 }				t_hit;
@@ -87,12 +95,15 @@ void			ft_setup_plane(t_obj_data **obj);
 void			ft_setup_cylinder(t_obj_data **obj);
 void			ft_setup_cone(t_obj_data **obj);
 // 1. Ray setup
-void			ft_setup_ray(t_scene **scene);
+bool			ft_ray(t_scene **scene, t_z_buffer **z_buffer);
 // 2. hit calcs
-bool			ft_intersect_main(t_scene **scene);
-bool			ft_intersect_sphere(t_scene **scene, t_obj_data *sphere);
-bool			ft_intersect_plane(t_scene **scene, t_obj_data *plane);
-bool			ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder);
+bool			ft_closest_hit(t_scene **scene, t_hit **hit, t_ray **ray);
+bool			ft_intersect_plane(t_scene **scene, t_obj_data *plane,
+					t_z_buffer **z_buffer);
+bool			ft_intersect_sphere(t_scene **scene, t_obj_data *sphere,
+					t_z_buffer **z_buffer);
+bool			ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder,
+					t_z_buffer **z_buffer);
 bool			ft_intersect_cylinder_side(t_ray *ray, t_obj_data *cylinder,
 					t_quadratic *quad, t_hit *hit);
 bool			ft_intersect_cylinder_cap(t_ray *ray, t_obj_data *cylinder,

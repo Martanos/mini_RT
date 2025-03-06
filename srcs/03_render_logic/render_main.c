@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:07:29 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 21:14:03 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 11:31:58 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,20 @@ bool	ft_compute_pixel(t_scene **scene, t_z_buffer **z_buffer)
 	int		total_samples;
 
 	hit_anything = false;
-	if (AA <= 1)
-		hit_anything = ft_single_ray(scene, z_buffer);
-	else
-		hit_anything = ft_multi_ray(scene, z_buffer);
+	srand(time(NULL));
+	hit_anything = ft_ray(scene, z_buffer);
 	if (hit_anything)
 	{
-		// TODO: replace with ft_get_final_colour
 		total_samples = AA * AA;
-		z_buffer.r_final = z_buffer.r_sum / total_samples;
-		z_buffer.g_final = z_buffer.g_sum / total_samples;
-		z_buffer.b_final = z_buffer.b_sum / total_samples;
-		pixel_color = z_buffer.r_final << 16 | z_buffer.g_final << 8 | z_buffer.b_final;
+		(*z_buffer)->hit.final_color_vect.r = (*z_buffer)->hit.final_color_vect.r
+			/ total_samples;
+		(*z_buffer)->hit.final_color_vect.g = (*z_buffer)->hit.final_color_vect.g
+			/ total_samples;
+		(*z_buffer)->hit.final_color_vect.b = (*z_buffer)->hit.final_color_vect.b
+			/ total_samples;
+		(*z_buffer)->hit.pixel_color = ft_rgb_to_color((*z_buffer)->hit.final_color_vect.r,
+				(*z_buffer)->hit.final_color_vect.g,
+				(*z_buffer)->hit.final_color_vect.b);
 	}
 	return (hit_anything);
 }
@@ -61,7 +63,7 @@ static void	ft_render_scene(t_scene **scene)
 			z_buffer->hit.img_x = x;
 			z_buffer->hit.img_y = y;
 			if (ft_compute_pixel(scene, &z_buffer))
-				ft_pixel_put(&(*scene)->img, x, y, z_buffer->hit.final_color);
+				ft_pixel_put(&(*scene)->img, x, y, z_buffer->hit.pixel_color);
 		}
 	}
 	free(z_buffer);

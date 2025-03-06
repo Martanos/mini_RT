@@ -14,7 +14,9 @@
 		"errno.h": "c",
 		"mlx_int.h": "c",
 		"unistd.h": "c",
-		"xshm.h": "c"
+		"xshm.h": "c",
+		"*.tcc": "c",
+		"renderer.h": "c"
 	},
 	"makefile.configureOnOpen": false
 }
