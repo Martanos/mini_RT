@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 14:37:18 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:49:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 
 typedef struct s_rgb
 {
-	int			r;
-	int			g;
-	int			b;
+	double		r;
+	double		g;
+	double		b;
 }				t_rgb;
 
 typedef struct s_hit
@@ -45,8 +45,8 @@ typedef struct s_hit
 	t_vect		normal;
 	t_vect		tangent;
 	t_vect		bitangent;
-	t_rgb		color_vect;
-	t_rgb		final_color_vect;
+	t_rgb		calc_color;
+	t_rgb		final_color;
 	uint32_t	pixel_color;
 	t_obj_data	*object;
 	bool		front_face;
@@ -67,8 +67,8 @@ typedef struct s_ray
 
 typedef struct s_z_buffer
 {
-	t_hit		hit;
-	t_ray		ray;
+	t_hit		cam_hit;
+	t_ray		cam_ray;
 	t_hit		shadow_hit;
 	t_ray		shadow_ray;
 	t_hit		reflect_hit;
@@ -107,17 +107,19 @@ bool			ft_intersect_sphere(t_scene **scene, t_obj_data *sphere,
 					t_hit **hit, t_ray **ray);
 bool			ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder,
 					t_hit **hit, t_ray **ray);
-bool			ft_intersect_cylinder_side(t_ray **ray, t_obj_data *cylinder,
-					t_quadratic *quad, t_hit **hit);
+bool			ft_intersect_cylinder_side(t_obj_data *cylinder, t_hit **hit,
+					t_ray **ray);
 bool			ft_intersect_cylinder_cap(t_ray **ray, t_obj_data *cylinder,
 					t_hit **hit, bool is_top_cap);
-bool			ft_intersect_cone(t_scene **scene, t_obj_data *cone);
-bool			ft_intersect_cone_side(t_ray *ray, t_obj_data *cone,
-					t_quadratic *quad, t_hit *hit);
-bool			ft_intersect_cone_base(t_ray *ray, t_obj_data *cone,
-					t_hit *hit);
+bool			ft_intersect_cone(t_scene **scene, t_obj_data *cone,
+					t_hit **hit, t_ray **ray);
+bool			ft_intersect_cone_side(t_ray **ray, t_obj_data *cone,
+					t_hit **hit);
+bool			ft_intersect_cone_base(t_ray **ray, t_obj_data *cone,
+					t_hit **hit);
 // 3. Colour calcs
 void			ft_get_base_colour(t_hit **hit);
+t_rgb			ft_int_to_rgb(t_hit *hit);
 // 4. Normal calcs
 void			ft_apply_bump_mapping(t_hit **hit);
 void			ft_calculate_surface_normal(t_hit **hit);
@@ -129,4 +131,7 @@ bool			ft_is_in_shadow(t_scene **scene, t_light *light);
 t_vect			ft_calculate_specular(t_ray *ray, t_hit *hit, t_light *light,
 					t_vect light_dir);
 
+// Utils
+bool			ft_quadratic_find_closest_t(t_ray **ray, t_hit **hit,
+					t_quadratic *quad, double *t);
 #endif

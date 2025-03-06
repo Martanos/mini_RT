@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:45:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:43:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:48:37 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	ft_is_within_cone_height(t_vect point, t_obj_data *cone,
 /*
  * Calculate UV coordinates on the cone for texture mapping
  */
-static void	ft_calculate_cone_uv(t_hit *hit, t_obj_data *cone,
+static void	ft_calculate_cone_uv(t_hit **hit, t_obj_data *cone,
 		double height_proj)
 {
 	t_vect	axis_point;
@@ -49,19 +49,19 @@ static void	ft_calculate_cone_uv(t_hit *hit, t_obj_data *cone,
 		ref = (t_vect){1, 0, 0};
 	perp = ft_vect_norm(ft_vect_cross(cone->norm_dir, ref));
 	binormal = ft_vect_cross(cone->norm_dir, perp);
-	projected = ft_vect_sub(hit->point, axis_point);
+	projected = ft_vect_sub((*hit)->point, axis_point);
 	cos_theta = ft_vect_dot(perp, ft_vect_norm(projected));
 	sin_theta = ft_vect_dot(binormal, ft_vect_norm(projected));
 	theta = atan2(sin_theta, cos_theta);
-	hit->u = (theta + M_PI) / (2 * M_PI);
-	hit->v = height_proj / cone->props.t_cone.height;
+	(*hit)->u = (theta + M_PI) / (2 * M_PI);
+	(*hit)->v = height_proj / cone->props.t_cone.height;
 }
 
 /*
  * Set up the quadratic equation coefficients for cone side intersection
  * Returns false if there's no possible intersection
  */
-static bool	ft_cone_side_setup_quadratic(t_ray *ray, t_obj_data *cone,
+static bool	ft_cone_side_setup_quadratic(t_ray **ray, t_obj_data *cone,
 		t_quadratic *quad)
 {
 	t_vect	axis;
@@ -74,11 +74,11 @@ static bool	ft_cone_side_setup_quadratic(t_ray *ray, t_obj_data *cone,
 	axis = cone->norm_dir;
 	cos_apex = cone->props.t_cone.cos_apex;
 	cos2 = cos_apex * cos_apex;
-	oc = ft_vect_sub(ray->origin, cone->props.t_cone.apex);
-	ray_dot_axis = ft_vect_dot(ray->direction, axis);
+	oc = ft_vect_sub((*ray)->origin, cone->props.t_cone.apex);
+	ray_dot_axis = ft_vect_dot((*ray)->direction, axis);
 	oc_dot_axis = ft_vect_dot(oc, axis);
 	quad->a = ray_dot_axis * ray_dot_axis - cos2;
-	quad->b = 2.0 * (ray_dot_axis * oc_dot_axis - ft_vect_dot(ray->direction,
+	quad->b = 2.0 * (ray_dot_axis * oc_dot_axis - ft_vect_dot((*ray)->direction,
 				oc) * cos2);
 	quad->c = oc_dot_axis * oc_dot_axis - ft_vect_dot(oc, oc) * cos2;
 	quad->discriminant = quad->b * quad->b - 4.0 * quad->a * quad->c;
@@ -115,27 +115,29 @@ static t_vect	ft_cone_side_normal(t_vect hit_point, t_obj_data *cone,
  * Calculate ray intersection with the side of a cone
  * Returns true if a valid intersection is found
  */
-bool	ft_intersect_cone_side(t_ray *ray, t_obj_data *cone, t_quadratic *quad,
-		t_hit *hit)
+bool	ft_intersect_cone_side(t_ray **ray, t_obj_data *cone, t_hit **hit)
 {
-	double	t;
-	double	height_proj;
-	t_vect	intersection;
+	double		t;
+	double		height_proj;
+	t_vect		intersection;
+	t_quadratic	quad;
 
-	if (!ft_cone_side_setup_quadratic(ray, cone, quad))
+	quad = (t_quadratic){0};
+	if (!ft_cone_side_setup_quadratic(ray, cone, &quad))
 		return (false);
-	if (!ft_quadratic_find_closest_t(quad, ray, hit, &t))
+	if (!ft_quadratic_find_closest_t(ray, hit, &quad, &t))
 		return (false);
-	intersection = ft_vect_add(ray->origin, ft_vect_mul_all(ray->direction, t));
+	intersection = ft_vect_add((*ray)->origin,
+			ft_vect_mul_all((*ray)->direction, t));
 	if (!ft_is_within_cone_height(intersection, cone, &height_proj))
 		return (false);
-	hit->t = t;
-	hit->point = intersection;
-	hit->normal = ft_cone_side_normal(hit->point, cone, height_proj);
-	hit->object = cone;
-	hit->front_face = ft_vect_dot(ray->direction, hit->normal) < 0;
-	if (!hit->front_face)
-		hit->normal = ft_vect_mul_all(hit->normal, -1);
+	(*hit)->t = t;
+	(*hit)->point = intersection;
+	(*hit)->normal = ft_cone_side_normal(intersection, cone, height_proj);
+	(*hit)->object = cone;
+	(*hit)->front_face = ft_vect_dot((*ray)->direction, (*hit)->normal) < 0;
+	if (!(*hit)->front_face)
+		(*hit)->normal = ft_vect_mul_all((*hit)->normal, -1);
 	ft_calculate_cone_uv(hit, cone, height_proj);
 	return (true);
 }

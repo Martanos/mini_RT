@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:35:16 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 12:39:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:39:16 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  * Calculate UV coordinates on the cylinder for texture mapping
  */
-static void	ft_calculate_cylinder_uv(t_hit **hit, t_obj_data *cylinder,
+static void	ft_calculate_cylinder_uv(t_obj_data *cylinder, t_hit **hit,
 		double height_proj)
 {
 	t_vect	axis;
@@ -46,7 +46,7 @@ static void	ft_calculate_cylinder_uv(t_hit **hit, t_obj_data *cylinder,
  * Set up the quadratic equation coefficients for cylinder side intersection
  * Returns false if ray is parallel to cylinder axis
  */
-static bool	ft_cylinder_side_setup_quadratic(t_ray **ray, t_obj_data *cylinder,
+static bool	ft_cylinder_side_setup_quadratic(t_obj_data *cylinder, t_ray **ray,
 		t_quadratic *quad)
 {
 	t_vect	axis;
@@ -78,7 +78,7 @@ static bool	ft_cylinder_side_setup_quadratic(t_ray **ray, t_obj_data *cylinder,
 /*
  * Check if the intersection point is within the cylinder's height
  */
-static bool	ft_is_within_cylinder_height(t_vect point, t_obj_data *cylinder,
+static bool	ft_is_within_cylinder_height(t_obj_data *cylinder, t_vect point,
 		double *height_proj)
 {
 	t_vect	axis;
@@ -93,7 +93,7 @@ static bool	ft_is_within_cylinder_height(t_vect point, t_obj_data *cylinder,
 /*
  * Calculate the normal vector at the hit point on cylinder side
  */
-static t_vect	ft_cylinder_side_normal(t_vect hit_point, t_obj_data *cylinder,
+static t_vect	ft_cylinder_side_normal(t_obj_data *cylinder, t_vect hit_point,
 		double height_proj)
 {
 	t_vect	axis;
@@ -110,23 +110,25 @@ static t_vect	ft_cylinder_side_normal(t_vect hit_point, t_obj_data *cylinder,
 /*
  * Main function for cylinder side intersection
  */
-bool	ft_intersect_cylinder_side(t_ray **ray, t_obj_data *cylinder,
-		t_quadratic *quad, t_hit **hit)
+bool	ft_intersect_cylinder_side(t_obj_data *cylinder, t_hit **hit,
+		t_ray **ray)
 {
-	double	t;
-	double	height_proj;
-	t_vect	intersection;
+	double		t;
+	double		height_proj;
+	t_vect		intersection;
+	t_quadratic	quad;
 
-	if (!ft_cylinder_side_setup_quadratic(ray, cylinder, quad)
-		&& !ft_quadratic_find_closest_t(quad, ray, hit, &t))
+	quad = (t_quadratic){0};
+	if (!ft_cylinder_side_setup_quadratic(ray, cylinder, &quad)
+		&& !ft_quadratic_find_closest_t(ray, hit, &quad, &t))
 		return (false);
 	intersection = ft_vect_add((*ray)->origin,
 			ft_vect_mul_all((*ray)->direction, t));
-	if (!ft_is_within_cylinder_height(intersection, cylinder, &height_proj))
+	if (!ft_is_within_cylinder_height(cylinder, intersection, &height_proj))
 		return (false);
 	(*hit)->t = t;
 	(*hit)->point = intersection;
-	(*hit)->normal = ft_cylinder_side_normal(intersection, cylinder,
+	(*hit)->normal = ft_cylinder_side_normal(cylinder, intersection,
 			height_proj);
 	(*hit)->object = cylinder;
 	(*hit)->front_face = ft_vect_dot((*ray)->direction, (*hit)->normal) < 0;

@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 20:17:36 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 12:17:26 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:11:19 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,6 @@ bool	ft_sphere_intersection_equation(t_ray **ray, t_obj_data *sphere,
 	return (true);
 }
 
-static bool	ft_quadratic_find_closest_t(t_ray **ray, t_hit **hit,
-		t_quadratic *quad)
-{
-	if (quad->t1 >= (*ray)->t_min && quad->t1 <= (*ray)->t_max
-		&& quad->t1 < (*hit)->t)
-	{
-		(*hit)->t = quad->t1;
-		return (true);
-	}
-	if (quad->t2 >= (*ray)->t_min && quad->t2 <= (*ray)->t_max
-		&& quad->t2 < (*hit)->t)
-	{
-		(*hit)->t = quad->t2;
-		return (true);
-	}
-	return (false);
-}
-
 static void	ft_calculate_sphere_uv(t_hit **hit)
 {
 	t_vect	normal;
@@ -66,7 +48,6 @@ static void	ft_calculate_sphere_uv(t_hit **hit)
 static void	ft_sphere_update_hit_record(t_ray **ray, t_hit **hit,
 		t_obj_data *sphere, t_quadratic *quad)
 {
-	(*hit)->t = quad->t;
 	(*hit)->point = ft_vect_add((*ray)->origin,
 			ft_vect_mul_all((*ray)->direction, quad->t));
 	(*hit)->normal = ft_vect_norm(ft_vect_sub((*hit)->point, sphere->cord));

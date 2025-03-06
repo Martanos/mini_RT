@@ -6,11 +6,22 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:02:50 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 09:53:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 15:05:48 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+// TODO: MOVE THIS TO LIBRGB
+t_rgb	ft_int_to_rgb(t_hit *hit)
+{
+	t_rgb	temp_color;
+
+	temp_color.r = (hit->object->txm.pri_color >> 16) & 0xFF;
+	temp_color.g = (hit->object->txm.pri_color >> 8) & 0xFF;
+	temp_color.b = hit->object->txm.pri_color & 0xFF;
+	return (temp_color);
+}
 
 static void	ft_get_custom_colour(t_hit **hit)
 {
@@ -43,7 +54,7 @@ static void	ft_get_checker_colour(t_hit **hit)
 void	ft_get_base_colour(t_hit **hit)
 {
 	if ((*hit)->object->txm.type == SOLID_COLOR)
-		(*hit)->pixel_color = (*hit)->object->txm.pri_color;
+		(*hit)->calc_color = ft_int_to_rgb(*hit);
 	else if ((*hit)->object->txm.type == CHECKERED)
 		ft_get_checker_colour(hit);
 	else if ((*hit)->object->txm.type == CUSTOM)
