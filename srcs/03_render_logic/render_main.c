@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:07:29 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 11:31:58 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:11:56 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ static void	ft_render_scene(t_scene **scene)
 		}
 	}
 	free(z_buffer);
+	mlx_put_image_to_window((*scene)->mlx_ptr, (*scene)->win_ptr, (*scene)->img.img_ptr, 0, 0);
+	keyhook_wrapper(scene);
+	mousehook_wrapper(scene);
+	mlx_loop((*scene)->mlx_ptr);
 }
 
 // TODO: make this a the mlx loop

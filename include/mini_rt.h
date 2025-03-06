@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:49:00 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 13:34:17 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:11:43 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 # define RESET "\033[0m"
 
 // MLX UTILS
-int		close_window(void *param);
-int		key_hook(int keycode, void *param);
+void	keyhook_wrapper(t_scene **scene);
+void	mousehook_wrapper(t_scene **scene);
 
 // Scene management UTILS
 void	ft_free_scene(t_scene *scene);

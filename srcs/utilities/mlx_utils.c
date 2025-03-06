@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:59:59 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/06 13:34:57 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:11:35 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 
-int	close_window(void *param)
+static int	close_window(void *param)
 {
 	t_scene	*scene;
 
@@ -31,7 +31,7 @@ int	close_window(void *param)
 }
 
 // Handle keypress event
-int	key_hook(int keycode, void *param)
+static int	key_hook(int keycode, void *param)
 {
 	t_scene	*scene;
 
@@ -42,4 +42,10 @@ int	key_hook(int keycode, void *param)
 		exit(0);
 	}
 	return (0);
+}
+
+void	keyhook_wrapper(t_scene **scene)
+{
+	mlx_hook((*scene)->win_ptr, 17, 0, close_window, *scene);
+	mlx_key_hook((*scene)->win_ptr, key_hook, *scene);
 }

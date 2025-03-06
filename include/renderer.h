@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 12:37:32 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:19:36 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define AA 4
 # define DEFAULT_WINDOW_WIDTH 800
 # define DEFAULT_WINDOW_HEIGHT 600
+# define MIN_WIDTH 100
+# define MIN_HEIGHT 100
 # define MAX_RECURSION_DEPTH 30
 # define EPSILON 1e-8
 # define M_PI 3.14159265358979323846
