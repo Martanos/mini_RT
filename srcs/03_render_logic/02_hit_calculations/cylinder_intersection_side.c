@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:35:16 by malee             #+#    #+#             */
-/*   Updated: 2025/03/05 10:43:02 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 12:39:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	ft_calculate_cylinder_uv(t_hit **hit, t_obj_data *cylinder,
  * Set up the quadratic equation coefficients for cylinder side intersection
  * Returns false if ray is parallel to cylinder axis
  */
-static bool	ft_cylinder_side_setup_quadratic(t_ray *ray, t_obj_data *cylinder,
+static bool	ft_cylinder_side_setup_quadratic(t_ray **ray, t_obj_data *cylinder,
 		t_quadratic *quad)
 {
 	t_vect	axis;
@@ -57,8 +57,8 @@ static bool	ft_cylinder_side_setup_quadratic(t_ray *ray, t_obj_data *cylinder,
 
 	axis = cylinder->norm_dir;
 	radius = cylinder->props.t_cylinder.radius;
-	oc = ft_vect_sub(ray->origin, cylinder->cord);
-	ray_cross_axis = ft_vect_cross(ray->direction, axis);
+	oc = ft_vect_sub((*ray)->origin, cylinder->cord);
+	ray_cross_axis = ft_vect_cross((*ray)->direction, axis);
 	oc_cross_axis = ft_vect_cross(oc, axis);
 	quad->a = ft_vect_dot(ray_cross_axis, ray_cross_axis);
 	if (fabs(quad->a) < EPSILON)
@@ -110,27 +110,28 @@ static t_vect	ft_cylinder_side_normal(t_vect hit_point, t_obj_data *cylinder,
 /*
  * Main function for cylinder side intersection
  */
-bool	ft_intersect_cylinder_side(t_ray *ray, t_obj_data *cylinder,
-		t_quadratic *quad, t_hit *hit)
+bool	ft_intersect_cylinder_side(t_ray **ray, t_obj_data *cylinder,
+		t_quadratic *quad, t_hit **hit)
 {
 	double	t;
 	double	height_proj;
 	t_vect	intersection;
 
-	if (!ft_cylinder_side_setup_quadratic(ray, cylinder, quad))
+	if (!ft_cylinder_side_setup_quadratic(ray, cylinder, quad)
+		&& !ft_quadratic_find_closest_t(quad, ray, hit, &t))
 		return (false);
-	if (!ft_quadratic_find_closest_t(quad, ray, hit, &t))
-		return (false);
-	intersection = ft_vect_add(ray->origin, ft_vect_mul_all(ray->direction, t));
+	intersection = ft_vect_add((*ray)->origin,
+			ft_vect_mul_all((*ray)->direction, t));
 	if (!ft_is_within_cylinder_height(intersection, cylinder, &height_proj))
 		return (false);
-	hit->t = t;
-	hit->point = intersection;
-	hit->normal = ft_cylinder_side_normal(hit->point, cylinder, height_proj);
-	hit->object = cylinder;
-	hit->front_face = ft_vect_dot(ray->direction, hit->normal) < 0;
-	if (!hit->front_face)
-		hit->normal = ft_vect_mul_all(hit->normal, -1);
+	(*hit)->t = t;
+	(*hit)->point = intersection;
+	(*hit)->normal = ft_cylinder_side_normal(intersection, cylinder,
+			height_proj);
+	(*hit)->object = cylinder;
+	(*hit)->front_face = ft_vect_dot((*ray)->direction, (*hit)->normal) < 0;
+	if (!(*hit)->front_face)
+		(*hit)->normal = ft_vect_mul_all((*hit)->normal, -1);
 	ft_calculate_cylinder_uv(hit, cylinder, height_proj);
 	return (true);
 }

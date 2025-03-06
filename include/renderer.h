@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/06 12:06:10 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/06 12:37:32 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,15 @@ bool			ft_ray(t_scene **scene, t_z_buffer **z_buffer);
 // 2. hit calcs
 bool			ft_closest_hit(t_scene **scene, t_hit **hit, t_ray **ray);
 bool			ft_intersect_plane(t_scene **scene, t_obj_data *plane,
-					t_z_buffer **z_buffer);
+					t_hit **hit, t_ray **ray);
 bool			ft_intersect_sphere(t_scene **scene, t_obj_data *sphere,
-					t_z_buffer **z_buffer);
+					t_hit **hit, t_ray **ray);
 bool			ft_intersect_cylinder(t_scene **scene, t_obj_data *cylinder,
-					t_z_buffer **z_buffer);
-bool			ft_intersect_cylinder_side(t_ray *ray, t_obj_data *cylinder,
-					t_quadratic *quad, t_hit *hit);
-bool			ft_intersect_cylinder_cap(t_ray *ray, t_obj_data *cylinder,
-					t_hit *hit, bool is_top_cap);
+					t_hit **hit, t_ray **ray);
+bool			ft_intersect_cylinder_side(t_ray **ray, t_obj_data *cylinder,
+					t_quadratic *quad, t_hit **hit);
+bool			ft_intersect_cylinder_cap(t_ray **ray, t_obj_data *cylinder,
+					t_hit **hit, bool is_top_cap);
 bool			ft_intersect_cone(t_scene **scene, t_obj_data *cone);
 bool			ft_intersect_cone_side(t_ray *ray, t_obj_data *cone,
 					t_quadratic *quad, t_hit *hit);
