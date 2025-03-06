@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/04 14:45:49 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/06 21:08:27 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_vect	get_viewport_upper_left(t_vect center, t_vect h, t_vect v)
 	half_v = ft_vect_div_all(v, 2.0);
 	return (ft_vect_sub(center, ft_vect_add(half_h, half_v)));
 }
-
+// merge this into calculations after extracting camera initialization
 static t_vect	get_pixel_position(t_vect upper_left, t_vect h,
 		t_vect v, int x, int y)
 {
