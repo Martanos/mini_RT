@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/08 04:17:28 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 04:51:41 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	check_sphere_intersection(t_ray ray, t_master *master,
 			apply_texture(sphere.closest_sphere->pro.txm, u, v, &current.color);
 		else
 			current.color = sphere.closest_sphere->pro.txm.pri_color;
+		if (sphere.closest_sphere->pro.bpm.enabled)
+			apply_bump_mapping(sphere.closest_sphere->pro.bpm, &current.hit, u,
+				v);
 		update_closest_intersection(closest, current);
 	}
 }
@@ -64,6 +67,9 @@ void	check_plane_intersection(t_ray ray, t_master *master,
 			apply_texture(plane.closest_plane->pro.txm, u, v, &current.color);
 		else
 			current.color = plane.closest_plane->pro.txm.pri_color;
+		if (plane.closest_plane->pro.bpm.enabled)
+			apply_bump_mapping(plane.closest_plane->pro.bpm, &current.hit, u,
+				v);
 		update_closest_intersection(closest, current);
 	}
 }

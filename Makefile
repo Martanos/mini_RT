@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
+#    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/03/07 18:08:26 by seayeo           ###   ########.fr        #
+#    Updated: 2025/03/08 04:53:16 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,10 @@ SRC_UTILITIES	= handle_errors.c handle_warnings.c mem_management.c \
 SRC_RENDER		= check_cylinder_main.c check_cylinder_side.c \
 					check_cylinder_caps.c check_cylinder_utils.c check_plane.c check_sphere.c \
 					intersection_check.c intersection_check_util.c ray_utils.c \
-					renderplane.c tracing.c render_main.c texture_mapping.c \
+					renderplane.c tracing.c render_main.c uv_mapping.c \
 					xpm_utils.c specular.c reflections.c checkerboard.c \
-					check_cone_main.c check_cone_surface.c check_cone_utils.c check_cone_utils2.c
+					check_cone_main.c check_cone_surface.c check_cone_utils.c check_cone_utils2.c \
+					bump_maps.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_parser/, $(SRC_PARSING)) \
 					$(addprefix $(SRC_DIR)/02_parser/read_file/, $(SRC_PARSING_READ_FILE)) \
@@ -68,7 +69,7 @@ SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_parser/utils/, $(SRC_PARSING_UTILS)) \
 					$(addprefix $(SRC_DIR)/02_parser/handle_extra_data/, $(SRC_PARSING_HANDLE_EXTRA_DATA)) \
 					$(addprefix $(SRC_DIR)/utilities/, $(SRC_UTILITIES)) \
-					$(addprefix $(SRC_DIR)/04_render_logic/, $(SRC_RENDER))
+					$(addprefix $(SRC_DIR)/03_render_logic/, $(SRC_RENDER))
 
 
 # Object files

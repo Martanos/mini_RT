@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/07 18:08:12 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/08 04:52:33 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mini_rt.h"
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
+# define BUMP_MAP_STRENGTH 0.1
 
 typedef struct s_hit_record			t_hit_record;
 typedef struct s_ray				t_ray;
@@ -41,6 +42,8 @@ typedef struct s_hit_record
 {
 	t_vect							point;
 	t_vect							normal;
+	t_vect							tangent;
+	t_vect							bitangent;
 	double							t;
 }									t_hit_record;
 
@@ -170,8 +173,7 @@ void								calculate_cone_hit(t_ray ray,
 										t_hit_record *rec);
 
 // check_cone_surface.c
-double								check_cone_surface(t_ray ray,
-										t_cone *cone);
+double								check_cone_surface(t_ray ray, t_cone *cone);
 
 // check_cone_utils.c
 double								check_height(t_ray ray, double t,
@@ -236,6 +238,9 @@ void								get_sphere_uv(t_vect point, double *u,
 										double *v);
 void								get_plane_uv(t_vect point, t_plane *plane,
 										double *u, double *v);
+// bump_maps.c - Bump mapping functions
+void								apply_bump_mapping(t_bump_map bpm,
+										t_hit_record *hit, double u, double v);
 
 /*
  * Ray Tracing Core Functions:
