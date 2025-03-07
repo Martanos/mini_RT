@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_check_util.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/07 17:39:33 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/08 04:17:28 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	check_sphere_intersection(t_ray ray, t_master *master,
 		if (sphere.closest_sphere->pro.txm.type == 1)
 			checkerboard(u, v, sphere.closest_sphere->pro.txm, &current.color);
 		else if (sphere.closest_sphere->pro.txm.img)
-		{
 			apply_texture(sphere.closest_sphere->pro.txm, u, v, &current.color);
-		}
 		else
 			current.color = sphere.closest_sphere->pro.txm.pri_color;
 		update_closest_intersection(closest, current);
@@ -63,9 +61,7 @@ void	check_plane_intersection(t_ray ray, t_master *master,
 		if (plane.closest_plane->pro.txm.type == 1)
 			checkerboard(u, v, plane.closest_plane->pro.txm, &current.color);
 		else if (plane.closest_plane->pro.txm.img)
-		{
 			apply_texture(plane.closest_plane->pro.txm, u, v, &current.color);
-		}
 		else
 			current.color = plane.closest_plane->pro.txm.pri_color;
 		update_closest_intersection(closest, current);
