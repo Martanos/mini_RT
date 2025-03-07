@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderplane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:17:32 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/06 21:08:27 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:57:51 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ static t_vect	get_viewport_upper_left(t_vect center, t_vect h, t_vect v)
 	return (ft_vect_sub(center, ft_vect_add(half_h, half_v)));
 }
 // merge this into calculations after extracting camera initialization
-static t_vect	get_pixel_position(t_vect upper_left, t_vect h,
-		t_vect v, int x, int y)
+static t_vect	get_pixel_position(t_vect upper_left, t_vect h, t_vect v, int x,
+		int y)
 {
 	double	u;
 	double	v_coord;
 
 	u = (double)x / (WINDOW_WIDTH - 1);
 	v_coord = (double)y / (WINDOW_HEIGHT - 1);
-	return (ft_vect_add(upper_left,
-			ft_vect_add(ft_vect_mul_all(h, u), ft_vect_mul_all(v, v_coord))));
+	return (ft_vect_add(upper_left, ft_vect_add(ft_vect_mul_all(h, u),
+				ft_vect_mul_all(v, v_coord))));
 }
 
 uint32_t	calculations(int x, int y, t_master *master)
@@ -72,8 +72,7 @@ uint32_t	calculations(int x, int y, t_master *master)
 			ft_vect_mul_all(camera_dir, 0.5));
 	ray.origin = master->cam_head.cord;
 	ray.direction = get_pixel_position(get_viewport_upper_left(viewport_right,
-				viewport_hori, viewport_up), viewport_hori,
-			viewport_up, x, y);
+				viewport_hori, viewport_up), viewport_hori, viewport_up, x, y);
 	ray.direction = ft_vect_norm(ft_vect_sub(ray.direction, ray.origin));
 	return (ray_color(ray, master, 20));
 }

@@ -6,7 +6,7 @@
 #    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/03/04 17:00:24 by seayeo           ###   ########.fr        #
+#    Updated: 2025/03/07 14:05:06 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRC_MAIN		= main.c
 SRC_LEXER		= read_file_main.c read_data_utils.c
 SRC_PARSING		= parser_main.c
 SRC_PARSING_CREATE_OBJ = create_amb.c create_cam.c create_cylinder.c \
-						create_light.c create_plane.c create_sphere.c
+						create_light.c create_plane.c create_sphere.c\
+						create_cone.c
 SRC_PARSING_READ_FILE = read_file_main.c read_data_utils.c process_buffer.c
 SRC_PARSING_UTILS	= parser_rgb.c parser_xyz.c parser_atod.c parser_utils.c
 SRC_PARSING_HANDLE_EXTRA_DATA = txm_handler.c bpm_handler.c mat_handler.c extra_data.c
@@ -58,7 +59,8 @@ SRC_RENDER		= check_cylinder_main.c check_cylinder_side.c \
 					check_cylinder_caps.c check_cylinder_utils.c check_plane.c check_sphere.c \
 					intersection_check.c intersection_check_util.c ray_utils.c \
 					renderplane.c tracing.c render_main.c texture_mapping.c \
-					xpm_utils.c specular.c reflections.c checkerboard.c
+					xpm_utils.c specular.c reflections.c checkerboard.c \
+					check_cone.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_parser/, $(SRC_PARSING)) \
 					$(addprefix $(SRC_DIR)/02_parser/read_file/, $(SRC_PARSING_READ_FILE)) \

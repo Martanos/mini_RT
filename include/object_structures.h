@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 17:00:40 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:03:28 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_cam		t_cam;
 typedef struct s_light		t_light;
 typedef struct s_sphere		t_sphere;
 typedef struct s_plane		t_plane;
+typedef struct s_cone		t_cone;
 typedef struct s_cylinder	t_cylinder;
 typedef struct s_material	t_material;
 typedef struct s_texture	t_texture;
@@ -47,7 +48,7 @@ typedef enum e_texture_type
 
 /*
 ** @brief Material properties for Phong reflection model
-** @param ambient ambient reflection coefficient 
+** @param ambient ambient reflection coefficient
 ** @param diffuse diffuse reflection coefficient Range: [0.0, 1.0]
 ** @param specular specular reflection coefficient Range: [0.0, 1.0]
 ** @param shininess controls the size of specular highlights  Range: [0.0, ∞)
@@ -213,6 +214,25 @@ typedef struct s_cylinder
 	t_cylinder				*next;
 }							t_cylinder;
 
+/*
+** @brief Cone structure
+** @param cord cone coordinate vector
+** @param norm cone normal vector
+** @param height cone height
+** @param diameter cone diameter
+** @param pro object properties
+** @param next pointer to the next cone object
+*/
+typedef struct s_cone
+{
+	t_vect					cord;
+	t_vect					norm;
+	double					height;
+	double					diameter;
+	t_obj_pro				pro;
+	t_cone					*next;
+}							t_cone;
+
 // MLX OBJECTS
 
 /*
@@ -254,6 +274,7 @@ typedef struct s_master
 	t_sphere				*sphere_head;
 	t_plane					*plane_head;
 	t_cylinder				*cylinder_head;
+	t_cone					*cone_head;
 	bool					aa_enabled;
 }							t_master;
 

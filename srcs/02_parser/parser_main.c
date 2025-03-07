@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:22:29 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 16:56:23 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:04:35 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static bool	ft_identify(t_master **master, t_p_node **cur)
 		return (ft_create_cylinder(master, cur));
 	else if (ft_strcmp((*cur)->str, "sp") == 0)
 		return (ft_create_sphere(master, cur));
+	else if (ft_strcmp((*cur)->str, "co") == 0)
+		return (ft_create_cone(master, cur));
 	return (ft_error("Invalid identifier"));
 }
 

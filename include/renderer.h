@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 16:54:12 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:02:13 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_img				t_img;
 typedef struct s_sphere_collision	t_sphere_collision;
 typedef struct s_plane_collision	t_plane_collision;
 typedef struct s_cylinder_collision	t_cylinder_collision;
+typedef struct s_cone_collision		t_cone_collision;
 typedef struct s_intersection_info	t_intersection_info;
 
 /*
@@ -98,6 +99,15 @@ typedef struct s_cylinder_collision
 	t_cylinder						*closest_cylinder;
 }									t_cylinder_collision;
 
+// Tracks the closest cone intersection
+// - closest_t: Distance to the nearest cone intersection
+// - closest_cone: Pointer to the cone with the nearest intersection
+typedef struct s_cone_collision
+{
+	double							closest_t;
+	t_cone							*closest_cone;
+}									t_cone_collision;
+
 /*
  * Shape-Specific Intersection Functions:
  * Each geometric shape (sphere, plane,
@@ -150,6 +160,15 @@ double								check_cylinder_height(t_ray ray, double t,
 t_vect								get_cylinder_normal(t_vect point,
 										t_cylinder *cylinder, double proj);
 
+// check_cone.c
+t_cone_collision					find_closest_cone(t_ray ray,
+										t_master *master);
+double								check_cone_collision(t_ray ray,
+										t_cone *cone);
+void								calculate_cone_hit(t_ray ray,
+										t_cone_collision collision,
+										t_hit_record *rec);
+
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
 										double v, uint32_t *color);
@@ -182,6 +201,9 @@ void								check_plane_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
 void								check_cylinder_intersection(t_ray ray,
+										t_master *master,
+										t_intersection_info *closest);
+void								check_cone_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
 

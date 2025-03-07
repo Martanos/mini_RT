@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_check_util.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/04 14:46:03 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/07 14:24:00 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,22 @@ void	check_cylinder_intersection(t_ray ray, t_master *master,
 		calculate_cylinder_hit(ray, cylinder, &current.hit);
 		current.properties = cylinder.closest_cylinder->pro;
 		current.color = cylinder.closest_cylinder->pro.txm.pri_color;
+		update_closest_intersection(closest, current);
+	}
+}
+
+void	check_cone_intersection(t_ray ray, t_master *master,
+		t_intersection_info *closest)
+{
+	t_intersection_info	current;
+	t_cone_collision	cone;
+
+	cone = find_closest_cone(ray, master);
+	if (cone.closest_cone)
+	{
+		calculate_cone_hit(ray, cone, &current.hit);
+		current.properties = cone.closest_cone->pro;
+		current.color = cone.closest_cone->pro.txm.pri_color;
 		update_closest_intersection(closest, current);
 	}
 }
