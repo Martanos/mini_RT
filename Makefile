@@ -6,7 +6,7 @@
 #    By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/03/07 14:05:06 by seayeo           ###   ########.fr        #
+#    Updated: 2025/03/07 18:08:26 by seayeo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRC_RENDER		= check_cylinder_main.c check_cylinder_side.c \
 					intersection_check.c intersection_check_util.c ray_utils.c \
 					renderplane.c tracing.c render_main.c texture_mapping.c \
 					xpm_utils.c specular.c reflections.c checkerboard.c \
-					check_cone.c
+					check_cone_main.c check_cone_surface.c check_cone_utils.c check_cone_utils2.c
 SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 					$(addprefix $(SRC_DIR)/02_parser/, $(SRC_PARSING)) \
 					$(addprefix $(SRC_DIR)/02_parser/read_file/, $(SRC_PARSING_READ_FILE)) \

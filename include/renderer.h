@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/07 17:39:14 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 18:08:12 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ double								check_cylinder_height(t_ray ray, double t,
 t_vect								get_cylinder_normal(t_vect point,
 										t_cylinder *cylinder, double proj);
 
-// check_cone.c
+// check_cone_main.c
 t_cone_collision					find_closest_cone(t_ray ray,
 										t_master *master);
 double								check_cone_collision(t_ray ray,
@@ -168,6 +168,28 @@ double								check_cone_collision(t_ray ray,
 void								calculate_cone_hit(t_ray ray,
 										t_cone_collision collision,
 										t_hit_record *rec);
+
+// check_cone_surface.c
+double								check_cone_surface(t_ray ray,
+										t_cone *cone);
+
+// check_cone_utils.c
+double								check_height(t_ray ray, double t,
+										t_cone *cone);
+t_vect								get_cone_intersection_point(t_ray ray,
+										double t);
+void								get_cone_normal(t_hit_record *rec,
+										t_ray ray, t_cone *cone,
+										t_vect axis_point);
+
+// check_cone_utils2.c
+double								get_cone_height(t_vect point, t_cone *cone);
+t_vect								get_radial_direction(t_vect point,
+										t_vect axis_point);
+double								get_radius_at_height(t_cone *cone,
+										double height);
+t_vect								get_expected_point(t_vect axis_point,
+										t_vect radial, double radius_at_height);
 
 // xpm_utils.c - XPM texture loading and application
 void								apply_texture(t_texture texture, double u,
