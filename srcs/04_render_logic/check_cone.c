@@ -6,15 +6,14 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:15:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/07 14:15:01 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 17:41:24 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
 
 /**
-
-	* @brief Checks if a ray-cone intersection point lies within the cone's height bounds
+ * @brief Checks if a ray-cone intersection point lies within the cone's height bounds
  *
  * @param ray The ray being cast in the scene
  * @param t The parameter value at which the ray intersects the cone
@@ -50,7 +49,6 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 {
 	t_vect	oc;
 	double	radius;
-	double	cos_angle;
 	t_vect	normalized_normal;
 	double	dot_dir_axis;
 	double	dot_oc_axis;
@@ -64,32 +62,44 @@ static double	check_cone_surface(t_ray ray, t_cone *cone)
 	oc = ft_vect_sub(ray.origin, cone->cord);
 	normalized_normal = ft_vect_norm(cone->norm);
 	radius = cone->diameter / 2.0;
-	cos_angle = cos(atan(radius / cone->height));
+	
+	// Calculate k = (radius/height)²
+	// This defines the "squareness" of the cone
+	double k = (radius * radius) / (cone->height * cone->height);
+	
 	dot_dir_axis = ft_vect_dot(ray.direction, normalized_normal);
 	dot_oc_axis = ft_vect_dot(oc, normalized_normal);
-	a = ft_vect_dot(ray.direction, ray.direction) - (1.0 + cos_angle
-			* cos_angle) * dot_dir_axis * dot_dir_axis;
-	b = 2.0 * (ft_vect_dot(ray.direction, oc) - (1.0 + cos_angle * cos_angle)
-			* dot_dir_axis * dot_oc_axis);
-	c = ft_vect_dot(oc, oc) - (1.0 + cos_angle * cos_angle) * dot_oc_axis
-		* dot_oc_axis;
+	
+	// Modified quadratic equation coefficients using k directly
+	a = ft_vect_dot(ray.direction, ray.direction) - (1.0 + k) * dot_dir_axis * dot_dir_axis;
+	b = 2.0 * (ft_vect_dot(ray.direction, oc) - (1.0 + k) * dot_dir_axis * dot_oc_axis);
+	c = ft_vect_dot(oc, oc) - (1.0 + k) * dot_oc_axis * dot_oc_axis;
+	
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		return (-1.0);
+	
+	// Calculate both intersection points
 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
 	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+	
+	// For primary rays, only consider the first intersection (t1)
+	// This effectively ignores the "internal" surface
 	if (t1 > 0.0)
 	{
 		t1 = check_height(ray, t1, cone);
 		if (t1 > 0.0)
 			return (t1);
 	}
+	
+	// Only check t2 for shadow rays or if t1 is invalid
 	if (t2 > 0.0)
 	{
 		t2 = check_height(ray, t2, cone);
 		if (t2 > 0.0)
 			return (t2);
 	}
+	
 	return (-1.0);
 }
 
@@ -131,7 +141,8 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 	double	height;
 	t_vect	axis_point;
 	t_vect	radial;
-	double	cos_angle;
+	t_vect	outward_normal;
+	double	radius;
 
 	rec->t = collision.closest_t;
 	rec->point = ft_vect_add(ray.origin, ft_vect_mul_all(ray.direction,
@@ -139,24 +150,25 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
 	cp = ft_vect_sub(rec->point, collision.closest_cone->cord);
 	normalized_normal = ft_vect_norm(collision.closest_cone->norm);
 	proj = ft_vect_dot(cp, normalized_normal);
-	if (fabs(proj) < 1e-6)
-	{
-		// Hit is on base
-		rec->normal = ft_vect_mul_all(normalized_normal, -1);
-	}
-	else
-	{
-		// Hit is on conical surface
-		height = proj;
-		axis_point = ft_vect_add(collision.closest_cone->cord,
-				ft_vect_mul_all(normalized_normal, height));
-		radial = ft_vect_norm(ft_vect_sub(rec->point, axis_point));
-		cos_angle = cos(atan(collision.closest_cone->diameter / (2.0
-						* collision.closest_cone->height)));
-		rec->normal = ft_vect_norm(ft_vect_add(ft_vect_mul_all(radial,
-						cos_angle), ft_vect_mul_all(normalized_normal,
-						sin(acos(cos_angle)))));
-	}
+	
+	// Hit is on conical surface
+	height = proj;
+	axis_point = ft_vect_add(collision.closest_cone->cord,
+			ft_vect_mul_all(normalized_normal, height));
+	radial = ft_vect_norm(ft_vect_sub(rec->point, axis_point));
+	
+	// Get the radius
+	radius = collision.closest_cone->diameter / 2.0;
+	
+	// Calculate the outward normal
+	// Use a more stable approach to avoid numerical precision issues
+	double radius_at_height = (collision.closest_cone->height - height) * radius / collision.closest_cone->height;
+	t_vect expected_point = ft_vect_add(axis_point, 
+				ft_vect_mul_all(radial, radius_at_height));
+	outward_normal = ft_vect_norm(ft_vect_sub(rec->point, expected_point));
+	
+	// set_face_normal will flip the normal if needed based on the ray direction
+	set_face_normal(rec, &ray, &outward_normal);
 }
 
 /**
@@ -164,15 +176,14 @@ void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
  *
  * @param ray The ray being cast in the scene
  * @param master Pointer to the master structure containing all scene objects
-
-	* @return t_cone_collision Returns a structure containing the closest intersection
+ * @return t_cone_collision Returns a structure containing the closest intersection
  *         parameter and pointer to the intersected cone
  */
 t_cone_collision	find_closest_cone(t_ray ray, t_master *master)
 {
-	double t;
-	t_cone_collision result;
-	t_cone *cone;
+	double				t;
+	t_cone_collision	result;
+	t_cone				*cone;
 
 	result.closest_t = INFINITY;
 	result.closest_cone = NULL;

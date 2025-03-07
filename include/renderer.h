@@ -6,7 +6,7 @@
 /*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/07 14:02:13 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/07 17:39:14 by seayeo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,9 @@ void								check_cylinder_intersection(t_ray ray,
 void								check_cone_intersection(t_ray ray,
 										t_master *master,
 										t_intersection_info *closest);
-
+void								set_face_normal(t_hit_record *rec,
+										const t_ray *r,
+										const t_vect *outward_normal);
 // texture_mapping.c - Texture mapping functions
 void								get_sphere_uv(t_vect point, double *u,
 										double *v);
