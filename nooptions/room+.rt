@@ -16,15 +16,15 @@ cy  -2.0,-1.0,-4.0      0.0,1.0,0.0         0.5  23.0           255,255,255     
 cy  2.0,-1.0,3.0        0.0,1.0,0.0         0.5  23.0           255,255,255     mat:0:0:0.5:20:0.6
 cy  -2.0,-1.0,3.0       0.0,1.0,0.0         0.5  23.0           255,255,255     mat:0:0:0.5:20:0.6
 
-sp  2.0,-1.0,-4.0                           0.8                 255,255,255
-sp  -2.0,-1.0,-4.0                          0.8                 255,255,255
-sp  2.0,-1.0,3.0                            0.8                 255,255,255
-sp  -2.0,-1.0,3.0                           0.8                 255,255,255
+sp  2.0,-1.0,-4.0                           0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  -2.0,-1.0,-4.0                          0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  2.0,-1.0,3.0                            0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  -2.0,-1.0,3.0                           0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
 
-sp  2.0,3.0,-4.0                            0.8                 255,255,255
-sp  -2.0,3.0,-4.0                           0.8                 255,255,255
-sp  2.0,3.0,3.0                             0.8                 255,255,255
-sp  -2.0,3.0,3.0                            0.8                 255,255,255
+sp  2.0,3.0,-4.0                            0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  -2.0,3.0,-4.0                           0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  2.0,3.0,3.0                             0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  -2.0,3.0,3.0                            0.8                 255,255,255 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
 
-sp  0.0,-0.25,-1.0                          1.5                 255,120,130     mat:0:0::0.5:20:1.0 
-sp  1,-0.25,-4.0                            1.5                 255,120,130     mat:0:0:0.5:20:0.1
+sp  0.0,-0.25,-1.0                          1.5                 255,120,130     mat:0:0::0.5:20:1.0 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm
+sp  1,-0.25,-4.0                            1.5                 255,120,130     mat:0:0:0.5:20:0.1 txm:2:0.5:imgs/earthmap1k.xpm bpm:imgs/earthbump1k.xpm

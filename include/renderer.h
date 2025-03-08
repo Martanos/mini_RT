@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 04:52:33 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 09:55:06 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define RENDERER_H
 
 # include "mini_rt.h"
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define BUMP_MAP_STRENGTH 0.1
 
 typedef struct s_hit_record			t_hit_record;
@@ -263,8 +263,7 @@ uint32_t							calculate_reflection(t_intersection_info info,
 uint32_t							calculate_diffuse_lighting(t_hit_record hit,
 										t_light *light, uint32_t obj_color,
 										t_material mat);
-uint32_t							calculations(int x, int y,
-										t_master *master);
+uint32_t							calculations(int *pos, t_master *master);
 
 void								my_pixel_put(t_img *img, int x, int y,
 										int color);
