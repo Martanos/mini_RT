@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 17:07:21 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/08 10:09:23 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:51:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	start_renderloop(t_master *master)
 		while (++pos[0] < WINDOW_WIDTH)
 		{
 			color = calculations(pos, master);
-			my_pixel_put(&master->img, pos[0], pos[1], color);
+			if (color != 0x00000000)
+				my_pixel_put(&master->img, pos[0], pos[1], color);
 		}
 		printf("\033[1A\033[2K");
 		printf(YELLOW "Rendering progress: %d%%\n" RESET, (pos[1] * 100)
