@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/03/08 04:53:16 by malee            ###   ########.fr        #
+#    Updated: 2025/03/08 11:15:50 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Program name (of executable)
-NAME		= mini_rt
+NAME		= miniRT
 
 # Targets
 .PHONY: all
