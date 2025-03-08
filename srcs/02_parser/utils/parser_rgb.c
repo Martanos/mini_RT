@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:43:27 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 21:04:26 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 19:41:09 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ bool	ft_get_rgb(uint32_t *rgb, char *str)
 	char	**original;
 
 	split = ft_split(str, ',');
-	if (!split || !ft_verify_rgb(str))
-		return (ft_error("Empty or invalid RGB value found"), false);
 	original = split;
+	if (!split || !ft_verify_rgb(str))
+	{
+		while (*split)
+			free(*split++);
+		return (free(original), ft_error("Empty or invalid RGB value found"),
+			false);
+	}
 	if (split[0] && split[1] && split[2] && ft_atorgb(split[0]) != -1
 		&& ft_atorgb(split[1]) != -1 && ft_atorgb(split[2]) != -1)
 	{
