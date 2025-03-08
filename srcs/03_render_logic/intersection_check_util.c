@@ -6,14 +6,13 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:25:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/08 04:51:41 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:34:36 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_rt.h"
 
-void	update_closest_intersection(t_intersection_info *closest,
-		t_intersection_info current)
+void	update_close_hit(t_intersect_info *closest, t_intersect_info current)
 {
 	if (current.hit.t > 0 && (!closest->hit.t
 			|| current.hit.t < closest->hit.t))
@@ -21,9 +20,9 @@ void	update_closest_intersection(t_intersection_info *closest,
 }
 
 void	check_sphere_intersection(t_ray ray, t_master *master,
-		t_intersection_info *closest)
+		t_intersect_info *closest)
 {
-	t_intersection_info	current;
+	t_intersect_info	current;
 	t_sphere_collision	sphere;
 	double				u;
 	double				v;
@@ -43,14 +42,14 @@ void	check_sphere_intersection(t_ray ray, t_master *master,
 		if (sphere.closest_sphere->pro.bpm.enabled)
 			apply_bump_mapping(sphere.closest_sphere->pro.bpm, &current.hit, u,
 				v);
-		update_closest_intersection(closest, current);
+		update_close_hit(closest, current);
 	}
 }
 
 void	check_plane_intersection(t_ray ray, t_master *master,
-		t_intersection_info *closest)
+		t_intersect_info *closest)
 {
-	t_intersection_info	current;
+	t_intersect_info	current;
 	t_plane_collision	plane;
 	double				u;
 	double				v;
@@ -70,14 +69,14 @@ void	check_plane_intersection(t_ray ray, t_master *master,
 		if (plane.closest_plane->pro.bpm.enabled)
 			apply_bump_mapping(plane.closest_plane->pro.bpm, &current.hit, u,
 				v);
-		update_closest_intersection(closest, current);
+		update_close_hit(closest, current);
 	}
 }
 
 void	check_cylinder_intersection(t_ray ray, t_master *master,
-		t_intersection_info *closest)
+		t_intersect_info *closest)
 {
-	t_intersection_info		current;
+	t_intersect_info		current;
 	t_cylinder_collision	cylinder;
 
 	cylinder = find_closest_cylinder(ray, master);
@@ -86,14 +85,14 @@ void	check_cylinder_intersection(t_ray ray, t_master *master,
 		calculate_cylinder_hit(ray, cylinder, &current.hit);
 		current.properties = cylinder.closest_cylinder->pro;
 		current.color = cylinder.closest_cylinder->pro.txm.pri_color;
-		update_closest_intersection(closest, current);
+		update_close_hit(closest, current);
 	}
 }
 
 void	check_cone_intersection(t_ray ray, t_master *master,
-		t_intersection_info *closest)
+		t_intersect_info *closest)
 {
-	t_intersection_info	current;
+	t_intersect_info	current;
 	t_cone_collision	cone;
 
 	cone = find_closest_cone(ray, master);
@@ -102,6 +101,6 @@ void	check_cone_intersection(t_ray ray, t_master *master,
 		calculate_cone_hit(ray, cone, &current.hit);
 		current.properties = cone.closest_cone->pro;
 		current.color = cone.closest_cone->pro.txm.pri_color;
-		update_closest_intersection(closest, current);
+		update_close_hit(closest, current);
 	}
 }

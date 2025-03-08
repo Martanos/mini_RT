@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:14:23 by malee             #+#    #+#             */
-/*   Updated: 2025/02/17 21:11:54 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:02:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ bool	ft_create_cam(t_master **master, t_p_node **cur)
 	(*cur) = (*cur)->next;
 	if ((*cur) && (*cur)->str != NULL && (*cur)->str[0] != '\n')
 		return (ft_error("Camera has extra data"));
-	printf(GREEN "Camera created successfully\n" RESET);
 	return (true);
 }

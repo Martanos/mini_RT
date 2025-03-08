@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflections.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:51:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/04 14:24:19 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/08 09:59:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
 
- * @brief Calculates the reflected color for surfaces with a reflection 
+ * @brief Calculates the reflected color for surfaces with a reflection
  * coefficient
  * note: offsetting the origin of the reflected ray by a small amount to prevent
  * self-intersection
@@ -32,7 +32,7 @@
  * @param depth  The remaining reflection depth
  * @return uint32_t  Returns the blended color value (in 0xRRGGBB format)
  */
-uint32_t	calculate_reflection(t_intersection_info info, t_ray ray,
+uint32_t	calculate_reflection(t_intersect_info info, t_ray ray,
 		t_master *master, int depth)
 {
 	t_ray		reflected_ray;

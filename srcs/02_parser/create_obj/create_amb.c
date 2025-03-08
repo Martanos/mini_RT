@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:13:53 by malee             #+#    #+#             */
-/*   Updated: 2025/02/14 14:12:29 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:02:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ bool	ft_create_amb(t_master **master, t_p_node **cur)
 	(*cur) = (*cur)->next;
 	if ((*cur) && (*cur)->str != NULL && (*cur)->str[0] != '\n')
 		return (ft_error("Ambient light has extra data"));
-	printf(GREEN "Ambient light created successfully\n" RESET);
 	return (true);
 }

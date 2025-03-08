@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 09:55:06 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:34:15 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_sphere_collision	t_sphere_collision;
 typedef struct s_plane_collision	t_plane_collision;
 typedef struct s_cylinder_collision	t_cylinder_collision;
 typedef struct s_cone_collision		t_cone_collision;
-typedef struct s_intersection_info	t_intersection_info;
+typedef struct s_intersect_info		t_intersect_info;
 
 /*
  * Core Ray Tracing Structures:
@@ -50,12 +50,12 @@ typedef struct s_hit_record
 // Combines hit information with color data for the final pixel output
 // - hit: Contains the intersection point, normal, and distance
 // - color: The final calculated color for this intersection
-typedef struct s_intersection_info
+typedef struct s_intersect_info
 {
 	t_hit_record					hit;
 	uint32_t						color;
 	t_obj_pro						properties;
-}									t_intersection_info;
+}									t_intersect_info;
 
 // Represents a ray in 3D space used for ray tracing
 // - origin: Starting point of the ray
@@ -210,26 +210,26 @@ void								checkerboard(double u, double v,
 bool								check_shadow_intersection(t_ray shadow_ray,
 										double light_distance,
 										t_master *master);
-t_intersection_info					find_closest_intersection(t_ray ray,
+t_intersect_info					find_closest_intersection(t_ray ray,
 										t_master *master);
 t_ray								calculate_shadow_ray(t_vect hit_point,
 										t_vect light_pos, t_vect normal);
 
 // intersection_check_util.c - Intersection utility functions
-void								update_closest_intersection(t_intersection_info *closest,
-										t_intersection_info current);
+void								update_close_hit(t_intersect_info *closest,
+										t_intersect_info current);
 void								check_sphere_intersection(t_ray ray,
 										t_master *master,
-										t_intersection_info *closest);
+										t_intersect_info *closest);
 void								check_plane_intersection(t_ray ray,
 										t_master *master,
-										t_intersection_info *closest);
+										t_intersect_info *closest);
 void								check_cylinder_intersection(t_ray ray,
 										t_master *master,
-										t_intersection_info *closest);
+										t_intersect_info *closest);
 void								check_cone_intersection(t_ray ray,
 										t_master *master,
-										t_intersection_info *closest);
+										t_intersect_info *closest);
 void								set_face_normal(t_hit_record *rec,
 										const t_ray *r,
 										const t_vect *outward_normal);
@@ -258,7 +258,7 @@ t_vect								calc_reflected_ray(t_vect incident,
 uint32_t							calc_specular(t_hit_record hit,
 										t_vect cam_pos, t_light *light,
 										t_material mat);
-uint32_t							calculate_reflection(t_intersection_info info,
+uint32_t							calculate_reflection(t_intersect_info info,
 										t_ray ray, t_master *master, int depth);
 uint32_t							calculate_diffuse_lighting(t_hit_record hit,
 										t_light *light, uint32_t obj_color,

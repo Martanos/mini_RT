@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cone.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:49:09 by malee             #+#    #+#             */
-/*   Updated: 2025/03/07 14:04:02 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/08 10:02:13 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ bool	ft_create_cone(t_master **master, t_p_node **cur)
 	if (!ft_populate_cone(master, &cone, cur))
 		return (free(cone), false);
 	ft_add_cone(master, cone);
-	printf(GREEN "Cone created successfully\n" RESET);
 	return (true);
 }

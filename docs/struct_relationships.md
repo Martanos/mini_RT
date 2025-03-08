@@ -29,7 +29,7 @@ classDiagram
         double t
     }
 
-    class t_intersection_info {
+    class t_intersect_info {
         t_hit_record hit
         uint32_t color
     }
@@ -161,40 +161,40 @@ classDiagram
 
     t_f_node --> t_f_node : next
     t_p_node --> t_p_node : next
-    
+
     t_ray --> t_vect
     t_hit_record --> t_vect
-    t_intersection_info --> t_hit_record
+    t_intersect_info --> t_hit_record
 
     t_sphere_collision --> t_sphere
     t_plane_collision --> t_plane
     t_cylinder_collision --> t_cylinder
     t_cone_collision --> t_cone
-    
+
     t_obj_pro --> t_material
     t_obj_pro --> t_texture
     t_obj_pro --> t_bump_map
-    
+
     t_cam --> t_vect
     t_light --> t_vect
     t_light --> t_light : next
-    
+
     t_sphere --> t_vect
     t_sphere --> t_obj_pro
     t_sphere --> t_sphere : next
-    
+
     t_plane --> t_vect
     t_plane --> t_obj_pro
     t_plane --> t_plane : next
-    
+
     t_cylinder --> t_vect
     t_cylinder --> t_obj_pro
     t_cylinder --> t_cylinder : next
-    
+
     t_cone --> t_vect
     t_cone --> t_obj_pro
     t_cone --> t_cone : next
-    
+
     t_master --> t_img
     t_master --> t_amb
     t_master --> t_cam

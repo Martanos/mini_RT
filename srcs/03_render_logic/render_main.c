@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 17:07:21 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/08 09:55:52 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:09:23 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ void	start_renderloop(t_master *master)
 			color = calculations(pos, master);
 			my_pixel_put(&master->img, pos[0], pos[1], color);
 		}
+		printf("\033[1A\033[2K");
+		printf(YELLOW "Rendering progress: %d%%\n" RESET, (pos[1] * 100)
+			/ WINDOW_HEIGHT);
 	}
+	printf("\033[1A\033[2K");
+	printf(GREEN "Rendering complete\n" RESET);
 	mlx_put_image_to_window(master->mlx_ptr, master->win_ptr,
 		master->img.img_ptr, 0, 0);
 	mlx_hook(master->win_ptr, 17, 0, close_window, master);

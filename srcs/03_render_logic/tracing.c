@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:07:39 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/04 14:40:03 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/08 09:59:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ uint32_t	background_color(t_vect unit_direction)
 	return (ft_create_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
-static void	add_light_contribution(t_light *light, t_intersection_info info,
+static void	add_light_contribution(t_light *light, t_intersect_info info,
 		t_master *master, uint8_t final[3])
 {
 	t_ray		shadow_ray;
@@ -95,7 +95,7 @@ static void	add_light_contribution(t_light *light, t_intersection_info info,
 
 uint32_t	ray_color(t_ray ray, t_master *master, int depth)
 {
-	t_intersection_info	info;
+	t_intersect_info	info;
 	t_light				*light;
 	uint8_t				final[3];
 	uint32_t			color;

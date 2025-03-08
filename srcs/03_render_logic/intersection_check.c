@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:37:45 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/07 14:10:14 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/08 09:59:43 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ bool	check_shadow_intersection(t_ray shadow_ray, double light_distance,
 	return (false);
 }
 
-t_intersection_info	find_closest_intersection(t_ray ray, t_master *master)
+t_intersect_info	find_closest_intersection(t_ray ray, t_master *master)
 {
-	t_intersection_info	closest;
+	t_intersect_info	closest;
 
-	closest = (t_intersection_info){0};
+	closest = (t_intersect_info){0};
 	check_sphere_intersection(ray, master, &closest);
 	check_plane_intersection(ray, master, &closest);
 	check_cylinder_intersection(ray, master, &closest);

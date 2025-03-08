@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 04:15:29 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 09:29:56 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/08 10:23:21 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,9 @@ void	apply_bump_mapping(t_bump_map bpm, t_hit_record *hit, double u,
 	calculate_bump_gradient(bpm, u, v, grad);
 	if (grad[0] == 0.0 && grad[1] == 0.0)
 		return ;
-	if (hit->tangent.x == 0 && hit->tangent.y == 0 && hit->tangent.z == 0)
-		create_tangent_space(hit->normal, &tangent, &bitangent);
-	else
-	{
-		tangent = hit->tangent;
-		bitangent = hit->bitangent;
-	}
+	tangent = hit->tangent;
+	bitangent = hit->bitangent;
+	create_tangent_space(hit->normal, &tangent, &bitangent);
 	perturbed = hit->normal;
 	perturbed = ft_vect_sub(perturbed, ft_vect_mul_all(tangent, grad[0]));
 	perturbed = ft_vect_sub(perturbed, ft_vect_mul_all(bitangent, grad[1]));

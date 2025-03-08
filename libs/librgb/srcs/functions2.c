@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sean <sean@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:31:37 by malee             #+#    #+#             */
-/*   Updated: 2025/03/04 14:15:09 by sean             ###   ########.fr       */
+/*   Updated: 2025/03/08 09:57:36 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	ft_color_add(uint8_t *rgb_arr1, uint8_t *rgb_arr2)
 */
 void	ft_color_mixer(uint8_t *rgb_arr1, uint8_t *rgb_arr2, double ratio)
 {
-	double second_ratio;
+	double	second_ratio;
 
 	second_ratio = 1 - ratio;
-	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] * ratio + rgb_arr2[0] * (second_ratio),
-			255);
-	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] * ratio + rgb_arr2[1] * (second_ratio),
-			255);
-	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] * ratio + rgb_arr2[2] * (second_ratio),
-			255);
+	rgb_arr1[0] = (uint8_t)fmin(rgb_arr1[0] * ratio + rgb_arr2[0]
+			* (second_ratio), 255);
+	rgb_arr1[1] = (uint8_t)fmin(rgb_arr1[1] * ratio + rgb_arr2[1]
+			* (second_ratio), 255);
+	rgb_arr1[2] = (uint8_t)fmin(rgb_arr1[2] * ratio + rgb_arr2[2]
+			* (second_ratio), 255);
 }
