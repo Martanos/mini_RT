@@ -1,0 +1,66 @@
+# Scene with deliberate errors for testing parser robustness
+
+# Error 1: Multiple ambient lights (only one allowed)
+#A 0.2 255,255,255
+#A 0.5 100,100,100
+
+# Error 2: Ambient light ratio out of range (should be 0.0-1.0)
+#A 1.5 255,255,255
+
+# Error 3: RGB values out of range (should be 0-255)
+#L -40,0,30 0.7 300,255,255
+
+# Error 4: Missing parameters for camera
+#C -50,0,20 0,0,1
+# Should have FOV at the end
+
+# Error 5: Invalid FOV range (should be 0-180)
+#C 0,0,0 0,0,1 200
+
+# Error 6: Non-normalized direction vector (should be in range [-1,1])
+#L -40,0,30 0.7 255,255,255 0,0,2
+
+# Error 7: Missing a coordinate in position
+#sp 0,20 20 255,0,0
+
+# Error 8: Invalid object identifier
+#xx 10,20,30 1,0,0 10 20 255,255,255
+
+# Error 9: Negative value for diameter (should be positive)
+#sp 0,0,20 -20 255,0,0
+
+# Error 10: Missing RGB values
+#cy 50.0,0.0,20.6 0,0,1.0 14.2 21.42
+
+# Error 11: Incomplete RGB values
+#pl 0,0,0 0,1.0,0 255,0
+
+# Error 12: Invalid separator in coordinates
+#pl 0;0;0 0,1.0,0 255,0,225
+
+# Error 13: Invalid material values
+#sp 10,10,10 5 255,0,0 mat:2.0:0.5:0.5:10:0.2
+
+# Error 14: Invalid texture type
+#cy 20,0,10 0,1,0 5 10 255,0,0 txm:3:0.5:100,100,100
+
+# Error 15: No camera defined in scene
+# (Remove the camera line above and uncomment this to test)
+# L -40,0,30 0.7 255,255,255
+# pl 0,0,0 0,1.0,0 255,0,225
+# sp 0,0,20 20 255,0,0
+
+# Error 16: Invalid bump map path
+#sp 5,5,5 10 100,100,100 bpm:nonexistent_file.xpm
+
+# Error 17: Invalid character in numeric value
+#sp 0,0,a20 20 255,0,0
+
+# Error 18: Texture scale out of range
+#pl 10,0,0 0,0,1 100,100,100 txm:1:2.5:200,200,200
+
+# Error 19: Too many parameters for sphere
+#sp 0,0,20 20 255,0,0 100,100,100
+
+# Error 20: Invalid reflection value in material (should be 0.0-1.0)
+#cy 10,10,10 0,1,0 5 10 255,0,0 mat:0.2:0.5:0.5:10:1.5

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_structures.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/07 14:03:28 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/22 00:30:25 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ typedef struct s_bump_map
 	int						width;
 	int						height;
 }							t_bump_map;
-
 /*
 ** @brief Object properties structure
 ** @param mat material properties

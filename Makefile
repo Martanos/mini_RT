@@ -6,7 +6,7 @@
 #    By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 14:14:50 by malee             #+#    #+#              #
-#    Updated: 2025/03/08 11:15:50 by malee            ###   ########.fr        #
+#    Updated: 2025/03/22 01:27:53 by malee            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ RESET		= \033[0m
 # Compiler and flags
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g
+DEPFLAGS	= -MMD -MP
 
 # Directories
 SRC_DIR		= srcs
@@ -75,6 +76,9 @@ SRCS			= $(addprefix $(SRC_DIR)/01_main/, $(SRC_MAIN)) \
 # Object files
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
+# Dependency files
+DEPS		= $(OBJS:.o=.d)
+
 # Program name (of executable)
 NAME		= miniRT
 
@@ -91,7 +95,7 @@ $(NAME):		$(LIBFT) $(LIBVECT) $(LIBRGB) $(MLX) $(OBJS)
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Compiling $<$(RESET)"
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@ 2>&1 | tee /dev/stderr | sed 's/^/\033[0;31m/'; \
+	@$(CC) $(CFLAGS) $(DEPFLAGS) $(INCS) -c $< -o $@ 2>&1 | tee /dev/stderr | sed 's/^/\033[0;31m/'; \
 	if [ $$? -ne 0 ]; then echo "$(RED)Compilation failed for $<$(RESET)"; fi
 
 $(LIBFT):

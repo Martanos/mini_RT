@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cone_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seayeo <seayeo@42.sg>                      +#+  +:+       +#+        */
+/*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:05:00 by seayeo            #+#    #+#             */
-/*   Updated: 2025/03/07 18:03:06 by seayeo           ###   ########.fr       */
+/*   Updated: 2025/03/22 01:30:52 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_cone_collision	find_closest_cone(t_ray ray, t_master *master)
  * @param[out] rec Hit record to update with intersection details
  */
 void	calculate_cone_hit(t_ray ray, t_cone_collision collision,
-	t_hit_record *rec)
+		t_hit_record *rec)
 {
 	t_vect	cp;
 	t_vect	normalized_normal;
