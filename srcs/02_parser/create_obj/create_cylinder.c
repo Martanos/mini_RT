@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:28:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 10:02:13 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 15:04:49 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool	ft_create_cylinder(t_master **master, t_p_node **cur)
 		return (false);
 	(*cur) = (*cur)->next;
 	if (!ft_populate_cylinder(master, &cylinder, cur))
-		return (free(cylinder), false);
+		return (ft_free_node(cylinder, TYPE_CYLINDER, *master), false);
 	ft_add_cylinder(master, cylinder);
 	return (true);
 }

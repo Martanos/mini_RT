@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:45:49 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 10:02:13 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 15:03:22 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	ft_create_light(t_master **master, t_p_node **cur)
 	if (!light)
 		return (false);
 	if (!ft_populate_light(&light, cur))
-		return (free(light), false);
+		return (ft_free_node(light, TYPE_LIGHT, *master), false);
 	ft_add_light(master, light);
 	return (true);
 }

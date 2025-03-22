@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:32:13 by malee             #+#    #+#             */
-/*   Updated: 2025/03/22 00:04:18 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 15:05:00 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	ft_create_sphere(t_master **master, t_p_node **cur)
 	if (!sphere)
 		return (false);
 	if (!ft_populate_sphere(master, &sphere, cur))
-		return (free(sphere), false);
+		return (ft_free_node(sphere, TYPE_SPHERE, *master), false);
 	ft_add_sphere(master, sphere);
 	return (true);
 }

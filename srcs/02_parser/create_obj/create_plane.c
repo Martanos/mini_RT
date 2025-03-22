@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:10:18 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 10:02:13 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 15:03:16 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	ft_create_plane(t_master **master, t_p_node **cur)
 	if (!plane)
 		return (false);
 	if (!ft_populate_plane(master, &plane, cur))
-		return (free(plane), false);
+		return (ft_free_node(plane, TYPE_PLANE, *master), false);
 	ft_add_plane(master, plane);
 	return (true);
 }
