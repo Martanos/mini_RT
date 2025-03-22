@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:25:42 by malee             #+#    #+#             */
-/*   Updated: 2025/03/08 10:34:15 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 13:49:27 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define RENDERER_H
 
 # include "mini_rt.h"
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 480
+# define WINDOW_HEIGHT 480
 # define BUMP_MAP_STRENGTH 0.1
 
 typedef struct s_hit_record			t_hit_record;

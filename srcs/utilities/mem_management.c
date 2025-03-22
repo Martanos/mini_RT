@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 20:13:52 by malee             #+#    #+#             */
-/*   Updated: 2025/03/22 00:15:30 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 14:35:20 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	ft_free_node(void *node, t_obj_type type, t_master *master)
 			properties = &((t_plane *)node)->pro;
 		else if (type == TYPE_CYLINDER)
 			properties = &((t_cylinder *)node)->pro;
+		else if (type == TYPE_CONE)
+			properties = &((t_cone *)node)->pro;
 	}
-	if (properties && properties->txm.img && properties->txm.data)
+	if (properties && properties->txm.img)
 		mlx_destroy_image(master->mlx_ptr, properties->txm.img);
 	if (properties && properties->bpm.img)
 		mlx_destroy_image(master->mlx_ptr, properties->bpm.img);
@@ -53,6 +55,8 @@ void	ft_free_list(void *head, t_obj_type type, t_master *master)
 			next = ((t_plane *)current)->next;
 		if (type == TYPE_CYLINDER)
 			next = ((t_cylinder *)current)->next;
+		if (type == TYPE_CONE)
+			next = ((t_cone *)current)->next;
 		ft_free_node(current, type, master);
 		current = next;
 		next = NULL;
@@ -89,6 +93,7 @@ void	ft_free_master(t_master *master)
 	ft_free_list(master->sphere_head, TYPE_SPHERE, master);
 	ft_free_list(master->plane_head, TYPE_PLANE, master);
 	ft_free_list(master->cylinder_head, TYPE_CYLINDER, master);
+	ft_free_list(master->cone_head, TYPE_CONE, master);
 	ft_free_img(master);
 	free(master);
 }

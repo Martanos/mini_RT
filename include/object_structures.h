@@ -6,7 +6,7 @@
 /*   By: malee <malee@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:32:45 by malee             #+#    #+#             */
-/*   Updated: 2025/03/22 00:30:25 by malee            ###   ########.fr       */
+/*   Updated: 2025/03/22 13:55:24 by malee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef enum e_obj_type
 	TYPE_SPHERE,
 	TYPE_PLANE,
 	TYPE_CYLINDER,
+	TYPE_CONE
 }							t_obj_type;
 
 typedef enum e_texture_type
